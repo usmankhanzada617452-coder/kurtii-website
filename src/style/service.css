@@ -1,0 +1,183 @@
+/* ==========================================================================
+   KHAN COLLECTION - ULTRA LUXURY TRUST VALUE STRIP (SERVICE.CSS)
+   ========================================================================== */
+
+:root {
+  --kc-gold: #C5A880;
+  --kc-gold-hover: #AF9167;
+  --kc-gold-soft: #FAF6F0;
+  --kc-noir: #12100E;
+  --kc-charcoal: #1C1815;
+  --kc-ivory: #FAF8F5;
+  --kc-white: #FFFFFF;
+  --kc-border: #ECE4D8;
+  --kc-border-subtle: #F4EFEA;
+  --kc-text-dark: #1A1A1A;
+  --kc-text-muted: #737373;
+}
+
+/* 1. Main Wrapper */
+.customer-services-wrapper {
+  background-color: var(--kc-white);
+  border-top: 1px solid var(--kc-border-subtle);
+  border-bottom: 1px solid var(--kc-border-subtle);
+  padding: 54px 24px;
+}
+
+.customer-services {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+/* 2. Individual Service Card */
+.customer-services-card {
+  background: var(--kc-ivory);
+  border: 1px solid var(--kc-border);
+  border-radius: 12px;
+  padding: 36px 28px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: all 0.45s cubic-bezier(0.2, 0.9, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.customer-services-card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.customer-services-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--kc-gold);
+  background: var(--kc-white);
+  box-shadow: 0 12px 30px rgba(197, 168, 128, 0.15);
+}
+
+/* 3. Icon Avatar Container */
+.customer-services-card-img {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: var(--kc-gold-soft);
+  border: 1.5px solid var(--kc-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+  transition: all 0.35s ease;
+  box-shadow: 0 4px 14px rgba(197, 168, 128, 0.2);
+}
+
+.customer-services-card:hover .customer-services-card-img {
+  background: var(--kc-noir);
+  border-color: var(--kc-noir);
+  transform: scale(1.08) rotate(5deg);
+}
+
+.customer-services-card-img img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  transition: filter 0.3s ease;
+}
+
+.customer-services-card:hover .customer-services-card-img img {
+  filter: brightness(0) invert(1);
+}
+
+.service-fallback-icon {
+  font-size: 24px;
+  color: var(--kc-gold-hover);
+  transition: color 0.3s ease;
+}
+
+.customer-services-card:hover .service-fallback-icon {
+  color: var(--kc-gold);
+}
+
+.service-fallback-icon.hidden {
+  display: none;
+}
+
+/* 4. Typography */
+.customer-service-title {
+  font-family: "Cinzel", "Playfair Display", Georgia, serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--kc-noir);
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+  line-height: 1.35;
+  transition: color 0.25s ease;
+}
+
+.customer-services-card:hover .customer-service-title {
+  color: var(--kc-gold-hover);
+}
+
+.customer-service-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--kc-text-muted);
+  margin: 0;
+  max-width: 300px;
+}
+
+/* 5. Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .customer-services {
+    gap: 20px;
+  }
+
+  .customer-services-card {
+    padding: 28px 20px;
+  }
+
+  .customer-service-title {
+    font-size: 14px;
+  }
+
+  .customer-service-desc {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .customer-services-wrapper {
+    padding: 38px 16px;
+  }
+
+  .customer-services {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .customer-services-card {
+    padding: 24px 18px;
+  }
+
+  .customer-services-card-img {
+    width: 58px;
+    height: 58px;
+    margin-bottom: 14px;
+  }
+
+  .customer-services-card-img img {
+    width: 26px;
+    height: 26px;
+  }
+
+  .customer-service-title {
+    font-size: 14px;
+  }
+}

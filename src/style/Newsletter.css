@@ -1,0 +1,191 @@
+/* ==========================================================================
+   KHAN COLLECTION - NEWSLETTER (BALANCED FULL WIDTH)
+   ========================================================================== */
+
+:root {
+  --nl-gold: #C5A880;
+  --nl-noir: #12100E;
+  --nl-border: rgba(197, 168, 128, 0.22);
+  --nl-text-light: #F4EFEA;
+  --nl-text-muted: #A89F95;
+}
+
+.newsletter-section {
+  background: radial-gradient(circle at center, #201A15 0%, #12100E 100%);
+  color: var(--nl-text-light);
+  padding: 65px 32px 60px;
+  border-top: 1px solid var(--nl-border);
+  border-bottom: 1px solid var(--nl-border);
+  width: 100%;
+}
+
+.nl-container {
+  max-width: 1100px; /* Wide screen fit */
+  margin: 0 auto;
+}
+
+.nl-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.nl-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #241E18;
+  border: 1.5px solid var(--nl-gold);
+  color: var(--nl-gold);
+  font-size: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.nl-eyebrow {
+  font-family: "Cinzel", serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--nl-gold);
+  margin-bottom: 8px;
+}
+
+.nl-title {
+  font-family: "Cinzel", "Playfair Display", Georgia, serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #FFFFFF;
+  line-height: 1.25;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+}
+
+.nl-subtitle {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--nl-text-muted);
+  max-width: 750px;
+  margin: 0 0 28px 0;
+  font-style: italic;
+}
+
+.nl-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 620px;
+  margin-bottom: 14px;
+}
+
+.nl-input-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--nl-border);
+  border-radius: 999px;
+  padding: 13px 18px;
+  gap: 10px;
+}
+
+.nl-input-wrapper.focused {
+  border-color: var(--nl-gold);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.nl-input-icon {
+  color: var(--nl-gold);
+  font-size: 14px;
+}
+
+.nl-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13.5px;
+  color: #FFFFFF;
+}
+
+.nl-input::placeholder {
+  color: rgba(244, 239, 234, 0.45);
+}
+
+.nl-btn {
+  background: var(--nl-gold);
+  color: var(--nl-noir);
+  border: 1px solid var(--nl-gold);
+  padding: 13px 24px;
+  border-radius: 999px;
+  font-family: "Cinzel", serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.nl-btn:hover {
+  background: #FFFFFF;
+  border-color: #FFFFFF;
+}
+
+.nl-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(76, 175, 80, 0.12);
+  border: 1px solid rgba(76, 175, 80, 0.35);
+  color: #81C784;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  max-width: 620px;
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.nl-note {
+  font-size: 11.5px;
+  color: var(--nl-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+
+.nl-note i {
+  color: var(--nl-gold);
+}
+
+@media (max-width: 640px) {
+  .newsletter-section {
+    padding: 45px 16px;
+  }
+  .nl-title {
+    font-size: 22px;
+  }
+  .nl-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .nl-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
