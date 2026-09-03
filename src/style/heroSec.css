@@ -1,28 +1,32 @@
-/* -----------hero-section-----------  */
+/* ==========================================================================
+   KHAN COLLECTION - HERO SECTION (FIXED HEADER EXACT OFFSET)
+   ========================================================================== */
 
+/* 1. PC / Desktop (Header Height ~133px) */
 .hero-banner {
   position: relative;
   width: 100%;
-  height: 600px;
-  margin-top: 133px;
+  height: 580px;
+  margin-top: 133px; /* PC Header ki exact height */
   overflow: hidden;
+  background-color: #12100E;
 }
 
 .hero-banner-track {
   display: flex;
   height: 100%;
-  transition: transform 0.8s ease;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .hero-banner-slide {
   min-width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
   position: relative;
   display: flex;
   align-items: center;
+  overflow: hidden;
 }
+
 .hero-banner-video {
   position: absolute;
   top: 0;
@@ -30,6 +34,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   z-index: 0;
 }
 
@@ -39,24 +44,27 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, rgba(26,16,8,0.78) 0%, rgba(26,16,8,0.35) 55%, rgba(26,16,8,0.1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(18, 16, 14, 0.85) 0%,
+    rgba(18, 16, 14, 0.45) 55%,
+    rgba(18, 16, 14, 0.15) 100%
+  );
+  z-index: 1;
 }
 
 .hero-banner-content {
   position: relative;
   z-index: 2;
   padding-left: 80px;
-  max-width: 600px;
-}
-
-.hero-banner-content {
+  max-width: 620px;
   animation: heroContentIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes heroContentIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -65,8 +73,10 @@
 }
 
 .hero-banner-content .hero-tag {
+  font-family: "Cinzel", serif;
   font-size: 11px;
-  letter-spacing: 2px;
+  font-weight: 700;
+  letter-spacing: 3px;
   color: #c8a96e;
   text-transform: uppercase;
   margin-bottom: 12px;
@@ -74,76 +84,69 @@
 }
 
 .hero-banner-content h1 {
-  font-family: "Cinzel", serif;
-  font-size: 56px;
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 52px;
   font-weight: 700;
-  color: #fff;
-  line-height: 1.2;
+  color: #ffffff;
+  line-height: 1.15;
   letter-spacing: 2px;
-  margin-bottom: 14px;
+  margin: 0 0 14px 0;
+  text-transform: uppercase;
 }
 
 .hero-banner-content h1 span {
-  color: #b08850;
+  color: #c8a96e;
 }
 
 .hero-banner-content .hero-desc {
   font-size: 14px;
   color: #f0e6d8;
-  line-height: 1.8;
-  max-width: 420px;
-  margin-bottom: 10px;
+  line-height: 1.7;
+  max-width: 440px;
+  margin: 0 0 10px 0;
 }
 
 .hero-btn {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: linear-gradient(135deg, #c8a96e, #a67c3d);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.15);
+  background: #c8a96e;
+  color: #12100e;
+  border: 1px solid #c8a96e;
   outline: none;
   border-radius: 50px;
-  padding: 16px 38px;
-  margin-top: 20px;
+  padding: 14px 34px;
+  margin-top: 18px;
   font-family: "Cinzel", serif;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition: all 0.35s ease;
-  box-shadow: 0 10px 25px rgba(200,169,110,0.35);
-}
-
-.hero-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255,255,255,0.15);
-  transition: left 0.3s ease;
-}
-
-.hero-btn:hover::before {
-  left: 100%;
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+  box-shadow: 0 6px 20px rgba(200, 169, 110, 0.3);
 }
 
 .hero-btn:hover {
-  background-color: #f5e6c8;
-  color: #1a1008;
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(176,136,80,0.3);
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #12100e;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.25);
 }
 
 .hero-btn i {
-  font-size: 16px;
+  font-size: 13px;
+  transition: transform 0.25s ease;
 }
 
+.hero-btn:hover i {
+  transform: translateX(4px);
+}
+
+/* Dots Navigation */
 .hero-banner-dots {
   position: absolute;
   bottom: 24px;
@@ -158,60 +161,55 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.35);
   cursor: pointer;
-  transition: background 0.3s, width 0.3s;
+  transition: all 0.3s ease;
 }
 
 .hero-dot.active {
-  background: #b08850;
+  background: #c8a96e;
   width: 22px;
-  border-radius: 4px;
+  border-radius: 999px;
 }
 
+/* Arrows Navigation */
 .hero-banner-arrows {
   position: absolute;
   bottom: 24px;
-  right: 30px;
+  right: 40px;
   display: flex;
   gap: 10px;
   z-index: 3;
 }
 
 .hero-arrow {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.4);
-  background: rgba(0,0,0,0.25);
-  color: #fff;
-  font-size: 14px;
+  border: 1px solid rgba(200, 169, 110, 0.4);
+  background: rgba(18, 16, 14, 0.6);
+  color: #c8a96e;
+  font-size: 13px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(4px);
 }
 
 .hero-arrow:hover {
-  background: #b08850;
-  border-color: #b08850;
+  background: #c8a96e;
+  color: #12100e;
+  border-color: #c8a96e;
 }
 
-/* Screen Size 1400px check */
-@media (max-width: 1660px) {
-  .hero-banner {
-    height: 500px;
-  }
-  .hero-banner-content h1 {
-    font-size: 50px;
-  }
-}
 
-/* Screen Size 1200px check */
-@media (max-width: 1399px) {
+/* ----------- LAPTOP / DESKTOP (1200px - 1400px) ----------- */
+@media (max-width: 1400px) {
   .hero-banner {
-    height: 460px;
+    height: 520px;
+    margin-top: 130px;
   }
   .hero-banner-content {
     padding-left: 50px;
@@ -219,88 +217,107 @@
   .hero-banner-content h1 {
     font-size: 44px;
   }
-  .hero-banner-content .hero-desc {
-    font-size: 13px;
-    max-width: 380px;
-  }
 }
 
-/* Screen Size 992px check */
+
+/* ----------- TABLET / IPAD PRO (992px - 1199px) ----------- */
 @media (max-width: 1199px) {
   .hero-banner {
-    height: 420px;
+    height: 460px;
+    margin-top: 105px; /* Tablet header offset */
   }
   .hero-banner-content {
-    padding-left: 40px;
+    padding-left: 36px;
   }
   .hero-banner-content h1 {
     font-size: 38px;
   }
 }
 
-/* Screen Size 768px check */
+
+/* ----------- IPAD / TABLET (768px - 991px) ----------- */
 @media (max-width: 991px) {
   .hero-banner {
-    height: 380px;
+    height: 420px;
+    margin-top: 95px; /* iPad header offset */
   }
   .hero-banner-content {
     padding-left: 30px;
+    max-width: 75%;
   }
   .hero-banner-content h1 {
     font-size: 32px;
   }
-  .hero-btn {
-    padding: 14px 28px;
-    font-size: 12px;
-  }
 }
 
-/* Screen Size 576px check */
+
+/* ----------- MOBILE PHONES (max 767px) ----------- */
 @media (max-width: 767px) {
   .hero-banner {
-    height: 340px;
+    height: 380px;
+    margin-top: 65px !important; /* Mobile Header ki exact height: 65px (No Gap, No Hide) */
   }
   .hero-banner-content {
-    padding-left: 24px;
-    max-width: 80%;
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 100%;
+  }
+  .hero-banner-content .hero-tag {
+    font-size: 9.5px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
   }
   .hero-banner-content h1 {
     font-size: 26px;
     letter-spacing: 1px;
+    margin-bottom: 8px;
   }
   .hero-banner-content .hero-desc {
     font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    max-width: 90%;
+  }
+  .hero-btn {
+    padding: 10px 22px;
+    font-size: 11px;
+    margin-top: 8px;
   }
   .hero-banner-arrows {
     bottom: 16px;
     right: 16px;
+    gap: 6px;
   }
   .hero-arrow {
     width: 32px;
     height: 32px;
-    font-size: 12px;
+    font-size: 11px;
+  }
+  .hero-banner-dots {
+    bottom: 16px;
   }
 }
 
-/* Screen Size All mobile check */
-@media (max-width: 575px) {
+
+/* ----------- SMALL MOBILE PHONES (max 480px) ----------- */
+@media (max-width: 480px) {
   .hero-banner {
-    height: 300px;
+    height: 340px;
+    margin-top: 60px !important; /* Small mobile header offset: 60px */
   }
   .hero-banner-content {
-    padding-left: 20px;
-    max-width: 90%;
+    padding-left: 16px;
+    padding-right: 16px;
   }
   .hero-banner-content h1 {
     font-size: 22px;
   }
   .hero-banner-content .hero-desc {
-    display: none;
-  }
-  .hero-banner-dots {
-    bottom: 14px;
-  }
-  .hero-banner-arrows {
-    display: none;
+    font-size: 11.5px;
+    max-width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }

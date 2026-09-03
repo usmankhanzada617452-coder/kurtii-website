@@ -1,26 +1,47 @@
 /* ==========================================================================
-   KHAN COLLECTION - NEWSLETTER (BALANCED FULL WIDTH)
+   KHAN COUTURE - ULTRA LUXURY NEWSLETTER
    ========================================================================== */
 
 :root {
-  --nl-gold: #C5A880;
-  --nl-noir: #12100E;
-  --nl-border: rgba(197, 168, 128, 0.22);
-  --nl-text-light: #F4EFEA;
-  --nl-text-muted: #A89F95;
+  --nl-gold: #d4af37;
+  --nl-gold-light: #f3e5ab;
+  --nl-gold-dark: #aa8c2c;
+  --nl-bg-dark: #0d0b09;
+  --nl-card-bg: rgba(22, 18, 14, 0.85);
+  --nl-border-gold: rgba(212, 175, 55, 0.25);
+  --nl-text-main: #fcfbf9;
+  --nl-text-sub: #b3a89b;
 }
 
 .newsletter-section {
-  background: radial-gradient(circle at center, #201A15 0%, #12100E 100%);
-  color: var(--nl-text-light);
-  padding: 65px 32px 60px;
-  border-top: 1px solid var(--nl-border);
-  border-bottom: 1px solid var(--nl-border);
+  position: relative;
   width: 100%;
+  background: var(--nl-bg-dark);
+  color: var(--nl-text-main);
+  padding: 80px 24px;
+  overflow: hidden;
+  border-top: 1px solid var(--nl-border-gold);
+  border-bottom: 1px solid var(--nl-border-gold);
+  box-sizing: border-box;
+}
+
+/* Ambient Gold Glow Effect in Background */
+.nl-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, rgba(13, 11, 9, 0) 70%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .nl-container {
-  max-width: 1100px; /* Wide screen fit */
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -29,81 +50,99 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  background: var(--nl-card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 50px 40px;
+  border-radius: 24px;
+  border: 1px solid var(--nl-border-gold);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
 }
 
-.nl-icon {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  background: #241E18;
-  border: 1.5px solid var(--nl-gold);
-  color: var(--nl-gold);
-  font-size: 19px;
-  display: flex;
+/* 1. BADGE */
+.nl-badge {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-}
-
-.nl-eyebrow {
-  font-family: "Cinzel", serif;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid var(--nl-border-gold);
   color: var(--nl-gold);
-  margin-bottom: 8px;
-}
-
-.nl-title {
-  font-family: "Cinzel", "Playfair Display", Georgia, serif;
-  font-size: 32px;
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 1px;
-  color: #FFFFFF;
-  line-height: 1.25;
-  margin: 0 0 10px 0;
+  letter-spacing: 2px;
   text-transform: uppercase;
+  margin-bottom: 18px;
 }
 
+.nl-badge i {
+  font-size: 10px;
+}
+
+/* 2. TITLE (SINGLE LINE FOCUS) */
+.nl-title {
+  width: 100%;
+  margin: 0 0 12px 0;
+  padding: 0;
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap; /* Ensures 1 line */
+  background: linear-gradient(135deg, #ffffff 0%, var(--nl-gold-light) 50%, var(--nl-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 3. SUBTITLE */
 .nl-subtitle {
   font-family: "Playfair Display", Georgia, serif;
   font-size: 15px;
   line-height: 1.6;
-  color: var(--nl-text-muted);
-  max-width: 750px;
-  margin: 0 0 28px 0;
+  color: var(--nl-text-sub);
+  max-width: 580px;
+  margin: 0 0 32px 0;
   font-style: italic;
 }
 
+/* 4. FORM LAYOUT */
 .nl-form {
   display: flex;
   align-items: center;
   gap: 12px;
   width: 100%;
-  max-width: 620px;
-  margin-bottom: 14px;
+  max-width: 580px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
 }
 
 .nl-input-wrapper {
   flex: 1;
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--nl-border);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--nl-border-gold);
   border-radius: 999px;
-  padding: 13px 18px;
-  gap: 10px;
+  padding: 14px 22px;
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
 }
 
 .nl-input-wrapper.focused {
   border-color: var(--nl-gold);
-  background: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
 }
 
 .nl-input-icon {
   color: var(--nl-gold);
-  font-size: 14px;
+  font-size: 15px;
+  flex-shrink: 0;
 }
 
 .nl-input {
@@ -111,79 +150,154 @@
   border: none;
   background: transparent;
   outline: none;
-  font-size: 13.5px;
-  color: #FFFFFF;
+  font-size: 14px;
+  color: #ffffff;
 }
 
 .nl-input::placeholder {
-  color: rgba(244, 239, 234, 0.45);
+  color: rgba(255, 255, 255, 0.35);
 }
 
+/* 5. LUXURY BUTTON WITH HOVER SHIMMER */
 .nl-btn {
-  background: var(--nl-gold);
-  color: var(--nl-noir);
-  border: 1px solid var(--nl-gold);
-  padding: 13px 24px;
+  position: relative;
+  background: linear-gradient(135deg, var(--nl-gold) 0%, var(--nl-gold-dark) 100%);
+  color: #0d0b09;
+  border: none;
+  padding: 14px 28px;
   border-radius: 999px;
-  font-family: "Cinzel", serif;
+  font-family: "Cinzel", Georgia, serif;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1.2px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   white-space: nowrap;
-  transition: all 0.25s ease;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .nl-btn:hover {
-  background: #FFFFFF;
-  border-color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+  background: linear-gradient(135deg, var(--nl-gold-light) 0%, var(--nl-gold) 100%);
 }
 
+.nl-btn:active {
+  transform: translateY(0);
+}
+
+.nl-btn i {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.nl-btn:hover i {
+  transform: translateX(4px);
+}
+
+/* 6. SUCCESS & NOTE */
 .nl-success {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: rgba(76, 175, 80, 0.12);
-  border: 1px solid rgba(76, 175, 80, 0.35);
-  color: #81C784;
-  padding: 12px 20px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid var(--nl-gold);
+  color: var(--nl-gold-light);
+  padding: 14px 24px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 600;
-  max-width: 620px;
   width: 100%;
-  margin-bottom: 14px;
+  max-width: 580px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
 }
 
 .nl-note {
   font-size: 11.5px;
-  color: var(--nl-text-muted);
+  color: var(--nl-text-sub);
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin: 0;
+  gap: 8px;
+  letter-spacing: 0.5px;
 }
 
 .nl-note i {
   color: var(--nl-gold);
+  font-size: 12px;
 }
 
-@media (max-width: 640px) {
+/* ==========================================================================
+   MOBILE RESPONSIVE (Strict 1-Line Title Fix)
+   ========================================================================== */
+
+@media (max-width: 768px) {
   .newsletter-section {
-    padding: 45px 16px;
+    padding: 50px 16px;
   }
+
+  .nl-content {
+    padding: 36px 20px;
+  }
+
   .nl-title {
-    font-size: 22px;
+    font-size: 20px; /* Reduced so it strictly stays in 1 line on mobile */
+    letter-spacing: 1px;
+    white-space: nowrap;
   }
+
+  .nl-subtitle {
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+
   .nl-form {
-    flex-direction: column;
+    flex-direction: row; /* Keeps input & btn sleekly side-by-side */
+    gap: 8px;
+  }
+
+  .nl-input-wrapper {
+    padding: 10px 14px;
+    gap: 8px;
+  }
+
+  .nl-input {
+    font-size: 12px;
+  }
+
+  .nl-btn {
+    padding: 10px 16px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    height: 42px;
+  }
+}
+
+/* Very Small Mobile Screens (iPhone SE, etc.) */
+@media (max-width: 430px) {
+  .nl-title {
+    font-size: 16px; /* Dynamically shrinks to ensure ZERO wrapping */
+    letter-spacing: 0.8px;
+  }
+
+  .nl-badge {
+    font-size: 9.5px;
+    padding: 4px 12px;
+  }
+
+  .nl-form {
+    flex-direction: column; /* Stack vertically only on extreme tiny screens */
     gap: 10px;
   }
+
+  .nl-input-wrapper, 
   .nl-btn {
     width: 100%;
     justify-content: center;

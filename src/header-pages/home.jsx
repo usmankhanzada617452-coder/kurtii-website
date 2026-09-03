@@ -7,8 +7,8 @@ import Category from "../components/category";
 import NewArrivals from "../components/new-arrival";
 import Testimonials from "../components/testonomial";
 import Newsletter from "../components/newsletter";
-import Service from "../components/service";
-import Banner from "../components/discountDelivery";
+import Faq from "../components/service";
+import BannerHeading from "../components/BannerHeading";
 import Footer from "../components/footer";
 
 const Home = ({ allProducts, productsLoading }) => {
@@ -21,10 +21,9 @@ const Home = ({ allProducts, productsLoading }) => {
       <BestSellers allProducts={allProducts} loading={productsLoading} />
       <NewArrivals allProducts={allProducts} loading={productsLoading} />
       <Testimonials />
-      <br />
       <Newsletter />
-      <Service />
-      <Banner />
+      <Faq />
+      <BannerHeading />
       <Footer />
     </div>
   );

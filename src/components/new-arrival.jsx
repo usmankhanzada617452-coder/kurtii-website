@@ -86,9 +86,6 @@ const NewArrivals = ({ allProducts, loading }) => {
           <span className="na-eyebrow">What's New</span>
           <h2 className="na-title">New Arrivals</h2>
         </div>
-        <a href="#" className="na-view-all">
-          View All <i className="fa fa-arrow-right"></i>
-        </a>
       </div>
 
       <div className="na-grid">
@@ -157,9 +154,11 @@ const NewArrivals = ({ allProducts, loading }) => {
         })}
       </div>
 
+      {/* Cards ke neeche center view all button */}
       <div className="na-bottom">
-        <Link to="/collection?filter=bestSeller" className="bs-view-all">
-          View All Product<i className="fa fa-arrow-right"></i>
+        <Link to="/collection?filter=newArrival" className="na-view-all-btn">
+          <span>View All Products</span>
+          <i className="fa fa-arrow-right"></i>
         </Link>
       </div>
     </section>

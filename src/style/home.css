@@ -120,22 +120,3 @@
 .customer-services{
   margin-top: 50px;
 }
-
-
-/* ------------BANNER-------- */
-
-.banner-heading {
-  background: #1a1008;
-  padding: 18px 48px;
-  text-align: center;
-  margin-top: 100px;
-}
-
-.banner-heading h1 {
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 1.07px;
-  word-spacing: 5px;
-  color: #b08850;
-  text-transform: uppercase;
-}

@@ -98,9 +98,6 @@ const BestSellers = ({ allProducts, loading }) => {
             Pakistan.
           </p>
         </div>
-        <Link to="/collection?filter=bestSeller" className="bs-view-all">
-          View All <i className="fa fa-arrow-right"></i>
-        </Link>
       </div>
 
       <div className="bs-filters">
@@ -181,6 +178,14 @@ const BestSellers = ({ allProducts, loading }) => {
             </div>
           );
         })}
+      </div>
+
+      {/* Cards ke neeche center view all button */}
+      <div className="bs-bottom-action">
+        <Link to="/collection?filter=bestSeller" className="bs-view-all-btn">
+          <span>View All Products</span>
+          <i className="fa fa-arrow-right"></i>
+        </Link>
       </div>
     </section>
   );

@@ -7,6 +7,24 @@ import { useWishlist } from "../context/wishlistContext";
 import { useCart } from "../context/CartContext";
 import "../style/collection.css";
 
+const matchesSearch = (product, query) => {
+  if (!query) return true;
+
+  const searchWords = query.toLowerCase().trim().split(/\s+/);
+  const productText = `${product.name} ${product.category} ${product.description || ""}`.toLowerCase();
+
+  return searchWords.some((word) => {
+    if (productText.includes(word)) return true;
+
+    if (word.length >= 4) {
+      const partial = word.slice(0, Math.max(4, word.length - 2));
+      if (productText.includes(partial)) return true;
+    }
+
+    return false;
+  });
+};
+
 const Collection = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -15,10 +33,13 @@ const Collection = () => {
 
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState(searchParams.get("category") || "All");
+  const [activeCategory, setActiveCategory] = useState(
+    searchParams.get("category") || "All",
+  );
   const [sortBy, setSortBy] = useState("default");
 
   const activeFilterType = searchParams.get("filter") || "";
+  const searchQuery = searchParams.get("search") || "";
 
   useEffect(() => {
     fetchProducts()
@@ -29,11 +50,13 @@ const Collection = () => {
 
   const categories = ["All", ...new Set(allProducts.map((p) => p.category))];
 
-  let filtered = allProducts.filter(
-    (p) => activeCategory === "All" || p.category === activeCategory
-  );
+  let filtered = allProducts.filter((p) => {
+    const matchesCategory =
+      activeCategory === "All" || p.category === activeCategory;
+    const matchesSearchResult = matchesSearch(p, searchQuery);
+    return matchesCategory && matchesSearchResult;
+  });
 
-  // Special filters coming from "View All" links (bestSeller / newArrival / onSale)
   if (activeFilterType === "bestSeller") {
     filtered = filtered.filter((p) => p.bestSeller);
   } else if (activeFilterType === "newArrival") {
@@ -49,14 +72,15 @@ const Collection = () => {
     return 0;
   });
 
-  const pageTitle =
-    activeFilterType === "bestSeller"
+  const pageTitle = searchQuery
+    ? `Search results for "${searchQuery}"`
+    : activeFilterType === "bestSeller"
       ? "Best Selling Products"
       : activeFilterType === "newArrival"
-      ? "New Arrivals"
-      : activeFilterType === "onSale"
-      ? "Sale"
-      : "Our Collection";
+        ? "New Arrivals"
+        : activeFilterType === "onSale"
+          ? "Sale"
+          : "Our Collection";
 
   const discount = (orig, price) => {
     if (!orig) return 0;
@@ -138,6 +162,12 @@ const Collection = () => {
               </div>
             ))}
           </div>
+        ) : filtered.length === 0 ? (
+          <div className="collection-empty">
+            <p>
+              No products found{searchQuery ? ` for "${searchQuery}"` : ""}.
+            </p>
+          </div>
         ) : (
           <div className="collection-grid">
             {filtered.map((product) => {
@@ -161,7 +191,9 @@ const Collection = () => {
                         className={`col-action-btn ${inWishlist ? "active" : ""}`}
                         onClick={(e) => handleWishlistClick(e, product)}
                       >
-                        <i className={`fa${inWishlist ? "s" : "r"} fa-heart`}></i>
+                        <i
+                          className={`fa${inWishlist ? "s" : "r"} fa-heart`}
+                        ></i>
                       </button>
                     </div>
                   </div>
@@ -176,16 +208,22 @@ const Collection = () => {
                           <i
                             key={i}
                             className={`fas fa-star ${
-                              i < Math.floor(product.rating || 0) ? "filled" : ""
+                              i < Math.floor(product.rating || 0)
+                                ? "filled"
+                                : ""
                             }`}
                           ></i>
                         ))}
                       </div>
-                      <span className="col-rating-count">({product.reviews || 0})</span>
+                      <span className="col-rating-count">
+                        ({product.reviews || 0})
+                      </span>
                     </div>
 
                     <div className="col-price-row">
-                      <span className="col-price">Rs. {product.price.toLocaleString()}</span>
+                      <span className="col-price">
+                        Rs. {product.price.toLocaleString()}
+                      </span>
                       {product.originalPrice && (
                         <span className="col-original-price">
                           Rs. {product.originalPrice.toLocaleString()}

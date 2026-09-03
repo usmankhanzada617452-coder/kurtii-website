@@ -18,7 +18,7 @@ html, body {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .header-main-row {
@@ -84,7 +84,7 @@ html, body {
   margin-top: 2px;
 }
 
-/* Straight Line Navigation Links in Center */
+/* Navigation Links */
 .desktop-main-nav {
   display: flex;
   align-items: center;
@@ -199,73 +199,46 @@ html, body {
   padding-left: 18px;
 }
 
-/* Right Action Icons */
+/* Right Header Icons (Search, Wishlist, Cart) */
 .header-right-icons {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 14px;
+  gap: 18px;
   flex-shrink: 0;
 }
 
-.search-box {
-  display: flex;
-  align-items: center;
-  background: #faf7f2;
-  border: 1px solid #e8d5b8;
-  border-radius: 999px;
-  padding: 6px 12px;
-  gap: 6px;
-  transition: all 0.3s ease;
-}
-
-.search-box:focus-within {
-  border-color: #b08850;
-  background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(176, 136, 80, 0.1);
-}
-
-.search-box input {
-  background: none;
+.icon-btn {
+  background: transparent;
   border: none;
   outline: none;
-  font-family: "Cinzel", serif;
-  font-size: 11px;
-  color: #1a1008;
-  letter-spacing: 0.8px;
-  width: 120px;
-}
-
-.search-box input::placeholder {
-  color: #a8947f;
-  font-size: 11px;
-}
-
-.search-box i {
-  color: #b08850;
-  font-size: 13px;
-}
-
-.icon-btn {
   text-decoration: none;
   cursor: pointer;
-  font-size: 18px;
+  padding: 0;
+  margin: 0;
   color: #1a1008;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.icon-btn i {
+  font-size: 20px;
+  line-height: 1;
+  color: inherit;
+  transition: color 0.25s ease;
 }
 
 .icon-btn:hover {
   color: #b08850;
-  transform: scale(1.1);
+  transform: scale(1.12);
 }
 
 .cart-badge {
   position: absolute;
-  top: -7px;
+  top: -6px;
   right: -8px;
   background-color: #b8860b;
   color: #ffffff;
@@ -281,11 +254,12 @@ html, body {
   border: 1.5px solid #ffffff;
 }
 
+/* Quicklinks / Pills */
 .header-bottom-pills-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 48px 14px; /* Zyada spacious height */
+  padding: 12px 48px 14px;
   background: #ffffff;
   border-top: 1px solid #f8f3eb;
 }
@@ -299,11 +273,11 @@ html, body {
 }
 
 .quicklink-pill {
-  padding: 8px 22px; /* Bada aur clickable pill button */
+  padding: 8px 22px;
   border: 1px solid #e0ceba;
   border-radius: 999px;
   font-family: "Cinzel", serif;
-  font-size: 13.5px; /* Bada aur clear font size */
+  font-size: 13.5px;
   font-weight: 600;
   color: #5c4735;
   text-decoration: none;
@@ -328,7 +302,7 @@ html, body {
   box-shadow: 0 4px 12px rgba(26, 16, 8, 0.2);
 }
 
-/* 4. Mobile Drawer */
+/* Mobile Drawer */
 .nav-overlay {
   position: fixed;
   inset: 0;
@@ -337,7 +311,7 @@ html, body {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-  z-index: 998;
+  z-index: 1998;
 }
 
 .nav-overlay.open {
@@ -353,7 +327,7 @@ html, body {
   max-width: 85vw;
   height: 100vh;
   background: #ffffff;
-  z-index: 999;
+  z-index: 1999;
   transform: translateX(-100%);
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   box-shadow: 6px 0 25px rgba(0, 0, 0, 0.15);
@@ -424,33 +398,44 @@ html, body {
   padding-left: 12px;
 }
 
-/* ==========================================================================
-   5. RESPONSIVE BREAKPOINTS (SPACE-BETWEEN ON MOBILE)
-   ========================================================================== */
+.mobile-search-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #faf7f2;
+  border: 1px solid #e8d5b8;
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin: 16px 20px 0;
+  font-size: 13px;
+  font-family: "Cinzel", serif;
+  color: #7a6652;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
+.mobile-search-trigger:hover {
+  border-color: #b08850;
+  color: #b08850;
+}
+
+/* Responsive Media Queries */
 @media (max-width: 1024px) {
-  .header-spacer-block {
-    height: 118px;
-  }
-
   .header-main-row {
     padding: 8px 16px;
     min-height: 54px;
   }
 
-  /* Show hamburger on mobile/tablet */
   .mobile-hamburger-wrap {
     display: flex;
     align-items: center;
     flex: 1;
   }
 
-  /* Hide center desktop nav */
   .desktop-main-nav {
     display: none;
   }
 
-  /* Logo perfectly in center */
   .brand-logo-wrap {
     flex: 2;
     justify-content: center;
@@ -462,18 +447,13 @@ html, body {
   }
 
   .brand-logo-tagline {
-    display: none; /* Cleaner mobile header */
+    display: none;
   }
 
-  /* Right icons aligned to right */
   .header-right-icons {
     flex: 1;
     justify-content: flex-end;
     gap: 12px;
-  }
-
-  .search-box {
-    display: none; 
   }
 
   .header-bottom-pills-row {

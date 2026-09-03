@@ -8,7 +8,12 @@
   padding: 60px 40px;
   text-align: center;
 }
-
+.collection-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #7a6652;
+  font-size: 15px;
+}
 .collection-hero h1 {
   font-family: "Cinzel", serif;
   font-size: 42px;
