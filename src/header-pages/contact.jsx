@@ -4,111 +4,198 @@ import Header from "../components/Header";
 import Footer from "../components/footer";
 
 const Contact = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const [statusMsg, setStatusMsg] = useState({ type: "", text: "" });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (name === "" || email === "" || phone === "" || phone.length < 11) {
-      alert("Please fill all fields!");
+    const { name, email, phone, message } = formData;
+
+    if (!name.trim() || !email.trim() || !phone.trim() || !message.trim()) {
+      setStatusMsg({
+        type: "error",
+        text: "Please fill out all fields before submitting.",
+      });
       return;
     }
-    console.log({ name, email, phone, message });
-    alert("Message sent!");
-    setName("");
-    setEmail("");
-    setPhone("");
-    setMessage("");
+
+    if (phone.replace(/\D/g, "").length < 10) {
+      setStatusMsg({
+        type: "error",
+        text: "Please enter a valid phone number.",
+      });
+      return;
+    }
+
+    setStatusMsg({
+      type: "success",
+      text: "Thank you! Your message has been sent successfully.",
+    });
+
+    setFormData({ name: "", email: "", phone: "", message: "" });
+
+    setTimeout(() => setStatusMsg({ type: "", text: "" }), 5000);
   };
 
   return (
-    <>
+    <div className="contact-page-wrapper">
       <Header />
-      <div className="contact-container">
-        <div className="contact-left">
-          <div className="contact-info-card">
-            <div className="contact-icon">
-              <i className="fa-solid fa-phone"></i>
+
+      {/* Hero Banner Header */}
+      <section className="contact-hero">
+        <div className="hero-content">
+          <span className="hero-subtitle">We Are Here For You</span>
+          <h1 className="hero-title">Get In Touch</h1>
+          <p className="hero-description">
+            Have a question about our boutique collection or need custom assistance? Reach out to us—we’d love to hear from you.
+          </p>
+        </div>
+      </section>
+
+      {/* Main Content Section */}
+      <main className="contact-main">
+        <div className="contact-container">
+          
+          {/* Left Info Cards */}
+          <div className="contact-info-section">
+            <div className="info-card">
+              <div className="icon-wrapper">
+                <i className="fa-solid fa-phone"></i>
+              </div>
+              <div className="info-text">
+                <h3>Call Us Directly</h3>
+                <p className="info-sub">Available 7 days a week, 9 AM - 9 PM</p>
+                <a href="tel:+923000000000" className="info-link">
+                  +92 300 0000000
+                </a>
+              </div>
             </div>
-            <div>
-              <h3>Call To Us</h3>
-              <p>We are available 24/7, 7 days a week</p>
-              <p>Phone: +92 300 0000000</p>
+
+            <div className="info-card">
+              <div className="icon-wrapper">
+                <i className="fa-regular fa-envelope"></i>
+              </div>
+              <div className="info-text">
+                <h3>Write To Us</h3>
+                <p className="info-sub">Send us an email and we'll reply within 24 hours</p>
+                <a href="mailto:info@khancollection.pk" className="info-link">
+                  info@khancollection.pk
+                </a>
+                <a href="mailto:support@khancollection.pk" className="info-link">
+                  support@khancollection.pk
+                </a>
+              </div>
+            </div>
+
+            <div className="info-card">
+              <div className="icon-wrapper">
+                <i className="fa-solid fa-location-dot"></i>
+              </div>
+              <div className="info-text">
+                <h3>Visit Our Store</h3>
+                <p className="info-sub">Experience luxury fashion in person</p>
+                <p className="info-link-static">Main Boulevard, Lahore, Pakistan</p>
+              </div>
             </div>
           </div>
 
-          <div className="contact-divider"></div>
+          {/* Right Contact Form */}
+          <div className="contact-form-section">
+            <div className="form-card">
+              <h2>Send Us A Message</h2>
+              <p className="form-desc">
+                Fill out the form below and our team will get back to you shortly.
+              </p>
 
-          <div className="contact-info-card">
-            <div className="contact-icon">
-              <i className="fa-regular fa-envelope"></i>
-            </div>
-            <div>
-              <h3>Write To Us</h3>
-              <p>Fill out our form and we will contact you within 24 hours</p>
-              <p>info@khancollection.pk</p>
-              <p>support@khancollection.pk</p>
+              {statusMsg.text && (
+                <div className={`status-alert ${statusMsg.type}`}>
+                  {statusMsg.type === "error" ? (
+                    <i className="fa-solid fa-circle-exclamation"></i>
+                  ) : (
+                    <i className="fa-solid fa-circle-check"></i>
+                  )}
+                  <span>{statusMsg.text}</span>
+                </div>
+              )}
+
+              <form className="contact-form" onSubmit={handleSubmit}>
+                <div className="form-grid">
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      placeholder=" "
+                      value={formData.name}
+                      onChange={handleChange}
+                    />
+                    <label htmlFor="name">Full Name *</label>
+                    <span className="input-highlight"></span>
+                  </div>
+
+                  <div className="input-group">
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      placeholder=" "
+                      value={formData.email}
+                      onChange={handleChange}
+                    />
+                    <label htmlFor="email">Email Address *</label>
+                    <span className="input-highlight"></span>
+                  </div>
+
+                  <div className="input-group">
+                    <input
+                      type="tel"
+                      name="phone"
+                      id="phone"
+                      placeholder=" "
+                      value={formData.phone}
+                      onChange={handleChange}
+                    />
+                    <label htmlFor="phone">Phone Number *</label>
+                    <span className="input-highlight"></span>
+                  </div>
+                </div>
+
+                <div className="input-group textarea-group">
+                  <textarea
+                    name="message"
+                    id="message"
+                    rows="5"
+                    placeholder=" "
+                    value={formData.message}
+                    onChange={handleChange}
+                  ></textarea>
+                  <label htmlFor="message">Your Message *</label>
+                  <span className="input-highlight"></span>
+                </div>
+
+                <button type="submit" className="submit-btn">
+                  <span>Send Message</span>
+                  <i className="fa-solid fa-paper-plane"></i>
+                </button>
+              </form>
             </div>
           </div>
+
         </div>
+      </main>
 
-        <div className="contact-right">
-          <form className="contact-form" onSubmit={handleSubmit}>
-            <div className="form-row">
-              <div className="input-group">
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <span className="input-line"></span>
-              </div>
-
-              <div className="input-group">
-                <input
-                  type="email"
-                  placeholder="Your Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <span className="input-line"></span>
-              </div>
-
-              <div className="input-group">
-                <input
-                  type="tel"
-                  placeholder="Your Phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-                <span className="input-line"></span>
-              </div>
-            </div>
-
-            <div className="input-group textarea-group">
-              <textarea
-                placeholder="Your Message"
-                rows="6"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              ></textarea>
-              <span className="input-line"></span>
-            </div>
-
-            <div className="form-btn-row">
-              <button type="submit" className="send-btn">
-                Send Message
-                <i className="fa-solid fa-paper-plane"></i>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

@@ -89,16 +89,24 @@ const Header = () => {
               </span>
 
               {showCategoryDropdown && (
-                <div className="nav-dropdown-menu">
-                  {categories.map((cat) => (
-                    <span
-                      key={cat}
-                      className="nav-dropdown-item"
-                      onClick={() => handleCategoryClick(cat)}
-                    >
-                      {cat}
-                    </span>
-                  ))}
+                <div className="nav-dropdown-menu matrix-dropdown">
+                  <div className="dropdown-matrix-header">
+                    <i className="fa-regular fa-compass"></i>
+                    <span>EXPLORE CATEGORY MATRIX</span>
+                  </div>
+
+                  <div className="dropdown-matrix-grid">
+                    {categories.map((cat) => (
+                      <span
+                        key={cat}
+                        className="nav-dropdown-item matrix-item"
+                        onClick={() => handleCategoryClick(cat)}
+                      >
+                        <span className="matrix-dot"></span>
+                        <span className="matrix-label">{cat}</span>
+                      </span>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
