@@ -8,7 +8,7 @@ const BannerHeading = () => {
       
       <h1 className="banner-title">
         <i className="fa-solid fa-truck-fast banner-icon"></i>
-        <span>Complimentary Shipping On Orders Above Rs. 5,000</span>
+        <span>Shopping Karo Be-Fikr! Rs. 5,000 se zyada ki shopping par Delivery Bilkul Free — Poore Pakistan Mein!</span>
       </h1>
     </div>
   );

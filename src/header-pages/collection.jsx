@@ -136,18 +136,20 @@ const Collection = () => {
             ))}
           </div>
 
-          <div className="sort-box">
-            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-              <option value="default">Sort By</option>
-              <option value="low-high">Price: Low to High</option>
-              <option value="high-low">Price: High to Low</option>
-              <option value="rating">Top Rated</option>
-            </select>
-          </div>
-        </div>
+          <div className="toolbar-subrow">
+            <div className="collection-count">
+              <p>{loading ? "Loading..." : `${filtered.length} Products`}</p>
+            </div>
 
-        <div className="collection-count">
-          <p>{loading ? "Loading..." : `${filtered.length} Products`}</p>
+            <div className="sort-box">
+              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                <option value="default">Sort By</option>
+                <option value="low-high">Price: Low to High</option>
+                <option value="high-low">Price: High to Low</option>
+                <option value="rating">Top Rated</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         {loading ? (
