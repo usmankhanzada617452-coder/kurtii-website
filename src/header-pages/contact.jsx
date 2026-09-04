@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../style/contact.css";
 import Header from "../components/Header";
 import Footer from "../components/footer";
+import { sendContactMessage } from "../context/contactApi";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -12,12 +13,13 @@ const Contact = () => {
   });
 
   const [statusMsg, setStatusMsg] = useState({ type: "", text: "" });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, phone, message } = formData;
 
@@ -37,36 +39,43 @@ const Contact = () => {
       return;
     }
 
-    setStatusMsg({
-      type: "success",
-      text: "Thank you! Your message has been sent successfully.",
-    });
+    setLoading(true);
 
-    setFormData({ name: "", email: "", phone: "", message: "" });
-
-    setTimeout(() => setStatusMsg({ type: "", text: "" }), 5000);
+    try {
+      await sendContactMessage(formData);
+      setStatusMsg({
+        type: "success",
+        text: "Thank you! Your message has been sent successfully.",
+      });
+      setFormData({ name: "", email: "", phone: "", message: "" });
+    } catch (err) {
+      setStatusMsg({
+        type: "error",
+        text: "Something went wrong. Please try again.",
+      });
+    } finally {
+      setLoading(false);
+      setTimeout(() => setStatusMsg({ type: "", text: "" }), 5000);
+    }
   };
 
   return (
     <div className="contact-page-wrapper">
       <Header />
 
-      {/* Hero Banner Header */}
       <section className="contact-hero">
         <div className="hero-content">
           <span className="hero-subtitle">We Are Here For You</span>
           <h1 className="hero-title">Get In Touch</h1>
           <p className="hero-description">
-            Have a question about our boutique collection or need custom assistance? Reach out to us—we’d love to hear from you.
+            Have a question about our boutique collection or need custom
+            assistance? Reach out to us—we'd love to hear from you.
           </p>
         </div>
       </section>
 
-      {/* Main Content Section */}
       <main className="contact-main">
         <div className="contact-container">
-          
-          {/* Left Info Cards */}
           <div className="contact-info-section">
             <div className="info-card">
               <div className="icon-wrapper">
@@ -87,7 +96,9 @@ const Contact = () => {
               </div>
               <div className="info-text">
                 <h3>Write To Us</h3>
-                <p className="info-sub">Send us an email and we'll reply within 24 hours</p>
+                <p className="info-sub">
+                  Send us an email and we'll reply within 24 hours
+                </p>
                 <a href="mailto:info@khancollection.pk" className="info-link">
                   info@khancollection.pk
                 </a>
@@ -109,12 +120,12 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Right Contact Form */}
           <div className="contact-form-section">
             <div className="form-card">
               <h2>Send Us A Message</h2>
               <p className="form-desc">
-                Fill out the form below and our team will get back to you shortly.
+                Fill out the form below and our team will get back to you
+                shortly.
               </p>
 
               {statusMsg.text && (
@@ -183,14 +194,13 @@ const Contact = () => {
                   <span className="input-highlight"></span>
                 </div>
 
-                <button type="submit" className="submit-btn">
-                  <span>Send Message</span>
+                <button type="submit" className="submit-btn" disabled={loading}>
+                  <span>{loading ? "Sending..." : "Send Message"}</span>
                   <i className="fa-solid fa-paper-plane"></i>
                 </button>
               </form>
             </div>
           </div>
-
         </div>
       </main>
 

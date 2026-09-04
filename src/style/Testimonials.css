@@ -1,5 +1,5 @@
 /* ==========================================================================
-   KHAN COLLECTION - TESTIMONIALS (BALANCED FULL WIDTH)
+   KHAN COLLECTION - TESTIMONIALS (LUXURY RESPONSIVE FIX)
    ========================================================================== */
 
 :root {
@@ -15,9 +15,10 @@
 .testimonials-section {
   background: linear-gradient(180deg, #12100E 0%, #161310 100%);
   color: var(--t-text-light);
-  padding: 65px 32px 55px;
+  padding: 65px 24px 55px;
   position: relative;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .t-header {
@@ -55,15 +56,15 @@
   margin-top: 10px;
 }
 
-/* WIDE SLIDER WRAPPER - Side Gaps Fixed */
+/* WIDE SLIDER WRAPPER */
 .t-slider-wrapper {
-  max-width: 1200px; /* Pehle 900px tha, ab screen ke sath match karega */
+  max-width: 1100px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 0 10px;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
 }
 
 .t-arrow {
@@ -88,14 +89,19 @@
   border-color: var(--t-gold);
 }
 
+/* CARD DESIGN */
 .t-card {
   flex: 1;
-  background: rgba(28, 24, 21, 0.5);
+  width: 100%;
+  background: rgba(28, 24, 21, 0.6);
+  backdrop-filter: blur(8px);
   border: 1px solid var(--t-border);
   border-radius: 12px;
-  padding: 36px 44px;
+  padding: 36px 40px;
   text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   transition: opacity 0.3s ease, transform 0.3s ease;
+  box-sizing: border-box;
 }
 
 .t-card--fade {
@@ -105,21 +111,22 @@
 
 .t-quote-icon {
   font-family: "Cinzel", Georgia, serif;
-  font-size: 48px;
+  font-size: 42px;
   line-height: 0.8;
   color: var(--t-gold);
-  opacity: 0.4;
-  margin-bottom: 10px;
+  opacity: 0.5;
+  margin-bottom: 12px;
 }
 
 .t-review {
   font-family: "Playfair Display", Georgia, serif;
   font-size: 17px;
-  line-height: 1.65;
+  line-height: 1.6;
   color: var(--t-text-light);
   font-style: italic;
   margin: 0 0 20px 0;
-  max-width: 850px;
+  width: 100%;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -149,18 +156,19 @@
 }
 
 .t-avatar {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: #221C17;
   border: 1.5px solid var(--t-gold);
   color: var(--t-gold);
   font-family: "Cinzel", serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .t-customer-info {
@@ -179,9 +187,10 @@
 }
 
 .t-customer-meta {
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--t-text-muted);
   margin-top: 2px;
+  line-height: 1.4;
 }
 
 .t-dots {
@@ -189,7 +198,7 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  margin: 24px 0 40px;
+  margin: 24px 0 36px;
 }
 
 .t-dot {
@@ -208,15 +217,19 @@
   background: var(--t-gold);
 }
 
-/* WIDE STATS BAR */
+/* STATS BAR */
 .t-stats {
-  max-width: 1200px; /* Matched to slider */
+  max-width: 1100px;
   margin: 0 auto;
   border-top: 1px solid rgba(197, 168, 128, 0.18);
   padding-top: 28px;
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+.t-stat-item {
+  text-align: center;
 }
 
 .t-stat-number {
@@ -233,7 +246,7 @@
   letter-spacing: 1.2px;
   text-transform: uppercase;
   color: var(--t-text-muted);
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .t-stat-divider {
@@ -242,21 +255,70 @@
   background: rgba(197, 168, 128, 0.2);
 }
 
+/* ==========================================================================
+   MOBILE BREAKPOINT FIX (UNDER 768px)
+   ========================================================================== */
+
 @media (max-width: 768px) {
   .testimonials-section {
-    padding: 45px 16px;
+    padding: 40px 16px 35px;
   }
+
   .t-title {
-    font-size: 24px;
+    font-size: 22px;
+    letter-spacing: 1.5px;
   }
+
+  /* Hide arrows on mobile so card gets 100% full width */
+  .t-arrow {
+    display: none !important;
+  }
+
+  .t-slider-wrapper {
+    gap: 0;
+    padding: 0;
+  }
+
   .t-card {
-    padding: 24px 16px;
+    padding: 24px 18px; /* Proper padding for mobile */
+    border-radius: 10px;
   }
+
+  .t-review {
+    font-size: 14.5px; /* Clean readable size */
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .t-customer-info {
+    align-items: flex-start;
+  }
+
+  .t-customer-name {
+    font-size: 13px;
+  }
+
+  .t-customer-meta {
+    font-size: 11px;
+  }
+
+  /* Premium Mobile Stats Grid */
   .t-stats {
-    flex-direction: column;
-    gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 10px;
+    padding-top: 24px;
   }
+
   .t-stat-divider {
     display: none;
+  }
+
+  .t-stat-number {
+    font-size: 22px;
+  }
+
+  .t-stat-label {
+    font-size: 10px;
   }
 }

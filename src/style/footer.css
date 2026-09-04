@@ -1,7 +1,3 @@
-/* ==========================================================================
-   KHAN COLLECTION - ULTRA LUXURY NOIR & GOLD FOOTER (RESPONSIVE FIX)
-   ========================================================================== */
-
 :root {
   --ft-gold: #C5A880;
   --ft-gold-hover: #D8BD98;
@@ -14,7 +10,7 @@
   --ft-text-dim: #70685F;
 }
 
-/* Base Reset to prevent text overflow */
+/* Base Reset */
 .footer,
 .footer *,
 .footer *::before,
@@ -46,20 +42,19 @@
   pointer-events: none;
 }
 
-/* 2. Main Grid Layout */
 .footer-main {
-  max-width: 1600px;
+  max-width: 1750px; 
   margin: 0 auto;
-  padding: 60px 48px 40px;
+  padding: 50px 24px 30px; 
   display: grid;
-  grid-template-columns: 1.5fr 0.8fr 0.8fr 1.5fr;
-  gap: 40px;
+  grid-template-columns: 1.4fr 0.8fr 0.8fr 1.4fr;
+  gap: 32px;
   position: relative;
   z-index: 2;
   width: 100%;
 }
 
-/* 3. Brand Column (Left) */
+/* 3. Brand Column */
 .footer-brand-col {
   display: flex;
   flex-direction: column;
@@ -67,7 +62,7 @@
 
 .footer-logo-main {
   font-family: "Cinzel", Georgia, serif;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
   letter-spacing: 4px;
   color: #FFFFFF;
@@ -77,7 +72,7 @@
 
 .footer-logo-sub {
   font-family: "Cinzel", serif;
-  font-size: 9.5px;
+  font-size: 9px;
   letter-spacing: 3.5px;
   color: var(--ft-gold);
   text-transform: uppercase;
@@ -167,7 +162,8 @@
   text-decoration: none;
   font-size: 13px;
   transition: all 0.25s ease;
-  display: inline-block;
+  display: block; /* FIXED: Inline-block se display block kar diya for proper alignment */
+  width: 100%;
   cursor: pointer;
 }
 
@@ -245,6 +241,12 @@
   margin: 0;
 }
 
+.footer-newsletter-error {
+  font-size: 12px;
+  color: #e57373;
+  margin: 0;
+}
+
 .footer-contact-item {
   display: flex;
   align-items: center;
@@ -263,11 +265,11 @@
 .footer-bottom {
   border-top: 1px solid rgba(197, 168, 128, 0.12);
   background: rgba(12, 10, 9, 0.95);
-  padding: 16px 48px;
+  padding: 16px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1600px;
+  max-width: 1200px;
   margin: 0 auto;
   font-size: 12px;
   color: var(--ft-text-dim);
@@ -300,7 +302,7 @@
     gap: 28px 0;
   }
 
-  /* Each section takes ~48% width (2 sections per line = 2 lines total) */
+  /* Each section takes 48% width */
   .footer-brand-col,
   .footer-col {
     flex: 0 0 48%;
@@ -312,6 +314,16 @@
   .footer-main > .footer-col:nth-child(4) {
     align-items: flex-end;
     text-align: right;
+  }
+
+  /* FIXED: Pure Right-side alignment fix for all child links/spans */
+  .footer-main > .footer-col:nth-child(2) a,
+  .footer-main > .footer-col:nth-child(2) span,
+  .footer-main > .footer-col:nth-child(4) a,
+  .footer-main > .footer-col:nth-child(4) span {
+    text-align: right;
+    width: 100%;
+    display: block;
   }
 
   /* Title Gold Underline Shift to Right Side */
@@ -358,12 +370,14 @@
 
   .footer-newsletter-text {
     font-size: 11px;
+    text-align: right;
   }
 
   .footer-contact-item {
     justify-content: flex-end;
     font-size: 11px;
     word-break: break-all;
+    width: 100%;
   }
 
   .footer-bottom {

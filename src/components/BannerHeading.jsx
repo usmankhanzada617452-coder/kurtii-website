@@ -1,17 +1,28 @@
 import React from "react";
-import "../style/BannerHeading.css"; // Apni CSS path set karein
+import "../style/BannerHeading.css";
 
-const BannerHeading = () => {
+const badges = [
+  "🚚 Free delivery on orders above Rs. 5,000",
+  "💵 Cash on Delivery Available",
+  "⭐ 100% Original Quality Guaranteed",
+  "🔄 Easy 7-Day Returns",
+];
+
+function BannerHeading() {
+  // content ko 2 baar duplicate kar rahe hain taake seamless infinite loop bane
+  const marqueeContent = [...badges, ...badges];
+
   return (
-    <div className="banner-heading">
-      <div className="banner-glow"></div>
-      
-      <h1 className="banner-title">
-        <i className="fa-solid fa-truck-fast banner-icon"></i>
-        <span>Shopping Karo Be-Fikr! Rs. 5,000 se zyada ki shopping par Delivery Bilkul Free — Poore Pakistan Mein!</span>
-      </h1>
+    <div className="marquee-bar">
+      <div className="marquee-track">
+        {marqueeContent.map((text, index) => (
+          <span className="marquee-item" key={index}>
+            {text}
+          </span>
+        ))}
+      </div>
     </div>
   );
-};
+}
 
 export default BannerHeading;

@@ -4,7 +4,6 @@ import Footer from "../components/footer";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { fetchProducts } from "../services/productApi";
 import { useWishlist } from "../context/wishlistContext";
-import { useCart } from "../context/CartContext";
 import "../style/collection.css";
 
 const matchesSearch = (product, query) => {
@@ -29,7 +28,6 @@ const Collection = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { toggleWishlist, isInWishlist } = useWishlist();
-  const { addToCart, openCart } = useCart();
 
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -99,18 +97,6 @@ const Collection = () => {
       price: product.price,
       image: product.image,
     });
-  };
-
-  const handleAddToCart = (e, product) => {
-    e.stopPropagation();
-    addToCart({
-      id: product._id,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-      quantity: 1,
-    });
-    openCart();
   };
 
   return (
@@ -232,13 +218,6 @@ const Collection = () => {
                         </span>
                       )}
                     </div>
-
-                    <button
-                      className="col-add-to-cart"
-                      onClick={(e) => handleAddToCart(e, product)}
-                    >
-                      <i className="fas fa-shopping-cart"></i> Add to Cart
-                    </button>
                   </div>
                 </div>
               );

@@ -463,6 +463,7 @@
   justify-content: center;
   gap: 10px;
   transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+  white-space: nowrap; /* Button Text Line Break Protection */
 }
 
 .pp-add-to-cart {
@@ -646,16 +647,18 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
 .pp-bar-row {
   display: flex;
   align-items: center;
   gap: 14px;
+  width: 100%;
 }
 
 .pp-bar-label {
-  width: 40px;
+  min-width: 32px;
   font-size: 13px;
   font-weight: 600;
   color: var(--kc-noir);
@@ -667,6 +670,7 @@
   background: var(--kc-border-subtle);
   border-radius: 999px;
   overflow: hidden;
+  position: relative;
 }
 
 .pp-bar-fill {
@@ -677,7 +681,7 @@
 }
 
 .pp-bar-percent {
-  width: 40px;
+  min-width: 36px;
   font-size: 12.5px;
   color: var(--kc-text-muted);
   text-align: right;
@@ -904,12 +908,12 @@
 }
 
 /* ==========================================================================
-   9. RESPONSIVE BREAKPOINTS
+   9. RESPONSIVE BREAKPOINTS (MOBILE FIXES APPLIED)
    ========================================================================== */
 
 @media (max-width: 1024px) {
   .pp-page-wrapper {
-    padding-top: 115px; /* Mobile header height */
+    padding-top: 115px;
   }
 
   .pp-top {
@@ -957,15 +961,20 @@
     flex-direction: column;
   }
 
+  /* Add to Cart Button Mobile Adjustments */
   .pp-add-to-cart,
   .pp-buy-now {
     width: 100%;
     min-width: unset;
+    font-size: 11.5px;
+    padding: 14px 10px;
+    white-space: nowrap;
   }
 
+  /* Reviews Summary Layout Adjustment for Mobile */
   .pp-reviews-summary {
     flex-direction: column;
-    padding: 20px;
+    padding: 20px 16px;
     gap: 20px;
   }
 
@@ -973,8 +982,25 @@
     border-right: none;
     border-bottom: 1px solid var(--kc-border);
     padding-right: 0;
-    padding-bottom: 20px;
+    padding-bottom: 16px;
     width: 100%;
+  }
+
+  /* Force Progress Bars to behave correctly on mobile */
+  .pp-reviews-bars {
+    width: 100%;
+  }
+
+  .pp-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .pp-bar-track {
+    flex: 1;
+    min-width: 0; /* Prevents flex children from breaking parent width */
   }
 
   .pp-trust-strip {

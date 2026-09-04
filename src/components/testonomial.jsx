@@ -163,16 +163,16 @@ const Testimonials = () => {
       <div className="t-stats">
         <div className="t-stat">
           <span className="t-stat-number">5,000+</span>
-          <span className="t-stat-label">Happy Patrons</span>
+          <span className="t-stat-label">Happy Customers</span>
         </div>
         <div className="t-stat-divider"></div>
         <div className="t-stat">
-          <span className="t-stat-number">4.8 ★</span>
+          <span className="t-stat-number">7.8 ★</span>
           <span className="t-stat-label">Average Rating</span>
         </div>
         <div className="t-stat-divider"></div>
         <div className="t-stat">
-          <span className="t-stat-number">98%</span>
+          <span className="t-stat-number">98%</span> 
           <span className="t-stat-label">Repeat Recommendation</span>
         </div>
       </div>

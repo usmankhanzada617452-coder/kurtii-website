@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Italianno&family=Cinzel:wght@600;700&display=swap');
 
-/* ==========================================
-   1. GLOBAL PAGE LAYOUT & ANIMATIONS
-   ========================================== */
 .contact-page-wrapper {
   background-color: #faf7f2;
   min-height: 100vh;
@@ -33,14 +30,11 @@
   }
 }
 
-/* ==========================================
-   2. HERO HEADER SECTION
-   ========================================== */
 .contact-hero {
   padding-top: 150px;
   padding-bottom: 50px;
-  background: linear-gradient(135deg, #1a1008 0%, #2c1d11 50%, #1a1008 100%);
-  color: #ffffff;
+  background: #faf8f5;
+  color: #1a1008;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -53,7 +47,7 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(176, 136, 80, 0.15) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(176, 136, 80, 0.12) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -81,22 +75,20 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   margin: 10px 0 16px;
-  color: #f5e6c8;
+  color: #1a1008;
 }
 
 .hero-description {
   font-size: 14px;
-  color: #d1c2b0;
+  color: #6b5643;
   line-height: 1.6;
   font-weight: 300;
 }
 
-/* ==========================================
-   3. MAIN CONTENT CONTAINER
-   ========================================== */
 .contact-main {
   flex: 1;
   padding: 60px 20px 90px;
+  background-color: #fff;
 }
 
 .contact-container {
@@ -106,6 +98,15 @@
   grid-template-columns: 380px 1fr;
   gap: 40px;
   align-items: start;
+}
+
+/* Desktop order: info left, form right (grid handles it naturally) */
+.contact-info-section {
+  order: 1;
+}
+
+.contact-form-section {
+  order: 2;
 }
 
 /* ==========================================
@@ -221,7 +222,6 @@
   margin-bottom: 28px;
 }
 
-/* Alert Notification */
 .status-alert {
   display: flex;
   align-items: center;
@@ -245,7 +245,6 @@
   color: #166534;
 }
 
-/* Form Inputs Grid */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -288,7 +287,6 @@
   transition: all 0.25s ease;
 }
 
-/* Floating Label Magic */
 .input-group input:focus ~ label,
 .input-group input:not(:placeholder-shown) ~ label,
 .input-group textarea:focus ~ label,
@@ -312,7 +310,6 @@
   margin-bottom: 28px;
 }
 
-/* Submit Button */
 .submit-btn {
   display: inline-flex;
   align-items: center;
@@ -357,8 +354,18 @@
    ========================================== */
 @media (max-width: 992px) {
   .contact-container {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 30px;
+  }
+
+  /* Form pehle, info baad mein (mobile pe requested order) */
+  .contact-form-section {
+    order: 1;
+  }
+
+  .contact-info-section {
+    order: 2;
   }
 
   .form-grid {
@@ -386,5 +393,30 @@
 
   .submit-btn {
     width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .hero-subtitle {
+    font-size: 30px;
+  }
+  .hero-title {
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+  .hero-description {
+    font-size: 13px;
+  }
+  .form-card {
+    padding: 20px 16px;
+  }
+  .info-card {
+    padding: 18px;
+    gap: 14px;
+  }
+  .icon-wrapper {
+    width: 44px;
+    height: 44px;
+    font-size: 17px;
   }
 }

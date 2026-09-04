@@ -151,6 +151,7 @@
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .col-card:hover {
@@ -158,9 +159,10 @@
   box-shadow: 0 12px 30px rgba(26, 16, 8, 0.15);
 }
 
+/* Image height increased */
 .col-card-image {
   position: relative;
-  height: 260px;
+  height: 320px;
   overflow: hidden;
 }
 
@@ -223,27 +225,28 @@
   border-color: #c0392b;
 }
 
+/* Card Info - Reduced gap to fit larger image nicely */
 .col-card-info {
-  padding: 14px 16px;
+  padding: 10px 14px 12px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .col-category {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
   color: #b08850;
 }
 
 .col-card-name {
   font-family: "Cinzel", serif;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   color: #3b2a1a;
-  margin: 5px 0 8px 0;
+  margin: 3px 0 4px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -252,8 +255,8 @@
 .col-rating {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
+  gap: 5px;
+  margin-bottom: 4px;
 }
 
 .col-stars {
@@ -262,7 +265,7 @@
 }
 
 .col-stars .fa-star {
-  font-size: 12px;
+  font-size: 11px;
   color: #d9c9b0;
 }
 
@@ -271,68 +274,31 @@
 }
 
 .col-rating-count {
-  font-size: 12px;
+  font-size: 11px;
   color: #9c8571;
 }
 
 .col-price-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
+  gap: 8px;
+  margin-top: auto;
 }
 
 .col-price {
   font-family: "Cinzel", serif;
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 700;
   color: #3b2a1a;
 }
 
 .col-original-price {
-  font-size: 13px;
+  font-size: 12px;
   color: #b0a090;
   text-decoration: line-through;
 }
 
-.col-add-to-cart {
-  width: 100%;
-  padding: 11px;
-  background: linear-gradient(135deg, #1a1008 0%, #3a2010 50%, #1a1008 100%);
-  background-size: 200% 200%;
-  color: #f5e6c8;
-  border: none;
-  border-radius: 6px;
-  font-family: "Cinzel", serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  margin-top: auto;
-  transition: all 0.3s ease;
-  animation: gradientShift 3s ease infinite;
-}
-
-.col-add-to-cart:hover {
-  background: linear-gradient(135deg, #b08850, #d4a96a, #b08850);
-  color: #1a1008;
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ==========================================
-   AAPKA EXACT RESPONSIVE CODE (UNTOUCHED)
-   ========================================== */
-
+/* Responsive adjustments */
 @media (max-width: 1199px) {
   .collection-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -355,7 +321,10 @@
     padding: 12px 20px;
   }
   .collection-page {
-    margin-top: 100px; /* Reduced gap for tablets */
+    margin-top: 100px;
+  }
+  .col-card-image {
+    height: 270px;
   }
 }
 
@@ -398,13 +367,13 @@
     padding: 12px 16px 30px;
   }
   .col-card-image {
-    height: 190px;
+    height: 230px;
   }
 }
 
 @media (max-width: 575px) {
   .collection-page {
-    margin-top: 100px; /* Exact fit for small mobile screens */
+    margin-top: 100px;
   }
   .collection-hero h1 {
     font-size: 20px;
@@ -413,10 +382,6 @@
     font-size: 12px;
   }
   .col-card-image {
-    height: 160px;
-  }
-  .col-add-to-cart {
-    font-size: 10px;
-    padding: 9px;
+    height: 210px;
   }
 }

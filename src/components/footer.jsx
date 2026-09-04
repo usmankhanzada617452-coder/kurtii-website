@@ -1,17 +1,33 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../style/footer.css";
+import { subscribeEmail } from "../context/subscriberApi";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
     if (!email.trim()) return;
-    setSubscribed(true);
-    setEmail("");
-    setTimeout(() => setSubscribed(false), 3000);
+
+    setLoading(true);
+    setError("");
+
+    try {
+      await subscribeEmail(email.trim());
+      setSubscribed(true);
+      setEmail("");
+      setTimeout(() => setSubscribed(false), 3000);
+    } catch (err) {
+      const message = err.response?.data?.message || "Subscription failed, try again";
+      setError(message);
+      setTimeout(() => setError(""), 3000);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -73,12 +89,13 @@ const Footer = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <button type="submit" aria-label="Subscribe">
+            <button type="submit" aria-label="Subscribe" disabled={loading}>
               <i className="fa-solid fa-paper-plane"></i>
             </button>
           </form>
 
           {subscribed && <p className="footer-newsletter-success">Thanks for subscribing!</p>}
+          {error && <p className="footer-newsletter-error">{error}</p>}
 
           <div className="footer-contact-item">
             <i className="fa-solid fa-envelope"></i>
