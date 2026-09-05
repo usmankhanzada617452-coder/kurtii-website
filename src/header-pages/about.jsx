@@ -1,124 +1,115 @@
-import React from 'react'
-import Header from '../components/Header'
-import Footer from '../components/footer';
-import '../style/about.css'
-const About = () => {
+import React from "react";
+import { Link } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/footer";
+import "../style/about.css";
+
+const AboutUs = () => {
   return (
     <>
-    
-    <div className="about-container">
       <Header />
 
-      <div className="story-side">
-        <div className="story-side-left">
-          <h1>Our Story</h1>
-          <p>Launced in 2015, Exclusive is South Asia’s premier online shopping <br /> makterplace with an active presense in Bangladesh. Supported <br /> by wide range of tailored marketing, data and service solutions, <br /> Exclusive has 10,500 sallers and 300 brands and serves 3 <br /> millioons customers across the region. </p>
-          <p>Exclusive has more than 1 Million products to offer, growing at a <br /> very fast. Exclusive offers a diverse assotment in categories <br /> ranging  from consumer.</p>
-        </div>
-        <div className="story-side-right">
-          <div className="story-side-right-img">
-            <img src="./img/png2.jpg" alt="image" />
+      <div className="about-container">
+        {/* 1. Hero Section */}
+        <section className="about-hero">
+          <div className="about-hero-overlay">
+            <span className="about-eyebrow">Khan Collection</span>
+            <h1 className="about-hero-title">Crafting Timeless Elegance</h1>
+            <p className="about-hero-subtitle">
+              Redefining luxury fashion with premium fabrics, intricate
+              craftsmanship, and modern style.
+            </p>
           </div>
-        </div>
+        </section>
+
+        {/* 2. Brand Story Section */}
+        <section className="about-story-section">
+          <div className="about-story-grid">
+            <div className="about-story-image">
+              <img
+                src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=800"
+                alt="Craftsmanship"
+              />
+            </div>
+            <div className="about-story-content">
+              <span className="section-subtitle">Our Heritage</span>
+              <h2>Where Tradition Meets Modern Couture</h2>
+              <p>
+                Founded with a passion for exquisite fashion, Khan Collection
+                brings you a handpicked selection of premium traditional and
+                contemporary attire. Every piece is crafted to make you stand
+                out with confidence and sophistication.
+              </p>
+              <p>
+                From fine embroideries to hand-selected fabrics, our mission is
+                to deliver luxury clothing that feels as extraordinary as it
+                looks.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. Why Choose Us (Highlights) */}
+        <section className="about-features-section">
+          <div className="features-header">
+            <span className="section-subtitle">Why Choose Us</span>
+            <h2>The Khan Collection Standard</h2>
+          </div>
+          <div className="features-grid">
+            <div className="feature-card">
+              <div className="feature-icon">✨</div>
+              <h3>Premium Fabrics</h3>
+              <p>
+                Sourced from top mills to guarantee durability, softness, and
+                sheer luxury.
+              </p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">✂️</div>
+              <h3>Master Craftsmanship</h3>
+              <p>
+                Detailed embroidery and precise tailoring for a flawless luxury
+                fit.
+              </p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">📦</div>
+              <h3>Worldwide Express Delivery</h3>
+              <p>
+                Safe, fast, and reliable delivery right to your doorstep,
+                everywhere.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. Founder's Message */}
+        <section className="about-founder-section">
+          <div className="founder-card">
+            <p className="founder-quote">
+              "Clothing isn’t just about looking good—it’s about how it makes
+              you feel. Our goal is to bring timeless elegance into everyday
+              lives."
+            </p>
+            <span className="founder-name">Usman Khan</span>
+            <span className="founder-title">Founder & Creative Director</span>
+          </div>
+        </section>
+
+        {/* 5. Call To Action */}
+        <section className="about-cta-section">
+          <h2>Ready to Upgrade Your Wardrobe?</h2>
+          <p>Explore our latest luxury arrivals today.</p>
+
+          <Link to="/shop" className="about-cta-btn">
+            Explore Collection ➔
+          </Link>
+        </section>
       </div>
 
-      <div className="customer-review">
-        <div className="cards">
-          <div className="cardsimg">
-            <img src="/img/png3.png" alt="" />
-          </div>
-          <h1>10.5K</h1>
-          <h3>Sallers active our site</h3>
-        </div>
-        <div className="cards">
-          <div className="cardsimg">
-            <img src="/img/png4.png" alt="" />
-          </div>
-          <h1>33K</h1>
-          <h3>Mothly Product Sale</h3>
-        </div>
-        <div className="cards">
-          <div className="cardsimg">
-            <img src="/img/png5.png" alt="" />
-          </div>
-          <h1>45.5K</h1>
-          <h3>Customer active our site</h3>
-        </div>
-        <div className="cards">
-          <div className="cardsimg">
-            <img src="/img/png6.png" alt="" />
-          </div>
-          <h1>25K</h1>
-          <h3>Annual gross sale in our site</h3>
-        </div>
-      </div>
-
-      <div className="company-owner">
-        <div className="owner-cards">
-          <div className="owner-cards-img">
-            <img src="/img/png2.jpg" alt="image" />
-          </div>
-          <h1>Usman Khan</h1>
-          <p>Founders and Chairman</p>
-        </div>
-        <div className="owner-cards">
-          <div className="owner-cards-img">
-            <img src="/img/png2.jpg" alt="" />
-          </div>
-          <h1>Usman Khan</h1>
-          <p>Managing Director</p>
-        </div>
-        <div className="owner-cards">
-          <div className="owner-cards-img">
-            <img src="/img/png2.jpg" alt="" />
-          </div>
-          <h1>Usman Khan</h1>
-          <p>Product and Designer</p>
-        </div>
-      </div>
-
-      <div className="customer-services">
-        
-        <div className="customer-services-card">
-          <div className="customer-services-card-img">
-            <img src="/img/png7.png" alt="" />
-          </div>
-          <h1>FREE AND FAST DELIVERY</h1>
-          <p>Free delivery for all orders above 5000</p>
-        </div>
-
-        <div className="customer-services-card">
-          <div className="customer-services-card-img">
-            <img src="/img/png8.png" alt="" />
-          </div>
-          <h1>24/7 Customer Service</h1>
-          <p>Friendly 24/7 customer support</p>
-        </div>
-
-        <div className="customer-services-card">
-          <div className="customer-services-card-img">
-            <img src="/img/png9.png" alt="" />
-          </div>
-          <h1>Money Back Guarantee</h1>
-          <p>We return money with in 30 days</p>
-        </div>
-      </div>
-
-      <div className="location">
-        <iframe
-  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.5!2d67.0!3d24.8!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zS2FyYWNoaQ!5e0!3m2!1sen!2spk!4v1"
-  width="100%"
-  height="300"
-  style={{border: 0}}
-  allowFullScreen
-  loading="lazy"
-/>
-      </div>
-    </div>
-
-    <Footer />
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default About;
+export default AboutUs;

@@ -16,6 +16,7 @@ const Checkout = () => {
   const { cartItems, clearCart } = useCart();
 
   const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -60,6 +61,7 @@ const Checkout = () => {
 
     const orderPayload = {
       fullName,
+      email,
       phone,
       address,
       city,
@@ -167,6 +169,17 @@ const Checkout = () => {
                   onChange={handleNameChange}
                   placeholder="Your full name"
                   maxLength={100}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Email Address</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
                   required
                 />
               </div>

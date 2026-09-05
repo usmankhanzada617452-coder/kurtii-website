@@ -19,6 +19,7 @@ const quickLinks = [
   { to: "/collection?filter=onSale", label: "Sale" },
   { to: "/wishlist", label: "Wishlist" },
   { to: "/cart", label: "Cart" },
+  { to: "/login", label: "Login" },
 ];
 
 const Header = () => {

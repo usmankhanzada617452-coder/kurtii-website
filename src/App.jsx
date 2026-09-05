@@ -15,6 +15,9 @@ import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/wishlistContext";
 import CartDrawer from "./components/CartDrawer";
 import { fetchProducts } from "./services/productApi";
+import MyOrders from "./header-pages/MyOrders";
+import Login from "./header-pages/Login";
+import AdminDashboard from "./header-pages/AdminDashboard";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -44,7 +47,10 @@ function App() {
           <Route
             path="/"
             element={
-              <Home allProducts={allProducts} productsLoading={productsLoading} />
+              <Home
+                allProducts={allProducts}
+                productsLoading={productsLoading}
+              />
             }
           />
 
@@ -56,6 +62,9 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/my-orders" element={<MyOrders />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
