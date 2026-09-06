@@ -14,7 +14,6 @@
   background-color: #ffffff;
   color: var(--about-noir);
   font-family: 'Georgia', serif;
-  margin-top: 130px;
 }
 
 /* 1. Hero Section */
@@ -138,11 +137,13 @@
   border-radius: 12px;
   text-align: center;
   border: 1px solid var(--about-border);
-  transition: transform 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .feature-card:hover {
   transform: translateY(-6px);
+  border-color: var(--about-gold);
+  box-shadow: 0 16px 34px rgba(176, 136, 80, 0.15);
 }
 
 .feature-icon {
@@ -164,13 +165,28 @@
 
 /* 4. Founder Section */
 .about-founder-section {
-  padding: 80px 20px;
+  padding: 90px 20px;
   text-align: center;
+  background: #ffffff;
 }
 
 .founder-card {
   max-width: 700px;
   margin: 0 auto;
+  position: relative;
+}
+
+.founder-card::before {
+  content: "\201C";
+  font-family: Georgia, serif;
+  font-size: 100px;
+  color: var(--about-gold);
+  opacity: 0.15;
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 1;
 }
 
 .founder-quote {
@@ -179,6 +195,7 @@
   line-height: 1.6;
   color: var(--about-noir);
   margin-bottom: 24px;
+  position: relative;
 }
 
 .founder-name {
@@ -197,44 +214,61 @@
   margin-top: 4px;
 }
 
-/* 5. Call To Action */
+/* 5. Call To Action — now soft/off-white instead of black, so it doesn't clash with the black footer right after it */
 .about-cta-section {
-  background-color: var(--about-noir);
-  color: #ffffff;
+  background: linear-gradient(135deg, var(--about-bg-soft) 0%, #f0e6d6 100%);
+  color: var(--about-noir);
   text-align: center;
-  padding: 70px 20px;
+  padding: 90px 20px;
+  border-top: 1px solid var(--about-border);
 }
 
 .about-cta-section h2 {
-  font-size: 30px;
+  font-family: Georgia, serif;
+  font-size: 32px;
   margin-bottom: 10px;
+  color: var(--about-noir);
 }
 
 .about-cta-section p {
-  color: #e2d7c5;
+  color: var(--about-text-muted);
   font-size: 15px;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
 .about-cta-btn {
-  display: inline-block;
-  padding: 14px 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 36px;
   border-radius: 999px;
-  background-color: var(--about-gold);
+  background-color: var(--about-noir);
   color: #ffffff;
   text-decoration: none;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .about-cta-btn:hover {
-  background-color: var(--about-gold-hover);
+  background-color: var(--about-gold);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(176, 136, 80, 0.3);
 }
 
 /* Responsive Media Queries */
+@media (max-width: 1660px) {
+  .about-story-section,
+  .about-features-section,
+  .about-founder-section,
+  .about-cta-section {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
 @media (max-width: 991px) {
   .about-story-grid {
     grid-template-columns: 1fr;
@@ -242,6 +276,9 @@
   }
   .features-grid {
     grid-template-columns: 1fr;
+  }
+  .about-story-image img {
+    height: 350px;
   }
 }
 
@@ -256,5 +293,15 @@
   .features-header h2,
   .about-cta-section h2 {
     font-size: 24px;
+  }
+  .about-story-section,
+  .about-features-section,
+  .about-founder-section,
+  .about-cta-section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .founder-quote {
+    font-size: 17px;
   }
 }

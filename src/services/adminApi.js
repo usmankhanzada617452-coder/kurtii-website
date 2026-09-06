@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const API_URL = "https://kurtii-api.vercel.app/api/orders";
+const BASE_URL = "https://kurtii-api.vercel.app/api";
 
-// Always fetch fresh token dynamically
 const getAuthHeader = () => {
   const token = localStorage.getItem("kc_token");
   return {
@@ -12,28 +11,32 @@ const getAuthHeader = () => {
   };
 };
 
+// Orders
 export const getAllOrders = () =>
-  axios.get(API_URL, getAuthHeader()).then((r) => r.data.data || r.data);
+  axios.get(`${BASE_URL}/orders`, getAuthHeader()).then((r) => r.data.data || r.data);
 
 export const updateStatus = (id, status) =>
-  axios
-    .patch(`${API_URL}/${id}/status`, { status }, getAuthHeader())
-    .then((r) => r.data);
+  axios.patch(`${BASE_URL}/orders/${id}/status`, { status }, getAuthHeader()).then((r) => r.data);
 
 export const deleteOrder = (id) =>
-  axios.delete(`${API_URL}/${id}`, getAuthHeader()).then((r) => r.data);
+  axios.delete(`${BASE_URL}/orders/${id}`, getAuthHeader()).then((r) => r.data);
 
+// Subscribers & Messages
 export const getAllSubscribers = () =>
-  axios
-    .get("https://kurtii-api.vercel.app/api/subscribe", getAuthHeader())
-    .then((r) => r.data.data || r.data);
+  axios.get(`${BASE_URL}/subscribe`, getAuthHeader()).then((r) => r.data.data || r.data);
 
 export const getAllMessages = () =>
-  axios
-    .get("https://kurtii-api.vercel.app/api/contact", getAuthHeader())
-    .then((r) => r.data.data || r.data);
+  axios.get(`${BASE_URL}/contact`, getAuthHeader()).then((r) => r.data.data || r.data);
 
+// Products
 export const getAllProducts = () =>
-  axios
-    .get("https://kurtii-api.vercel.app/api/products")
-    .then((r) => r.data.data || r.data);
+  axios.get(`${BASE_URL}/products`).then((r) => r.data.data || r.data);
+
+export const createProduct = (productData) =>
+  axios.post(`${BASE_URL}/products`, productData, getAuthHeader()).then((r) => r.data);
+
+export const updateProduct = (id, productData) =>
+  axios.put(`${BASE_URL}/products/${id}`, productData, getAuthHeader()).then((r) => r.data);
+
+export const deleteProduct = (id) =>
+  axios.delete(`${BASE_URL}/products/${id}`, getAuthHeader()).then((r) => r.data);

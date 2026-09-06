@@ -101,7 +101,7 @@ const AboutUs = () => {
           <h2>Ready to Upgrade Your Wardrobe?</h2>
           <p>Explore our latest luxury arrivals today.</p>
 
-          <Link to="/shop" className="about-cta-btn">
+          <Link to="/collection" className="about-cta-btn">
             Explore Collection ➔
           </Link>
         </section>

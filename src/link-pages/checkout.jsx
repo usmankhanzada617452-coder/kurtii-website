@@ -21,27 +21,23 @@ const Checkout = () => {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("cod");
+  const [onlineProvider, setOnlineProvider] = useState("easypaisa");
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [placing, setPlacing] = useState(false);
   const [error, setError] = useState("");
 
   const subtotal = cartItems.reduce(
     (sum, item) => sum + parsePrice(item.price) * item.quantity,
-    0,
+    0
   );
 
   const handleNameChange = (e) => {
-    const value = e.target.value;
-    if (value.length <= 100) {
-      setFullName(value);
-    }
+    if (e.target.value.length <= 100) setFullName(e.target.value);
   };
 
   const handlePhoneChange = (e) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
-    if (value.length <= 11) {
-      setPhone(value);
-    }
+    if (value.length <= 11) setPhone(value);
   };
 
   const handlePlaceOrder = async (e) => {
@@ -65,6 +61,7 @@ const Checkout = () => {
       phone,
       address,
       city,
+      paymentMethod: paymentMethod === "online" ? `Online (${onlineProvider})` : "COD",
       items: cartItems.map((item) => ({
         productId: item.id,
         name: item.name,
@@ -110,9 +107,8 @@ const Checkout = () => {
             <div className="order-success-text">
               <h2>Order Placed Successfully!</h2>
               <p>
-                Thank you, {fullName}. Your order will be delivered to your
-                address soon
-                {paymentMethod === "cod" ? " (Cash on Delivery)." : "."}
+                Thank you, <strong>{fullName}</strong>. Your order will be delivered to your address soon
+                {paymentMethod === "cod" ? " (Cash on Delivery)." : " (Please transfer payment to given account details)."}
               </p>
             </div>
             <div className="order-success-action">
@@ -133,6 +129,7 @@ const Checkout = () => {
         <Header />
         <main className="checkout-page">
           <div className="cart-empty">
+            <i className="fa-solid fa-bag-shopping empty-cart-icon"></i>
             <p className="cart-empty-title">Your bag is empty</p>
             <p className="cart-empty-text">
               Add something to your bag before checking out.
@@ -153,78 +150,99 @@ const Checkout = () => {
 
       <main className="checkout-page">
         <div className="checkout-heading">
-          <p className="cart-label">Checkout</p>
+          <h1>Checkout</h1>
+          <p>Complete your shipping details below</p>
         </div>
 
         <form className="checkout-layout" onSubmit={handlePlaceOrder}>
           <div className="checkout-form">
             <div className="form-section">
-              <p className="form-section-title">Shipping Details</p>
+              <h3 className="form-section-title">
+                <i className="fa-solid fa-truck-fast"></i> Shipping Details
+              </h3>
 
               <div className="form-group">
                 <label>Full Name</label>
-                <input
-                  type="text"
-                  value={fullName}
-                  onChange={handleNameChange}
-                  placeholder="Your full name"
-                  maxLength={100}
-                  required
-                />
+                <div className="input-with-icon">
+                  <i className="fa-solid fa-user input-icon"></i>
+                  <input
+                    type="text"
+                    value={fullName}
+                    onChange={handleNameChange}
+                    placeholder="Your full name"
+                    maxLength={100}
+                    required
+                  />
+                </div>
               </div>
 
-              <div className="form-group">
-                <label>Email Address</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
-                  required
-                />
-              </div>
+              <div className="form-group-row">
+                <div className="form-group">
+                  <label>Email Address</label>
+                  <div className="input-with-icon">
+                    <i className="fa-solid fa-envelope input-icon"></i>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="your@email.com"
+                      required
+                    />
+                  </div>
+                </div>
 
-              <div className="form-group">
-                <label>Phone Number</label>
-                <input
-                  type="tel"
-                  value={phone}
-                  onChange={handlePhoneChange}
-                  placeholder="03XXXXXXXXX"
-                  maxLength={11}
-                  required
-                />
+                <div className="form-group">
+                  <label>Phone Number</label>
+                  <div className="input-with-icon">
+                    <i className="fa-solid fa-phone input-icon"></i>
+                    <input
+                      type="tel"
+                      value={phone}
+                      onChange={handlePhoneChange}
+                      placeholder="03XXXXXXXXX"
+                      maxLength={11}
+                      required
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className="form-group">
                 <label>Address</label>
-                <textarea
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  placeholder="House no, street, area"
-                  required
-                ></textarea>
+                <div className="input-with-icon textarea-icon-wrap">
+                  <i className="fa-solid fa-location-dot input-icon"></i>
+                  <textarea
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="House no, street, area"
+                    rows={3}
+                    required
+                  ></textarea>
+                </div>
               </div>
 
               <div className="form-group">
                 <label>City</label>
-                <input
-                  type="text"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  placeholder="e.g. Karachi"
-                  required
-                />
+                <div className="input-with-icon">
+                  <i className="fa-solid fa-city input-icon"></i>
+                  <input
+                    type="text"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    placeholder="e.g. Karachi"
+                    required
+                  />
+                </div>
               </div>
             </div>
 
             <div className="form-section">
-              <p className="form-section-title">Payment Method</p>
+              <h3 className="form-section-title">
+                <i className="fa-solid fa-credit-card"></i> Payment Method
+              </h3>
 
               <div className="payment-options">
-                <label
-                  className={`payment-option ${paymentMethod === "cod" ? "active" : ""}`}
-                >
+                <label className={`payment-option ${paymentMethod === "cod" ? "active" : ""}`}>
                   <input
                     type="radio"
                     name="payment"
@@ -234,15 +252,11 @@ const Checkout = () => {
                   />
                   <div className="payment-option-text">
                     <span className="payment-title">Cash on Delivery</span>
-                    <span className="payment-desc">
-                      Pay when your order arrives
-                    </span>
+                    <span className="payment-desc">Pay cash upon delivery to your address</span>
                   </div>
                 </label>
 
-                <label
-                  className={`payment-option ${paymentMethod === "online" ? "active" : ""}`}
-                >
+                <label className={`payment-option ${paymentMethod === "online" ? "active" : ""}`}>
                   <input
                     type="radio"
                     name="payment"
@@ -252,33 +266,73 @@ const Checkout = () => {
                   />
                   <div className="payment-option-text">
                     <span className="payment-title">Online Payment</span>
-                    <span className="payment-desc">
-                      Pay now via card/bank transfer
-                    </span>
+                    <span className="payment-desc">EasyPaisa / JazzCash Mobile Account</span>
                   </div>
                 </label>
               </div>
+
+              {/* Online Payment Options Slide Box */}
+              {paymentMethod === "online" && (
+                <div className="online-payment-slide">
+                  <div className="provider-selector">
+                    <button
+                      type="button"
+                      className={`provider-btn ${onlineProvider === "easypaisa" ? "active" : ""}`}
+                      onClick={() => setOnlineProvider("easypaisa")}
+                    >
+                      EasyPaisa
+                    </button>
+                    <button
+                      type="button"
+                      className={`provider-btn ${onlineProvider === "jazzcash" ? "active" : ""}`}
+                      onClick={() => setOnlineProvider("jazzcash")}
+                    >
+                      JazzCash
+                    </button>
+                  </div>
+
+                  <div className="account-details-box">
+                    <p className="acc-info-title">
+                      Send payment to this {onlineProvider === "easypaisa" ? "EasyPaisa" : "JazzCash"} Account:
+                    </p>
+                    <div className="acc-detail-row">
+                      <span>Account Title:</span>
+                      <strong>Khan Collection</strong>
+                    </div>
+                    <div className="acc-detail-row">
+                      <span>Account Number:</span>
+                      <strong>{onlineProvider === "easypaisa" ? "0300 1234567" : "0312 9876543"}</strong>
+                    </div>
+                    <p className="acc-note">
+                      *Please transfer <strong>Rs. {subtotal.toLocaleString()}</strong> and save the receipt screenshot for confirmation.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
 
             {error && (
               <div className="form-error">
+                <i className="fa-solid fa-circle-exclamation"></i>
                 <p>{error}</p>
               </div>
             )}
           </div>
 
           <div className="cart-summary checkout-summary">
-            <p className="summary-label">Order Summary</p>
+            <h3 className="summary-label">
+              <i className="fa-solid fa-receipt"></i> Order Summary
+            </h3>
 
             <div className="checkout-summary-items">
               {cartItems.map((item) => (
                 <div className="checkout-summary-item" key={item.id}>
-                  <span>
-                    {item.name} x{item.quantity}
-                  </span>
-                  <span>
-                    Rs.{" "}
-                    {(parsePrice(item.price) * item.quantity).toLocaleString()}
+                  <div className="item-name-qty">
+                    <span>{item.name}</span>
+                    <small>Qty: {item.quantity}</small>
+                  </div>
+                  <span className="item-price">
+                    Rs. {(parsePrice(item.price) * item.quantity).toLocaleString()}
                   </span>
                 </div>
               ))}
@@ -293,7 +347,7 @@ const Checkout = () => {
               </div>
               <div className="summary-row">
                 <span>Shipping</span>
-                <span>Free</span>
+                <span className="free-tag">FREE</span>
               </div>
               <div className="summary-divider"></div>
               <div className="summary-row summary-total">
@@ -307,7 +361,7 @@ const Checkout = () => {
                 {placing ? "Placing Order..." : "Place Order"}
               </button>
               <Link to="/cart" className="continue-link">
-                Back to Bag
+                <i className="fa-solid fa-arrow-left"></i> Back to Cart
               </Link>
             </div>
           </div>
