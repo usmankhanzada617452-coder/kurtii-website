@@ -359,6 +359,111 @@ html, body {
   font-weight: 600;
   margin-top: 2px;
 }
+.account-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+}
+
+.account-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 16, 8, 0.5);
+  animation: overlayFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.account-overlay-panel {
+  position: relative;
+  background: #fff;
+  max-width: 340px;
+  margin: 15vh auto 0;
+  padding: 32px 28px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(26, 16, 8, 0.2);
+  animation: panelPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes panelPopIn {
+  from { opacity: 0; transform: scale(0.92) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.account-overlay-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 16px;
+  color: #8c7662;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.account-overlay-close:hover {
+  color: #b08850;
+  transform: rotate(90deg);
+}
+
+.account-overlay-logo {
+  font-size: 44px;
+  color: #b08850;
+  margin-bottom: 12px;
+}
+
+.account-overlay-panel h3 {
+  font-family: "Cinzel", serif;
+  font-size: 18px;
+  color: #1a1008;
+  margin: 0 0 4px;
+}
+
+.account-overlay-subtitle {
+  font-size: 12px;
+  color: #8c7662;
+  margin: 0 0 24px;
+}
+
+.account-overlay-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  background: #faf7f2;
+  border: 1px solid #e0ceba;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1008;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 12px;
+}
+
+.account-overlay-btn:last-child {
+  margin-bottom: 0;
+}
+
+.account-overlay-btn i {
+  color: #b08850;
+  font-size: 16px;
+  width: 18px;
+}
+
+.account-overlay-btn:hover {
+  background: #1a1008;
+  color: #f5e6c8;
+  transform: translateX(4px);
+}
+
+.account-overlay-btn:hover i {
+  color: #f5e6c8;
+}
 
 .side-close-btn {
   background: none;
@@ -960,6 +1065,23 @@ html, body {
   border-color: #b08850;
   color: #b08850;
 }
+.account-dropdown {
+  right: 0;
+  left: auto;
+  transform: none;
+  min-width: 160px;
+}
+
+.account-dropdown .nav-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.account-dropdown .nav-dropdown-item i {
+  color: #b08850;
+  width: 16px;
+}
 
 /* Responsive Media Queries */
 @media (max-width: 1024px) {
@@ -1018,5 +1140,11 @@ html, body {
     flex-shrink: 0;
     padding: 6px 16px;
     font-size: 12.5px;
+  }
+}
+@media (max-width: 480px) {
+  .account-overlay-panel {
+    margin: 12vh 20px 0;
+    max-width: none;
   }
 }

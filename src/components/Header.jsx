@@ -19,7 +19,6 @@ const quickLinks = [
   { to: "/collection?filter=onSale", label: "Sale" },
   { to: "/wishlist", label: "Wishlist" },
   { to: "/cart", label: "Cart" },
-  { to: "/login", label: "Login" },
 ];
 
 const Header = () => {
@@ -27,6 +26,7 @@ const Header = () => {
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [categories, setCategories] = useState([]);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [showAccountDropdown, setShowAccountDropdown] = useState(false);
   const { cartCount } = useCart();
   const { wishlistCount } = useWishlist();
   const navigate = useNavigate();
@@ -141,11 +141,17 @@ const Header = () => {
               )}
             </NavLink>
 
+            <button
+              className="icon-btn"
+              onClick={() => setShowAccountDropdown(true)}
+              aria-label="Account"
+            >
+              <i className="fa-regular fa-user"></i>
+            </button>
+
             <NavLink to="/cart" className="icon-btn">
               <i className="fa-solid fa-bag-shopping"></i>
-              {cartCount > 0 && (
-                <span className="cart-badge">{cartCount}</span>
-              )}
+              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
             </NavLink>
           </div>
         </div>
@@ -219,8 +225,59 @@ const Header = () => {
           <NavLink to="/wishlist" onClick={() => setMenuOpen(false)}>
             Wishlist
           </NavLink>
+          <NavLink to="/my-orders" onClick={() => setMenuOpen(false)}>
+            My Orders
+          </NavLink>
+          <NavLink to="/login" onClick={() => setMenuOpen(false)}>
+            Admin Login
+          </NavLink>
         </nav>
       </div>
+
+      {showAccountDropdown && (
+        <div className="account-overlay">
+          <div
+            className="account-overlay-backdrop"
+            onClick={() => setShowAccountDropdown(false)}
+          ></div>
+          <div className="account-overlay-panel">
+            <button
+              className="account-overlay-close"
+              onClick={() => setShowAccountDropdown(false)}
+            >
+              <i className="fa-solid fa-xmark"></i>
+            </button>
+
+            <div className="account-overlay-logo">
+              <i className="fa-regular fa-user-circle"></i>
+            </div>
+            <h3>My Account</h3>
+            <p className="account-overlay-subtitle">Choose an option below</p>
+
+            <button
+              className="account-overlay-btn"
+              onClick={() => {
+                setShowAccountDropdown(false);
+                navigate("/my-orders");
+              }}
+            >
+              <i className="fa-solid fa-box"></i>
+              <span>My Orders</span>
+            </button>
+
+            <button
+              className="account-overlay-btn"
+              onClick={() => {
+                setShowAccountDropdown(false);
+                navigate("/login");
+              }}
+            >
+              <i className="fa-solid fa-user-shield"></i>
+              <span>Admin Login</span>
+            </button>
+          </div>
+        </div>
+      )}
 
       <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
