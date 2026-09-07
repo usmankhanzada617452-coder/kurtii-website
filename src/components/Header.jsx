@@ -40,6 +40,17 @@ const Header = () => {
       .catch(() => {});
   }, []);
 
+  useEffect(() => {
+    if (!showAccountDropdown) return;
+    const closeOnOutside = (e) => {
+      if (!e.target.closest(".account-dropdown-wrapper")) {
+        setShowAccountDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", closeOnOutside);
+    return () => document.removeEventListener("mousedown", closeOnOutside);
+  }, [showAccountDropdown]);
+
   const handleCategoryClick = (cat) => {
     setShowCategoryDropdown(false);
     navigate(`/collection?category=${encodeURIComponent(cat)}`);
@@ -141,13 +152,54 @@ const Header = () => {
               )}
             </NavLink>
 
-            <button
-              className="icon-btn"
-              onClick={() => setShowAccountDropdown(true)}
-              aria-label="Account"
-            >
-              <i className="fa-regular fa-user"></i>
-            </button>
+            <div className="account-dropdown-wrapper">
+              <button
+                className="icon-btn"
+                onClick={() => setShowAccountDropdown((prev) => !prev)}
+                aria-label="Account"
+              >
+                <i className="fa-regular fa-user"></i>
+              </button>
+
+              {showAccountDropdown && (
+                <div className="account-overlay-panel">
+                  <button
+                    className="account-overlay-close"
+                    onClick={() => setShowAccountDropdown(false)}
+                  >
+                    <i className="fa-solid fa-xmark"></i>
+                  </button>
+
+                  <div className="account-overlay-logo">
+                    <i className="fa-regular fa-user-circle"></i>
+                  </div>
+                  <h3>My Account</h3>
+                  <p className="account-overlay-subtitle">Choose an option below</p>
+
+                  <button
+                    className="account-overlay-btn"
+                    onClick={() => {
+                      setShowAccountDropdown(false);
+                      navigate("/my-orders");
+                    }}
+                  >
+                    <i className="fa-solid fa-box"></i>
+                    <span>My Orders</span>
+                  </button>
+
+                  <button
+                    className="account-overlay-btn"
+                    onClick={() => {
+                      setShowAccountDropdown(false);
+                      navigate("/login");
+                    }}
+                  >
+                    <i className="fa-solid fa-user-shield"></i>
+                    <span>Admin Login</span>
+                  </button>
+                </div>
+              )}
+            </div>
 
             <NavLink to="/cart" className="icon-btn">
               <i className="fa-solid fa-bag-shopping"></i>
@@ -233,51 +285,6 @@ const Header = () => {
           </NavLink>
         </nav>
       </div>
-
-      {showAccountDropdown && (
-        <div className="account-overlay">
-          <div
-            className="account-overlay-backdrop"
-            onClick={() => setShowAccountDropdown(false)}
-          ></div>
-          <div className="account-overlay-panel">
-            <button
-              className="account-overlay-close"
-              onClick={() => setShowAccountDropdown(false)}
-            >
-              <i className="fa-solid fa-xmark"></i>
-            </button>
-
-            <div className="account-overlay-logo">
-              <i className="fa-regular fa-user-circle"></i>
-            </div>
-            <h3>My Account</h3>
-            <p className="account-overlay-subtitle">Choose an option below</p>
-
-            <button
-              className="account-overlay-btn"
-              onClick={() => {
-                setShowAccountDropdown(false);
-                navigate("/my-orders");
-              }}
-            >
-              <i className="fa-solid fa-box"></i>
-              <span>My Orders</span>
-            </button>
-
-            <button
-              className="account-overlay-btn"
-              onClick={() => {
-                setShowAccountDropdown(false);
-                navigate("/login");
-              }}
-            >
-              <i className="fa-solid fa-user-shield"></i>
-              <span>Admin Login</span>
-            </button>
-          </div>
-        </div>
-      )}
 
       <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>

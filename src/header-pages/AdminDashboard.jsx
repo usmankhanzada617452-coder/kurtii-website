@@ -25,9 +25,9 @@ const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [expandedId, setExpandedId] = useState(null);
+  const [expandedDescId, setExpandedDescId] = useState(null);
   const navigate = useNavigate();
 
-  // Product Form Modal States
   const [showProductForm, setShowProductForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [productForm, setProductForm] = useState({
@@ -111,6 +111,7 @@ const AdminDashboard = () => {
   };
 
   const toggleExpand = (id) => setExpandedId(expandedId === id ? null : id);
+  const toggleDescExpand = (id) => setExpandedDescId(expandedDescId === id ? null : id);
 
   const formatDateTime = (d) => {
     if (!d) return "—";
@@ -123,7 +124,6 @@ const AdminDashboard = () => {
     });
   };
 
-  // Product Actions
   const openAddProduct = () => {
     setEditingProduct(null);
     setProductForm({
@@ -314,8 +314,8 @@ const AdminDashboard = () => {
                 {/* PRODUCTS TAB */}
                 {activeTab === "products" && (
                   <div className="admin-table-wrap">
-                    <div style={{ padding: "10px 12px", background: "#f8fafc", borderBottom: "1px solid #e2e8f0" }}>
-                      <button className="admin-add-btn" onClick={openAddProduct} style={{ margin: 0 }}>
+                    <div className="admin-toolbar">
+                      <button className="admin-add-btn" onClick={openAddProduct}>
                         <i className="fa-solid fa-plus"></i> Add New Product
                       </button>
                     </div>
@@ -338,25 +338,52 @@ const AdminDashboard = () => {
                         </thead>
                         <tbody>
                           {products.map((p, idx) => (
-                            <tr key={p._id}>
-                              <td data-label="#">{idx + 1}</td>
-                              <td data-label="Image"><img src={p.image} alt={p.name} className="excel-product-thumb" /></td>
-                              <td data-label="Product Name" style={{ fontWeight: 600 }}>{p.name}</td>
-                              <td data-label="Category">{p.category}</td>
-                              <td data-label="Price">Rs. {p.price?.toLocaleString()}</td>
-                              <td data-label="Stock">{p.stock}</td>
-                              <td data-label="Rating">{p.rating || 0} ({p.reviews || 0})</td>
-                              <td data-label="Actions">
-                                <div className="admin-actions-wrap">
-                                  <button className="excel-btn-edit" onClick={() => openEditProduct(p)}>
-                                    <i className="fa-solid fa-pen"></i>
-                                  </button>
-                                  <button className="excel-btn-delete" onClick={() => handleDeleteProduct(p._id)}>
-                                    <i className="fa-solid fa-trash"></i>
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
+                            <React.Fragment key={p._id}>
+                              <tr>
+                                <td data-label="#">{idx + 1}</td>
+                                <td data-label="Image"><img src={p.image} alt={p.name} className="excel-product-thumb" /></td>
+                                <td data-label="Product Name" style={{ fontWeight: 600 }}>{p.name}</td>
+                                <td data-label="Category">{p.category}</td>
+                                <td data-label="Price">Rs. {p.price?.toLocaleString()}</td>
+                                <td data-label="Stock">{p.stock}</td>
+                                <td data-label="Rating">{p.rating || 0} ({p.reviews || 0})</td>
+                                <td data-label="Actions">
+                                  <div className="admin-actions-wrap">
+                                    <button
+                                      className="excel-btn-desc"
+                                      onClick={() => toggleDescExpand(p._id)}
+                                      title="View Description"
+                                    >
+                                      <i className="fa-solid fa-eye"></i>
+                                    </button>
+                                    <button
+                                      className="excel-btn-edit"
+                                      onClick={() => openEditProduct(p)}
+                                      title="Edit Product"
+                                    >
+                                      <i className="fa-solid fa-pen"></i>
+                                    </button>
+                                    <button
+                                      className="excel-btn-delete"
+                                      onClick={() => handleDeleteProduct(p._id)}
+                                      title="Delete Product"
+                                    >
+                                      <i className="fa-solid fa-trash"></i>
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
+                              {expandedDescId === p._id && (
+                                <tr className="excel-expanded-row">
+                                  <td colSpan="8">
+                                    <div className="excel-desc-box">
+                                      <i className="fa-solid fa-quote-left"></i>
+                                      <p>{p.description || "No description added."}</p>
+                                    </div>
+                                  </td>
+                                </tr>
+                              )}
+                            </React.Fragment>
                           ))}
                         </tbody>
                       </table>
@@ -440,89 +467,131 @@ const AdminDashboard = () => {
               <i className="fa-solid fa-xmark"></i>
             </button>
 
-            <h3 style={{ margin: "0 0 16px 0", fontSize: 16 }}>{editingProduct ? "Edit Product" : "Add Product"}</h3>
+            <div className="product-form-header">
+              <i className={`fa-solid ${editingProduct ? "fa-pen-to-square" : "fa-circle-plus"}`}></i>
+              <h3>{editingProduct ? "Edit Product" : "Add Product"}</h3>
+            </div>
 
             <form onSubmit={handleProductSubmit} className="product-form">
-              <input
-                placeholder="Product Name"
-                value={productForm.name}
-                onChange={(e) => setProductForm({ ...productForm, name: e.target.value })}
-                required
-              />
-
-              <textarea
-                placeholder="Description"
-                value={productForm.description}
-                onChange={(e) => setProductForm({ ...productForm, description: e.target.value })}
-                required
-              />
-
-              <div className="product-form-row">
+              <div className="product-form-group">
+                <label><i className="fa-solid fa-shirt"></i> Product Name</label>
                 <input
-                  type="number"
-                  placeholder="Price"
-                  value={productForm.price}
-                  onChange={(e) => setProductForm({ ...productForm, price: e.target.value })}
+                  placeholder="e.g. Maroon Unstitched Suit"
+                  value={productForm.name}
+                  onChange={(e) => setProductForm({ ...productForm, name: e.target.value })}
                   required
-                />
-                <input
-                  type="number"
-                  placeholder="Original Price"
-                  value={productForm.originalPrice}
-                  onChange={(e) => setProductForm({ ...productForm, originalPrice: e.target.value })}
                 />
               </div>
 
-              <input
-                placeholder="Category"
-                value={productForm.category}
-                onChange={(e) => setProductForm({ ...productForm, category: e.target.value })}
-                required
-              />
-
-              <input
-                placeholder="Image URL"
-                value={productForm.image}
-                onChange={(e) => setProductForm({ ...productForm, image: e.target.value })}
-                required
-              />
+              <div className="product-form-group">
+                <label><i className="fa-solid fa-align-left"></i> Description</label>
+                <textarea
+                  placeholder="Short product description"
+                  value={productForm.description}
+                  onChange={(e) => setProductForm({ ...productForm, description: e.target.value })}
+                  required
+                />
+              </div>
 
               <div className="product-form-row">
+                <div className="product-form-group">
+                  <label><i className="fa-solid fa-tag"></i> Price (Rs.)</label>
+                  <input
+                    type="number"
+                    placeholder="4200"
+                    value={productForm.price}
+                    onChange={(e) => setProductForm({ ...productForm, price: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="product-form-group">
+                  <label><i className="fa-solid fa-tags"></i> Original Price</label>
+                  <input
+                    type="number"
+                    placeholder="Optional"
+                    value={productForm.originalPrice}
+                    onChange={(e) => setProductForm({ ...productForm, originalPrice: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div className="product-form-group">
+                <label><i className="fa-solid fa-layer-group"></i> Category</label>
+                <select
+                  value={productForm.category}
+                  onChange={(e) => setProductForm({ ...productForm, category: e.target.value })}
+                  required
+                >
+                  <option value="">Select Category</option>
+                  <option value="Unstitched Suits">Unstitched Suits</option>
+                  <option value="Stitched Kurtis">Stitched Kurtis</option>
+                  <option value="Abayas">Abayas</option>
+                  <option value="Shalwar Kameez">Shalwar Kameez</option>
+                  <option value="Kurta">Kurta</option>
+                </select>
+              </div>
+
+              <div className="product-form-group">
+                <label><i className="fa-solid fa-image"></i> Image URL</label>
                 <input
-                  type="number"
-                  placeholder="Stock"
-                  value={productForm.stock}
-                  onChange={(e) => setProductForm({ ...productForm, stock: e.target.value })}
+                  placeholder="https://..."
+                  value={productForm.image}
+                  onChange={(e) => setProductForm({ ...productForm, image: e.target.value })}
                   required
                 />
-                <input
-                  placeholder="SKU"
-                  value={productForm.sku}
-                  onChange={(e) => setProductForm({ ...productForm, sku: e.target.value })}
-                  required
-                />
+              </div>
+
+              <div className="product-form-row">
+                <div className="product-form-group">
+                  <label><i className="fa-solid fa-boxes-stacked"></i> Stock</label>
+                  <input
+                    type="number"
+                    placeholder="20"
+                    value={productForm.stock}
+                    onChange={(e) => setProductForm({ ...productForm, stock: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="product-form-group">
+                  <label><i className="fa-solid fa-barcode"></i> SKU</label>
+                  <input
+                    placeholder="e.g. KC-001"
+                    value={productForm.sku}
+                    onChange={(e) => setProductForm({ ...productForm, sku: e.target.value })}
+                    required
+                  />
+                </div>
               </div>
 
               <div className="product-form-checkboxes">
-                <label>
+                <label className="product-checkbox-pill">
                   <input
                     type="checkbox"
                     checked={productForm.isNewArrival}
                     onChange={(e) => setProductForm({ ...productForm, isNewArrival: e.target.checked })}
                   />
-                  New Arrival
+                  <i className="fa-solid fa-sparkles"></i> New Arrival
                 </label>
-                <label>
+                <label className="product-checkbox-pill">
                   <input
                     type="checkbox"
                     checked={productForm.onSale}
                     onChange={(e) => setProductForm({ ...productForm, onSale: e.target.checked })}
                   />
-                  On Sale
+                  <i className="fa-solid fa-fire"></i> On Sale
+                </label>
+                <label className="product-checkbox-pill">
+                  <input
+                    type="checkbox"
+                    checked={productForm.bestSeller}
+                    onChange={(e) => setProductForm({ ...productForm, bestSeller: e.target.checked })}
+                  />
+                  <i className="fa-solid fa-star"></i> Best Seller
                 </label>
               </div>
 
               <button type="submit" className="product-form-submit">
+                <i className={`fa-solid ${editingProduct ? "fa-check" : "fa-plus"}`}></i>
                 {editingProduct ? "Update Product" : "Save Product"}
               </button>
             </form>

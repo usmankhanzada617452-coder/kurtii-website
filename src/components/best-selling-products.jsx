@@ -1,22 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import "../style/best-seller.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useWishlist } from "../context/wishlistContext";
-
-const filters = [
-  "All",
-  "Unstitched Suits",
-  "Stitched Kurtis",
-  "Abayas",
-  "Shalwar Kameez",
-  "Kurta",
-];
+import "../style/best-seller.css";
 
 const BestSellers = ({ allProducts, loading }) => {
   const navigate = useNavigate();
   const { toggleWishlist, isInWishlist } = useWishlist();
-  const [activeFilter, setActiveFilter] = useState("All");
   const [visibleCards, setVisibleCards] = useState({});
 
   const discount = (orig, price) => {
@@ -38,14 +27,17 @@ const BestSellers = ({ allProducts, loading }) => {
     });
   };
 
-  const bestSellerProducts = allProducts.filter((p) => p.bestSeller);
+  // String aur Boolean dono data types ko handle karne ke liye safe filter:
+const bestSellerProducts = allProducts
+  .filter((p) => 
+    p.bestSeller === true || 
+    p.bestSeller === "true" || 
+    p.isBestSeller === true || 
+    p.isBestSeller === "true"
+  )
+  .slice(0, 10);
 
-  const filtered =
-    activeFilter === "All"
-      ? bestSellerProducts
-      : bestSellerProducts.filter((p) => p.category === activeFilter);
-
-  // Scroll pe cards ko fade-in karne ke liye
+  // Scroll animation observer
   useEffect(() => {
     const cards = document.querySelectorAll(".bs-card");
 
@@ -59,13 +51,13 @@ const BestSellers = ({ allProducts, loading }) => {
           }
         });
       },
-      { threshold: 0.15 },
+      { threshold: 0.15 }
     );
 
     cards.forEach((card) => observer.observe(card));
 
     return () => observer.disconnect();
-  }, [filtered.length]);
+  }, [bestSellerProducts.length]);
 
   if (loading) {
     return (
@@ -100,20 +92,8 @@ const BestSellers = ({ allProducts, loading }) => {
         </div>
       </div>
 
-      <div className="bs-filters">
-        {filters.map((f) => (
-          <button
-            key={f}
-            className={`bs-filter-btn ${activeFilter === f ? "active" : ""}`}
-            onClick={() => setActiveFilter(f)}
-          >
-            {f}
-          </button>
-        ))}
-      </div>
-
       <div className="bs-grid">
-        {filtered.map((product, index) => {
+        {bestSellerProducts.map((product, index) => {
           const inWishlist = isInWishlist(product._id);
           const isVisible = visibleCards[product._id];
 
@@ -166,11 +146,11 @@ const BestSellers = ({ allProducts, loading }) => {
 
                 <div className="bs-price-row">
                   <span className="bs-price">
-                    Rs. {product.price.toLocaleString()}
+                    Rs. {product.price?.toLocaleString()}
                   </span>
                   {product.originalPrice && (
                     <span className="bs-original-price">
-                      Rs. {product.originalPrice.toLocaleString()}
+                      Rs. {product.originalPrice?.toLocaleString()}
                     </span>
                   )}
                 </div>
@@ -180,7 +160,6 @@ const BestSellers = ({ allProducts, loading }) => {
         })}
       </div>
 
-      {/* Cards ke neeche center view all button */}
       <div className="bs-bottom-action">
         <Link to="/collection?filter=bestSeller" className="bs-view-all-btn">
           <span>View All Products</span>

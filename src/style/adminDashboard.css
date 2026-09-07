@@ -14,7 +14,7 @@
   --excel-header-bg: #f8fafc;
   --excel-row-alt: #fafafa;
   --excel-hover-bg: #f1f5f9;
-  
+
   --excel-text: #0f172a;
   --excel-muted: #64748b;
   --excel-bg: #f8fafc;
@@ -28,7 +28,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: var(--excel-bg);
   color: var(--excel-text);
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
@@ -39,7 +38,7 @@ html, body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-top: 100px; /* Header Gap Fix */
+  padding-top: 100px;
 }
 
 .admin-main {
@@ -76,23 +75,29 @@ html, body {
   background: var(--excel-card-bg);
   border: 1px solid var(--excel-border);
   border-top: 3px solid var(--kc-gold);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 24px 16px;
   text-align: center;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .admin-section-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(176, 136, 80, 0.18);
+  border-color: var(--kc-gold);
 }
 
 .admin-section-card i {
   font-size: 28px;
   color: var(--kc-gold);
   margin-bottom: 10px;
+  transition: transform 0.25s ease;
+}
+
+.admin-section-card:hover i {
+  transform: scale(1.15);
 }
 
 .admin-section-card h3 {
@@ -107,8 +112,7 @@ html, body {
 }
 
 /* Action Buttons */
-.admin-back-btn,
-.admin-add-btn {
+.admin-back-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -119,9 +123,6 @@ html, body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-}
-
-.admin-back-btn {
   background: var(--excel-card-bg);
   border: 1px solid var(--excel-border-dark);
   color: var(--excel-text);
@@ -131,14 +132,32 @@ html, body {
   background: var(--excel-header-bg);
 }
 
+/* Toolbar */
+.admin-toolbar {
+  padding: 12px 14px;
+  background: var(--excel-header-bg);
+  border-bottom: 1px solid var(--excel-border);
+}
+
 .admin-add-btn {
-  background: var(--kc-gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--kc-gold), var(--kc-gold-hover));
   color: #ffffff;
   border: none;
+  box-shadow: 0 4px 10px rgba(176, 136, 80, 0.3);
+  transition: all 0.25s ease;
 }
 
 .admin-add-btn:hover {
-  background: var(--kc-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(176, 136, 80, 0.4);
 }
 
 /* Desktop Excel Table View */
@@ -184,7 +203,7 @@ html, body {
 }
 
 .excel-table tbody tr:hover {
-  background-color: var(--excel-hover-bg) !important;
+  background-color: var(--kc-gold-light) !important;
 }
 
 /* Order Status Select Badges */
@@ -256,31 +275,67 @@ html, body {
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
+  transition: all 0.2s ease;
 }
 
 .excel-btn-view:hover {
   background: var(--kc-gold);
   color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(176, 136, 80, 0.25);
+}
+
+.excel-btn-desc,
+.excel-btn-edit,
+.excel-btn-delete {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.excel-btn-desc {
+  background: #eef2ff;
+  color: #4f46e5;
+  border: 1px solid #c7d2fe;
+}
+
+.excel-btn-desc:hover {
+  background: #4f46e5;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
 }
 
 .excel-btn-edit {
-  background: #f1f5f9;
-  color: #334155;
-  border: 1px solid var(--excel-border-dark);
-  padding: 5px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  cursor: pointer;
+  background: var(--kc-gold-light);
+  color: var(--kc-gold);
+  border: 1px solid rgba(176, 136, 80, 0.3);
+}
+
+.excel-btn-edit:hover {
+  background: var(--kc-gold);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(176, 136, 80, 0.35);
 }
 
 .excel-btn-delete {
   background: #fee2e2;
   color: #dc2626;
   border: 1px solid #fca5a5;
-  padding: 5px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  cursor: pointer;
+}
+
+.excel-btn-delete:hover {
+  background: #dc2626;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
 }
 
 .excel-product-thumb {
@@ -320,6 +375,30 @@ html, body {
   border-radius: 4px;
 }
 
+/* Description expand box */
+.excel-desc-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fff;
+  border: 1px dashed var(--excel-border-dark);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.excel-desc-box i {
+  color: var(--kc-gold);
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.excel-desc-box p {
+  margin: 0;
+  font-size: 12.5px;
+  color: #475569;
+  line-height: 1.5;
+}
+
 /* Modals */
 .account-overlay {
   position: fixed;
@@ -340,21 +419,22 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(2px);
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(3px);
 }
 
 .product-form-panel {
   position: relative;
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
   max-height: 90vh;
   overflow-y: auto;
   background: #ffffff;
   border: 1px solid var(--excel-border);
-  border-radius: 12px;
-  padding: 24px;
+  border-radius: 14px;
+  padding: 26px;
   z-index: 1001;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
 }
 
 .account-overlay-close {
@@ -363,62 +443,180 @@ html, body {
   right: 14px;
   background: #f1f5f9;
   border: none;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   cursor: pointer;
+  color: #475569;
+  transition: all 0.2s ease;
+}
+
+.account-overlay-close:hover {
+  background: #dc2626;
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.product-form-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--excel-border);
+}
+
+.product-form-header i {
+  color: var(--kc-gold);
+  font-size: 20px;
+}
+
+.product-form-header h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--excel-text);
 }
 
 .product-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
+}
+
+.product-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.product-form-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.product-form-group label i {
+  color: var(--kc-gold);
+  font-size: 12px;
 }
 
 .product-form input,
-.product-form textarea {
+.product-form textarea,
+.product-form select {
   width: 100%;
-  padding: 9px 12px;
+  padding: 10px 12px;
   border: 1px solid var(--excel-border-dark);
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 12.5px;
   outline: none;
+  background-color: #ffffff;
+  color: var(--excel-text);
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.product-form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b08850' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+.product-form input:focus,
+.product-form textarea:focus,
+.product-form select:focus {
+  border-color: var(--kc-gold);
+  box-shadow: 0 0 0 3px rgba(176, 136, 80, 0.15);
+}
+
+.product-form textarea {
+  min-height: 70px;
+  resize: vertical;
 }
 
 .product-form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 12px;
 }
 
 .product-form-checkboxes {
   display: flex;
-  gap: 14px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.product-checkbox-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--excel-border-dark);
+  border-radius: 999px;
   font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.product-checkbox-pill:has(input:checked) {
+  background: var(--kc-gold-light);
+  border-color: var(--kc-gold);
+  color: var(--kc-gold-hover);
+}
+
+.product-checkbox-pill i {
+  color: var(--kc-gold);
+}
+
+.product-checkbox-pill input {
+  accent-color: var(--kc-gold);
 }
 
 .product-form-submit {
-  padding: 10px;
-  background: var(--kc-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--kc-gold), var(--kc-gold-hover));
   color: #fff;
   border: none;
-  border-radius: 6px;
-  font-weight: 600;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(176, 136, 80, 0.3);
+  transition: all 0.25s ease;
+}
+
+.product-form-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(176, 136, 80, 0.4);
 }
 
 /* ==========================================================================
    BREAKPOINTS RESPONSIVE MEDIA QUERIES
    ========================================================================== */
 
-/* Screen Size 1400px check */
 @media (max-width: 1660px) {
   .admin-main {
     max-width: 1320px;
   }
 }
 
-/* Screen Size 1200px check */
 @media (max-width: 1399px) {
   .admin-main {
     max-width: 1140px;
@@ -428,13 +626,12 @@ html, body {
     font-size: 12px;
   }
 
-  .excel-table th, 
+  .excel-table th,
   .excel-table td {
     padding: 8px 6px;
   }
 }
 
-/* Screen Size 992px check */
 @media (max-width: 1199px) {
   .admin-main {
     max-width: 960px;
@@ -454,7 +651,6 @@ html, body {
   }
 }
 
-/* Screen Size 768px check */
 @media (max-width: 991px) {
   .admin-wrapper {
     padding-top: 110px;
@@ -479,7 +675,6 @@ html, body {
   }
 }
 
-/* Screen Size 576px check */
 @media (max-width: 767px) {
   .admin-wrapper {
     padding-top: 120px;
@@ -499,7 +694,6 @@ html, body {
     gap: 12px;
   }
 
-  /* Table to Vertical Card View */
   .excel-table,
   .excel-table thead,
   .excel-table tbody,
@@ -550,7 +744,6 @@ html, body {
   }
 }
 
-/* Screen Size All mobile check */
 @media (max-width: 575px) {
   .admin-wrapper {
     padding-top: 130px;
@@ -598,5 +791,11 @@ html, body {
 
   .product-form-row {
     grid-template-columns: 1fr;
+  }
+
+  .product-form select {
+    width: 100%;
+    font-size: 13px;
+    padding: 11px 36px 11px 12px;
   }
 }

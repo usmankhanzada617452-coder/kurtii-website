@@ -3,17 +3,17 @@
    ========================================================================== */
 
 :root {
-  --t-gold: #C5A880;
-  --t-gold-hover: #AF9167;
-  --t-noir: #12100E;
-  --t-charcoal: #1C1815;
-  --t-text-light: #F4EFEA;
-  --t-text-muted: #A89F95;
+  --t-gold: #c5a880;
+  --t-gold-hover: #af9167;
+  --t-noir: #12100e;
+  --t-charcoal: #1c1815;
+  --t-text-light: #f4efea;
+  --t-text-muted: #a89f95;
   --t-border: rgba(197, 168, 128, 0.22);
 }
 
 .testimonials-section {
-  background: linear-gradient(180deg, #12100E 0%, #161310 100%);
+  background: linear-gradient(180deg, #12100e 0%, #161310 100%);
   color: var(--t-text-light);
   padding: 65px 24px 55px;
   position: relative;
@@ -44,7 +44,7 @@
   font-size: 32px;
   font-weight: 700;
   letter-spacing: 2px;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 0;
   text-transform: uppercase;
 }
@@ -100,7 +100,9 @@
   padding: 36px 40px;
   text-align: center;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
   box-sizing: border-box;
 }
 
@@ -139,7 +141,7 @@
 }
 
 .t-star--filled {
-  color: #D4AF37;
+  color: #d4af37;
   font-size: 14px;
 }
 
@@ -159,7 +161,7 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: #221C17;
+  background: #221c17;
   border: 1.5px solid var(--t-gold);
   color: var(--t-gold);
   font-family: "Cinzel", serif;
@@ -183,7 +185,7 @@
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.8px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .t-customer-meta {
@@ -259,17 +261,21 @@
    MOBILE BREAKPOINT FIX (UNDER 768px)
    ========================================================================== */
 
+/* ==========================================================================
+   MOBILE BREAKPOINT FIX (375px & MOBILE SCREENS)
+   ========================================================================== */
+
 @media (max-width: 768px) {
   .testimonials-section {
-    padding: 40px 16px 35px;
+    padding: 35px 16px 30px;
   }
 
   .t-title {
-    font-size: 22px;
-    letter-spacing: 1.5px;
+    font-size: 20px;
+    letter-spacing: 1.2px;
   }
 
-  /* Hide arrows on mobile so card gets 100% full width */
+  /* Hide arrows on mobile so card gets full width */
   .t-arrow {
     display: none !important;
   }
@@ -280,14 +286,14 @@
   }
 
   .t-card {
-    padding: 24px 18px; /* Proper padding for mobile */
+    padding: 20px 14px;
     border-radius: 10px;
   }
 
   .t-review {
-    font-size: 14.5px; /* Clean readable size */
-    line-height: 1.6;
-    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 14px;
   }
 
   .t-customer-info {
@@ -299,26 +305,53 @@
   }
 
   .t-customer-meta {
-    font-size: 11px;
+    font-size: 10.5px;
   }
 
-  /* Premium Mobile Stats Grid */
   .t-stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px 10px;
-    padding-top: 24px;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding-top: 18px !important;
+    border-top: 1px solid rgba(197, 168, 128, 0.15);
   }
 
   .t-stat-divider {
-    display: none;
+    display: block !important;
+    width: 1px !important;
+    height: 24px !important;
+    background: rgba(197, 168, 128, 0.2) !important;
+    flex-shrink: 0;
+  }
+
+  .t-stat-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 0; /* Prevents overflow */
   }
 
   .t-stat-number {
-    font-size: 22px;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    display: block;
+    margin-bottom: 3px !important;
+    white-space: nowrap;
   }
 
   .t-stat-label {
-    font-size: 10px;
+    font-size: 8px !important;
+    letter-spacing: 0.3px !important;
+    line-height: 1.1 !important;
+    display: block;
+    margin-top: 0 !important;
+    word-break: normal;
+    text-align: center;
   }
 }
