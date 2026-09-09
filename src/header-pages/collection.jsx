@@ -106,7 +106,7 @@ const Collection = () => {
       <div className="collection-page">
         <div className="collection-hero">
           <h1>{pageTitle}</h1>
-          <p>Discover the finest Pakistani ladies fashion</p>
+          <p>Timeless pieces, handpicked to make every moment shine</p>
         </div>
 
         <div className="collection-toolbar">

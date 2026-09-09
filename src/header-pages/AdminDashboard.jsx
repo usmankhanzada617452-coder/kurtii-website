@@ -13,9 +13,15 @@ import {
   updateProduct,
   deleteProduct,
 } from "../services/adminApi";
+import { fetchCategories } from "../services/categoryApi";
 import "../style/adminDashboard.css";
 
 const statuses = ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"];
+
+const monthNames = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState(null);
@@ -23,9 +29,12 @@ const AdminDashboard = () => {
   const [subscribers, setSubscribers] = useState([]);
   const [messages, setMessages] = useState([]);
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [expandedId, setExpandedId] = useState(null);
   const [expandedDescId, setExpandedDescId] = useState(null);
+  const [selectedMonth, setSelectedMonth] = useState("all");
+  const [selectedYear, setSelectedYear] = useState("all");
   const navigate = useNavigate();
 
   const [showProductForm, setShowProductForm] = useState(false);
@@ -50,6 +59,12 @@ const AdminDashboard = () => {
       navigate("/login");
     }
   }, [navigate]);
+
+  useEffect(() => {
+    fetchCategories()
+      .then((data) => setCategories(data))
+      .catch((err) => console.error("Failed to load categories:", err));
+  }, []);
 
   const loadOrders = () => {
     setLoading(true);
@@ -124,6 +139,17 @@ const AdminDashboard = () => {
     });
   };
 
+  // Orders data se hi available years nikalte hain — naya saal aate hi khud add ho jayega
+  const availableYears = [...new Set(orders.map((o) => new Date(o.createdAt).getFullYear()))].sort((a, b) => b - a);
+
+  const filteredOrders = orders.filter((order) => {
+    if (!order.createdAt) return true;
+    const date = new Date(order.createdAt);
+    const matchesMonth = selectedMonth === "all" || date.getMonth() === Number(selectedMonth);
+    const matchesYear = selectedYear === "all" || date.getFullYear() === Number(selectedYear);
+    return matchesMonth && matchesYear;
+  });
+
   const openAddProduct = () => {
     setEditingProduct(null);
     setProductForm({
@@ -194,7 +220,7 @@ const AdminDashboard = () => {
 
   const sections = [
     { key: "orders", label: "Orders", icon: "fa-solid fa-box" },
-    { key: "products", label: "Products", icon: "fa-solid fa-shirt" },
+    { key: "products", label: "Products", icon: "fa-solid fa-gem" },
     { key: "subscribers", label: "Subscribers", icon: "fa-solid fa-envelope" },
     { key: "messages", label: "Messages", icon: "fa-solid fa-comment" },
   ];
@@ -204,7 +230,7 @@ const AdminDashboard = () => {
       <Header />
       <div className="admin-main">
         <h1>Admin Dashboard</h1>
-        <p className="admin-subtitle">Spreadsheet Records for Khan Collection</p>
+        <p className="admin-subtitle">Spreadsheet Records for Khan Collection Jewellery</p>
 
         {!activeTab && (
           <div className="admin-cards-grid">
@@ -231,7 +257,24 @@ const AdminDashboard = () => {
                 {/* ORDERS TAB */}
                 {activeTab === "orders" && (
                   <div className="admin-table-wrap">
-                    {orders.length === 0 ? (
+                    <div className="admin-toolbar">
+                      <div className="admin-date-filter">
+                        <select value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}>
+                          <option value="all">All Months</option>
+                          {monthNames.map((m, i) => (
+                            <option key={i} value={i}>{m}</option>
+                          ))}
+                        </select>
+                        <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
+                          <option value="all">All Years</option>
+                          {availableYears.map((y) => (
+                            <option key={y} value={y}>{y}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    {filteredOrders.length === 0 ? (
                       <p style={{ padding: 16 }}>No orders found.</p>
                     ) : (
                       <table className="excel-table">
@@ -251,7 +294,7 @@ const AdminDashboard = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {orders.map((order, idx) => (
+                          {filteredOrders.map((order, idx) => (
                             <React.Fragment key={order._id}>
                               <tr>
                                 <td data-label="#">{idx + 1}</td>
@@ -294,7 +337,7 @@ const AdminDashboard = () => {
                                           <div>
                                             <div style={{ fontWeight: 600, fontSize: 12 }}>{item.name}</div>
                                             <div style={{ fontSize: 11, color: "#666" }}>
-                                              {item.size && `Size: ${item.size} | `}Qty: {item.quantity} | Rs. {item.price?.toLocaleString()}
+                                              Qty: {item.quantity} | Rs. {item.price?.toLocaleString()}
                                             </div>
                                           </div>
                                         </div>
@@ -474,9 +517,9 @@ const AdminDashboard = () => {
 
             <form onSubmit={handleProductSubmit} className="product-form">
               <div className="product-form-group">
-                <label><i className="fa-solid fa-shirt"></i> Product Name</label>
+                <label><i className="fa-solid fa-gem"></i> Product Name</label>
                 <input
-                  placeholder="e.g. Maroon Unstitched Suit"
+                  placeholder="e.g. Gold Plated Solitaire Ring"
                   value={productForm.name}
                   onChange={(e) => setProductForm({ ...productForm, name: e.target.value })}
                   required
@@ -498,7 +541,7 @@ const AdminDashboard = () => {
                   <label><i className="fa-solid fa-tag"></i> Price (Rs.)</label>
                   <input
                     type="number"
-                    placeholder="4200"
+                    placeholder="2499"
                     value={productForm.price}
                     onChange={(e) => setProductForm({ ...productForm, price: e.target.value })}
                     required
@@ -523,11 +566,9 @@ const AdminDashboard = () => {
                   required
                 >
                   <option value="">Select Category</option>
-                  <option value="Unstitched Suits">Unstitched Suits</option>
-                  <option value="Stitched Kurtis">Stitched Kurtis</option>
-                  <option value="Abayas">Abayas</option>
-                  <option value="Shalwar Kameez">Shalwar Kameez</option>
-                  <option value="Kurta">Kurta</option>
+                  {categories.map((cat) => (
+                    <option key={cat.slug} value={cat.name}>{cat.name}</option>
+                  ))}
                 </select>
               </div>
 
@@ -555,7 +596,7 @@ const AdminDashboard = () => {
                 <div className="product-form-group">
                   <label><i className="fa-solid fa-barcode"></i> SKU</label>
                   <input
-                    placeholder="e.g. KC-001"
+                    placeholder="e.g. KC-J-001"
                     value={productForm.sku}
                     onChange={(e) => setProductForm({ ...productForm, sku: e.target.value })}
                     required

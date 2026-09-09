@@ -160,6 +160,44 @@ html, body {
   box-shadow: 0 8px 18px rgba(176, 136, 80, 0.4);
 }
 
+/* Date Filter (Orders tab) */
+.admin-date-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-date-filter select {
+  padding: 8px 32px 8px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--excel-border-dark);
+  background-color: #ffffff;
+  color: var(--excel-text);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b08850' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.admin-date-filter select:hover {
+  border-color: var(--kc-gold);
+}
+
+.admin-date-filter select:focus {
+  border-color: var(--kc-gold);
+  box-shadow: 0 0 0 3px rgba(176, 136, 80, 0.15);
+}
+
 /* Desktop Excel Table View */
 .admin-table-wrap {
   width: 100%;
@@ -673,6 +711,15 @@ html, body {
     table-layout: auto;
     white-space: nowrap;
   }
+
+  .admin-date-filter {
+  gap: 8px;
+}
+
+.admin-date-filter select {
+  font-size: 11.5px;
+  padding: 7px 28px 7px 12px;
+}
 }
 
 @media (max-width: 767px) {
@@ -798,4 +845,14 @@ html, body {
     font-size: 13px;
     padding: 11px 36px 11px 12px;
   }
+
+  .admin-date-filter {
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.admin-date-filter select {
+  width: 100%;
+}
 }

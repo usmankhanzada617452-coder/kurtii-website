@@ -68,7 +68,6 @@ const Checkout = () => {
         image: item.image,
         price: parsePrice(item.price),
         quantity: item.quantity,
-        size: item.size || "",
       })),
       totalAmount: subtotal,
     };

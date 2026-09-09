@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useWishlist } from "../context/wishlistContext";
 import { useCart } from "../context/CartContext";
 import "../style/Wishlist.css";
+import DeleteBinButton from "../components/DeleteBinButton";
+import "../style/deleteBinButton.css";
 
 const Wishlist = () => {
   const { wishlistItems, removeFromWishlist } = useWishlist();
@@ -76,7 +78,7 @@ const Wishlist = () => {
               <h2 className="wishlist-empty-title">Your Wishlist is Empty</h2>
 
               <p className="wishlist-empty-desc">
-                Explore our curated catalog of luxury unstitched lawns, festive pret, and signature abayas to bookmark your favourite pieces.
+                Explore our curated catalog of rings, necklaces, earrings, and bracelets to bookmark your favourite pieces.
               </p>
 
               <Link to="/collection" className="wishlist-continue-link empty-btn">
@@ -132,14 +134,10 @@ const Wishlist = () => {
 
                   {/* REMOVE BUTTON */}
                   <div className="wishlist-card-actions">
-                    <button
-                      className="wishlist-remove-icon-btn"
-                      onClick={() => removeFromWishlist(item.id)}
+                    <DeleteBinButton
                       title="Remove from Wishlist"
-                      aria-label="Remove item"
-                    >
-                      <i className="fa-solid fa-trash-can"></i>
-                    </button>
+                      onDelete={() => removeFromWishlist(item.id)}
+                    />
                   </div>
                 </div>
 

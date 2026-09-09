@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import "../style/category.css";
 
 const categoryImages = {
-  "Unstitched Suits": "/img/png2.jpg",
-  "Stitched Kurtis": "/img/png2.jpg",
-  "Abayas": "/img/png2.jpg",
-  "Shalwar Kameez": "/img/png2.jpg",
-  "Kurta": "/img/png2.jpg",
+  "Rings": "/img/png2.jpg",
+  "Necklaces": "/img/png2.jpg",
+  "Earrings": "/img/png2.jpg",
+  "Bracelets": "/img/png2.jpg",
 };
 
 const Category = ({ allProducts, loading }) => {

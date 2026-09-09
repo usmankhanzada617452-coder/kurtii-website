@@ -71,11 +71,6 @@ const Cart = () => {
                             <span className="cart-item-category">{item.category}</span>
                           )}
                           <h2 className="cart-item-title">{item.name}</h2>
-                          {item.size && (
-                            <p className="cart-item-meta">
-                              <span>Size:</span> {item.size}
-                            </p>
-                          )}
                         </div>
 
                         <button
@@ -136,9 +131,9 @@ const Cart = () => {
                   </div>
 
                   <div className="summary-line-item">
-                    <span>Estimated Shipping</span>
+                    <span>Shipping</span>
                     <span className="summary-value free-tag">
-                      Calculated at checkout
+                      FREE
                     </span>
                   </div>
 

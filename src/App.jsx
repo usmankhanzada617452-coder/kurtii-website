@@ -9,7 +9,6 @@ import Collection from "./header-pages/collection";
 import Cart from "./header-pages/card";
 import Wishlist from "./header-pages/Wishlist";
 import ProductDetail from "./link-pages/productDetail";
-import ProductPage from "./link-pages/product-page";
 import Checkout from "./link-pages/checkout";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/wishlistContext";
@@ -56,7 +55,6 @@ function App() {
 
           <Route path="/collection" element={<Collection />} />
           <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/buy/:id" element={<ProductPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/cart" element={<Cart />} />

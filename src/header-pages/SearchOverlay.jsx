@@ -4,18 +4,18 @@ import { fetchProducts } from "../services/productApi";
 import "../style/searchOverlay.css";
 
 const popularSearches = [
-  "Lawn",
-  "Unstitched",
-  "Stitched",
-  "Kurti",
-  "Abaya",
-  "Shalwar Kameez",
-  "Kurta",
-  "Embroidered",
-  "Printed",
-  "Cotton",
-  "Chiffon",
-  "Formal",
+  "Rings",
+  "Necklaces",
+  "Earrings",
+  "Bracelets",
+  "Gold",
+  "Silver",
+  "Diamond",
+  "Pearl",
+  "Rose Gold",
+  "Bridal",
+  "Statement",
+  "Minimalist",
 ];
 
 const SearchOverlay = ({ isOpen, onClose }) => {

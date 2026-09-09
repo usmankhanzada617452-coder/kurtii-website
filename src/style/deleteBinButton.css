@@ -1,0 +1,147 @@
+.gulp-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px 7px 10px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(176, 136, 80, 0.1);
+  color: #b08850;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: visible;
+  transition: background 0.25s ease, padding 0.3s ease, transform 0.2s ease;
+}
+
+.gulp-btn:hover:not(.gulp-dropping):not(.gulp-collapsed):not(.gulp-pulsing) {
+  background: #b08850;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Collapsed / pulsing = icon-only circular state */
+.gulp-btn.gulp-collapsed,
+.gulp-btn.gulp-pulsing {
+  padding: 8px;
+  width: 34px;
+  height: 34px;
+  justify-content: center;
+  background: rgba(176, 136, 80, 0.12);
+}
+
+.gulp-btn.gulp-dropping,
+.gulp-btn.gulp-collapsed,
+.gulp-btn.gulp-pulsing {
+  pointer-events: none;
+}
+
+/* ---------- Icon ---------- */
+.gulp-icon-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gulp-icon {
+  fill: none;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.25s ease;
+}
+
+.gulp-lid {
+  transform-origin: 5px 6px;
+}
+
+.gulp-icon.eating .gulp-lid {
+  animation: gulpLidWiggle 0.35s ease-in-out infinite;
+}
+
+.gulp-icon.eating {
+  animation: gulpBounce 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes gulpLidWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-18deg); }
+}
+
+@keyframes gulpBounce {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-2px) scale(1.08); }
+}
+
+/* ---------- Pulsing confirm rings ---------- */
+.gulp-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border: 2px solid #b08850;
+  border-radius: 50%;
+  opacity: 0;
+  animation: gulpPulse 0.9s ease-out infinite;
+}
+
+.gulp-ring.ring-2 {
+  animation-delay: 0.3s;
+}
+
+@keyframes gulpPulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+/* ---------- Label & falling letters ---------- */
+.gulp-label {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.gulp-char-wrap {
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  transition: grid-template-columns 0.3s ease 0.05s;
+}
+
+.gulp-char-wrap.collapsed {
+  grid-template-columns: 0fr;
+}
+
+.gulp-char {
+  display: inline-block;
+  overflow: hidden;
+  transform: translateY(0) rotate(0deg);
+  opacity: 1;
+}
+
+.gulp-char.falling {
+  animation: gulpDrop 0.32s ease-in forwards;
+}
+
+@keyframes gulpDrop {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(10px) rotate(20deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(22px) rotate(45deg);
+    opacity: 0;
+  }
+}

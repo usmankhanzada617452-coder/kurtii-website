@@ -140,7 +140,7 @@ const CartDrawer = () => {
                 </span>
               </div>
               <p className="cd-shipping-note">
-                Shipping and taxes calculated at checkout.
+                <i className="fa-solid fa-truck-fast"></i> Free delivery across Pakistan
               </p>
             </div>
 

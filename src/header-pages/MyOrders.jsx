@@ -45,8 +45,11 @@ const MyOrders = () => {
 
       <section className="myorders-hero">
         <div className="myorders-hero-content">
-          <h1>Track Your Orders</h1>
-          <p>Enter the email address you used at checkout to view your order history.</p>
+          <h1>Where's My Order?</h1>
+          <p>
+            No account needed — just enter the email address you used while
+            placing your order, and we'll pull up your complete order history.
+          </p>
         </div>
       </section>
 
@@ -54,15 +57,21 @@ const MyOrders = () => {
         <form className="myorders-search-form" onSubmit={handleSearch}>
           <input
             type="email"
-            placeholder="Enter your email address"
+            placeholder="e.g. yourname@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
           <button type="submit" disabled={loading}>
-            {loading ? "Searching..." : "View My Orders"}
+            {loading ? "Searching..." : "Find My Orders"}
           </button>
         </form>
+
+        <p className="myorders-hint">
+          <i className="fa-solid fa-circle-info"></i> Make sure this is the
+          exact email address you entered at checkout — that's how we match
+          your orders.
+        </p>
 
         {error && <p className="myorders-error">{error}</p>}
 
@@ -98,9 +107,7 @@ const MyOrders = () => {
                       <img src={item.image} alt={item.name} />
                       <div className="myorders-item-info">
                         <p className="myorders-item-name">{item.name}</p>
-                        <p className="myorders-item-meta">
-                          {item.size && `Size: ${item.size} • `}Qty: {item.quantity}
-                        </p>
+                        <p className="myorders-item-meta">Qty: {item.quantity}</p>
                       </div>
                       <p className="myorders-item-price">
                         Rs. {(item.price * item.quantity).toLocaleString()}

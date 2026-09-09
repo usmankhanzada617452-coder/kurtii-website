@@ -7,20 +7,18 @@ import Header from "../components/Header";
 import Footer from "../components/footer";
 import "../style/productDetail.css";
 
-const sizes = ["S", "M", "L", "XL"];
-
 const faqs = [
   {
     q: "Delivery kitne din me hogi?",
     a: "Order place karne ke baad 3-5 working days me nationwide express delivery ho jati hai.",
   },
   {
-    q: "Size exchange/return ho sakta hai?",
-    a: "Haan, 3 din ke andar easy & hassle-free size exchange ya return policy available hai.",
+    q: "Exchange/return ho sakta hai?",
+    a: "Haan, 3 din ke andar easy & hassle-free exchange ya return policy available hai.",
   },
   {
-    q: "Fabric care kaise karein?",
-    a: "Premium delicate embroidery aur fabric longevity ke liye cold water me gentle hand wash ya dry clean recommended hai.",
+    q: "Jewellery ki care kaise karein?",
+    a: "Piece ki chamak aur longevity ke liye seedha perfume/sweat contact avoid karein, aur soft dry cloth se saaf karke alag pouch me store karein.",
   },
   {
     q: "Cash on delivery available hai?",
@@ -28,13 +26,33 @@ const faqs = [
   },
 ];
 
-const ratingBreakdown = [
-  { star: 5, percent: 68 },
-  { star: 4, percent: 20 },
-  { star: 3, percent: 7 },
-  { star: 2, percent: 3 },
-  { star: 1, percent: 2 },
-];
+const hashString = (str = "") => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+};
+
+const getRatingBreakdown = (product) => {
+  const rating = product.rating || 4.5;
+  const seed = hashString(product._id || product.name);
+
+  const fiveStar = Math.min(88, Math.max(45, Math.round(rating * 14 + (seed % 10))));
+  const fourStar = Math.round((100 - fiveStar) * (0.45 + ((seed % 5) / 20)));
+  const threeStar = Math.round((100 - fiveStar - fourStar) * 0.5);
+  const twoStar = Math.round((100 - fiveStar - fourStar - threeStar) * 0.6);
+  const oneStar = Math.max(0, 100 - fiveStar - fourStar - threeStar - twoStar);
+
+  return [
+    { star: 5, percent: fiveStar },
+    { star: 4, percent: fourStar },
+    { star: 3, percent: threeStar },
+    { star: 2, percent: twoStar },
+    { star: 1, percent: oneStar },
+  ];
+};
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -48,7 +66,6 @@ const ProductDetail = () => {
   const [notFound, setNotFound] = useState(false);
 
   const [activeImage, setActiveImage] = useState(0);
-  const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [openFaq, setOpenFaq] = useState(null);
 
@@ -86,7 +103,7 @@ const ProductDetail = () => {
         <Header />
         <div className="pp-container pp-loading-wrap">
           <div className="pp-spinner"></div>
-          <p className="pp-loading-text">Unveiling luxury garment details...</p>
+          <p className="pp-loading-text">Unveiling luxury piece details...</p>
         </div>
         <Footer />
       </>
@@ -98,7 +115,7 @@ const ProductDetail = () => {
       <>
         <Header />
         <div className="pp-container pp-not-found">
-          <h2>Garment Not Found</h2>
+          <h2>Piece Not Found</h2>
           <p>The requested design may have sold out or is no longer available.</p>
           <Link to="/" className="pp-back-btn">
             Explore Haute Collection
@@ -120,16 +137,11 @@ const ProductDetail = () => {
   const inWishlist = isInWishlist(product._id);
 
   const handleAddToCart = () => {
-    if (!selectedSize) {
-      alert("Please select a size before adding to cart");
-      return;
-    }
     addToCart({
       id: product._id,
       name: product.name,
       price: product.price,
       image: product.image,
-      size: selectedSize,
       quantity: quantity,
     });
     openCart();
@@ -138,17 +150,11 @@ const ProductDetail = () => {
   const handleBuyNow = (e) => {
     e.preventDefault();
 
-    if (!selectedSize) {
-      alert("Please select a size before proceeding");
-      return;
-    }
-
     addToCart({
       id: product._id,
       name: product.name,
       price: product.price,
       image: product.image,
-      size: selectedSize,
       quantity: quantity,
     });
 
@@ -275,28 +281,6 @@ const ProductDetail = () => {
 
               <p className="pp-description">{product.description}</p>
 
-              {/* Size Selector */}
-              <div className="pp-size-section">
-                <div className="pp-size-header-row">
-                  <p className="pp-section-label">Select Tailored Size</p>
-                  <span className="pp-size-guide-text">
-                    <i className="fa-solid fa-ruler-horizontal"></i> Size Guide
-                  </span>
-                </div>
-                <div className="pp-sizes">
-                  {sizes.map((s) => (
-                    <button
-                      key={s}
-                      type="button"
-                      className={`pp-size-btn ${selectedSize === s ? "active" : ""}`}
-                      onClick={() => setSelectedSize(s)}
-                    >
-                      {s}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               {/* Quantity Selector */}
               <div className="pp-qty-section">
                 <p className="pp-section-label">Quantity</p>
@@ -351,14 +335,14 @@ const ProductDetail = () => {
                 <i className="fa-solid fa-rotate-left"></i>
               </div>
               <h4 className="pp-trust-title">3-Day Easy Exchange</h4>
-              <p className="pp-trust-desc">Hassle-free size replacement</p>
+              <p className="pp-trust-desc">Hassle-free returns policy</p>
             </div>
             <div className="pp-trust-item">
               <div className="pp-trust-icon-box">
                 <i className="fa-solid fa-shield-halved"></i>
               </div>
-              <h4 className="pp-trust-title">100% Authentic Fabric</h4>
-              <p className="pp-trust-desc">Guaranteed premium original thread</p>
+              <h4 className="pp-trust-title">100% Authentic Piece</h4>
+              <p className="pp-trust-desc">Guaranteed premium original craftsmanship</p>
             </div>
             <div className="pp-trust-item">
               <div className="pp-trust-icon-box">
@@ -387,7 +371,7 @@ const ProductDetail = () => {
               </div>
 
               <div className="pp-reviews-bars">
-                {ratingBreakdown.map((b) => (
+                {getRatingBreakdown(product).map((b) => (
                   <div className="pp-bar-row" key={b.star}>
                     <span className="pp-bar-label">{b.star} ★</span>
                     <div className="pp-bar-track">

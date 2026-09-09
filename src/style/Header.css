@@ -663,3 +663,61 @@ html, body {
     font-size: 12.5px;
   }
 }
+
+@media (max-width: 480px) {
+  .header-main-row {
+    padding: 8px 12px;
+    min-height: 50px;
+    gap: 10px;
+  }
+
+  .brand-logo-wrap {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .brand-logo-en {
+    font-size: 22px;
+  }
+
+  .mobile-hamburger-wrap {
+    flex: 0 0 auto;
+  }
+
+  .header-right-icons {
+    flex: 0 0 auto;
+    gap: 10px;
+  }
+
+  .icon-btn i {
+    font-size: 17px;
+  }
+
+  .cart-badge {
+    top: -5px;
+    right: -6px;
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 360px) {
+  .header-main-row {
+    padding: 7px 10px;
+    gap: 6px;
+  }
+
+  .brand-logo-en {
+    font-size: 19px;
+  }
+
+  .header-right-icons {
+    gap: 7px;
+  }
+
+  .icon-btn i {
+    font-size: 15.5px;
+  }
+}

@@ -8,9 +8,9 @@ const testimonials = [
     city: "Karachi",
     rating: 5,
     review:
-      "Bohat acha fabric tha aur delivery bhi 2 din mein aa gayi. Abaya ki quality expected se kaafi behtar nikli. Zaroor dobara order karungi!",
+      "Ring ki finishing bohat acha thi aur delivery bhi 2 din mein aa gayi. Quality expected se kaafi behtar nikli. Zaroor dobara order karungi!",
     initials: "AM",
-    product: "Embroidered Abaya",
+    product: "Gold Plated Solitaire Ring",
   },
   {
     id: 2,
@@ -18,9 +18,9 @@ const testimonials = [
     city: "Lahore",
     rating: 5,
     review:
-      "Maine kurti order ki thi eid ke liye — bilkul waisi aayi jaise website pe thi. Stitching perfect thi aur color bhi exact same. Highly recommend!",
+      "Maine necklace order ki thi eid ke liye — bilkul waisi aayi jaise website pe thi. Finishing perfect thi aur color bhi exact same. Highly recommend!",
     initials: "SR",
-    product: "Printed Lawn Kurti",
+    product: "Heart Pendant Necklace",
   },
   {
     id: 3,
@@ -28,9 +28,9 @@ const testimonials = [
     city: "Islamabad",
     rating: 4,
     review:
-      "Dress bohat sundar thi, packaging bhi neat thi. Thodi delivery late hui lekin customer support ne update deta raha. Overall experience acha raha.",
+      "Earrings bohat sundar thi, packaging bhi neat thi. Thodi delivery late hui lekin customer support ne update deta raha. Overall experience acha raha.",
     initials: "FK",
-    product: "Formal Chiffon Dress",
+    product: "Pearl Drop Earrings",
   },
   {
     id: 4,
@@ -40,7 +40,7 @@ const testimonials = [
     review:
       "Khan Collection se pehli baar liya — soch rahi thi online trust hoga ya nahi. But quality dekh ke dil khush ho gaya. Ab toh regular customer hun!",
     initials: "ZA",
-    product: "Shalwar Kameez Set",
+    product: "Layered Gold Necklace",
   },
   {
     id: 5,
@@ -50,7 +50,7 @@ const testimonials = [
     review:
       "Price bhi reasonable hai aur quality bhi top notch. Meri sahelion ne bhi pocha kahan se liya — sab ko yahan refer kar diya!",
     initials: "HB",
-    product: "Digital Print Abaya",
+    product: "Tennis Bracelet",
   },
   {
     id: 6,
@@ -58,11 +58,12 @@ const testimonials = [
     city: "Rawalpindi",
     rating: 4,
     review:
-      "Lawn kurti bahut comfortable hai, especially summer mein. Fabric breathable hai aur colors fade nahi hue wash ke baad bhi.",
+      "Bracelet bahut comfortable hai daily wear ke liye. Finish achi hai aur color fade nahi hua abhi tak.",
     initials: "NH",
-    product: "Cotton Lawn Kurti",
+    product: "Charm Bracelet",
   },
 ];
+
 
 const Testimonials = () => {
   const [active, setActive] = useState(0);
@@ -92,7 +93,7 @@ const Testimonials = () => {
       {/* Header */}
       <div className="t-header">
         <span className="t-eyebrow">Client Whispers & Acclaim</span>
-        <h2 className="t-title">Real Reviews</h2>
+        <h2 className="t-title">Happy Customer Reviews</h2>
         <div className="t-title-line"></div>
       </div>
 
@@ -167,7 +168,7 @@ const Testimonials = () => {
         </div>
         <div className="t-stat-divider"></div>
         <div className="t-stat">
-          <span className="t-stat-number">7.8 ★</span>
+          <span className="t-stat-number">4.8 ★</span>
           <span className="t-stat-label">Average Rating</span>
         </div>
         <div className="t-stat-divider"></div>
