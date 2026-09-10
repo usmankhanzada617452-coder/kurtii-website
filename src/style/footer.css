@@ -45,7 +45,7 @@
 .footer-main {
   max-width: 1750px; 
   margin: 0 auto;
-  padding: 50px 24px 30px; 
+  padding: 80px 24px 30px; 
   display: grid;
   grid-template-columns: 1.4fr 0.8fr 0.8fr 1.4fr;
   gap: 32px;

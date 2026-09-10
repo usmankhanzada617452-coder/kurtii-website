@@ -71,7 +71,7 @@ const Footer = () => {
           <Link to="/about">About Us</Link>
           <Link to="/contact">Contact Us</Link>
           <Link to="/checkout">Order Tracking</Link>
-          <span>FAQs</span>
+          <Link to="/#faq">FAQs</Link>
         </div>
 
         <div className="footer-col footer-newsletter-col">

@@ -22,7 +22,8 @@
   object-fit: cover;
   pointer-events: none;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  /* was 0.8s - slowed down so it doesn't rocket to the cart icon */
+  transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 @keyframes cartIconBounce {
@@ -63,10 +64,13 @@
   box-sizing: border-box;
 }
 
+/* BUG FIX: was capped at max-width:1400px + margin:0 auto, which made the
+   page look centered/boxed-in on large screens while every other section
+   (Sales, BestSellers, Collection) runs full-width with just padding.
+   Now full-bleed, consistent with the rest of the site. */
 .wishlist-content {
   width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+  margin: 0;
   padding: 60px 40px 80px;
   box-sizing: border-box;
 }
@@ -167,7 +171,7 @@
 }
 
 /* ==========================================================================
-   2. PRODUCT GRID
+   2. PRODUCT GRID - matched to Flash Sales
    ========================================================================== */
 
 .wishlist-grid {
@@ -218,13 +222,13 @@
 }
 
 /* ==========================================================================
-   4. PRODUCT IMAGE
+   4. PRODUCT IMAGE - height matched to Flash Sales
    ========================================================================== */
 
 .wishlist-card-image {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 420px;
   overflow: hidden;
   background: var(--wl-bg-soft);
   border-radius: 18px 18px 0 0;
@@ -254,8 +258,8 @@
 }
 
 .wishlist-remove-icon-btn {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -268,6 +272,9 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Kept red on hover intentionally - this is a "remove item" action,
+   red signals a destructive action here (unlike the wishlist heart
+   toggle on other pages, which uses the theme gold). */
 .wishlist-remove-icon-btn:hover {
   background: #d32f2f;
   border-color: #d32f2f;
@@ -301,7 +308,7 @@
 }
 
 .wishlist-card-name {
-  margin: 2px 0 6px;
+  margin: 2px 0 4px;
   font-family: "Cinzel", Georgia, serif;
   font-size: 14px;
   font-weight: 600;
@@ -423,8 +430,17 @@
   color: var(--wl-text-muted);
 }
 
+.wishlist-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 40px;
+  padding-bottom: 8px;
+}
+
 /* ==========================================================================
-   9. MEDIA QUERIES
+   9. MEDIA QUERIES - image heights matched to Flash Sales
    ========================================================================== */
 
 @media (max-width: 1660px) {
@@ -435,7 +451,7 @@
     gap: 24px;
   }
   .wishlist-card-image {
-    height: 360px;
+    height: 380px;
   }
   .wishlist-title {
     font-size: 30px;
@@ -450,7 +466,7 @@
     gap: 20px;
   }
   .wishlist-card-image {
-    height: 330px;
+    height: 350px;
   }
   .wishlist-card-name {
     font-size: 14px;
@@ -472,7 +488,7 @@
     gap: 18px;
   }
   .wishlist-card-image {
-    height: 320px;
+    height: 340px;
   }
 }
 
@@ -490,7 +506,7 @@
     gap: 16px;
   }
   .wishlist-card-image {
-    height: 280px;
+    height: 300px;
   }
   .wishlist-card-info {
     padding: 12px 14px 4px;
@@ -500,6 +516,10 @@
   }
   .wishlist-card-price {
     font-size: 15px;
+  }
+  .wishlist-remove-icon-btn {
+    width: 32px;
+    height: 32px;
   }
 }
 
@@ -523,10 +543,10 @@
   }
   .wishlist-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
+    gap: 12px;
   }
   .wishlist-card-image {
-    height: 240px;
+    height: 220px;
   }
   .wishlist-card-info {
     padding: 10px 10px 4px;
@@ -571,7 +591,7 @@
     gap: 12px;
   }
   .wishlist-card-image {
-    height: 200px;
+    height: 220px;
   }
   .wishlist-card-info {
     padding: 8px;
@@ -617,8 +637,14 @@
     padding-left: 10px;
     padding-right: 10px;
   }
+  /* BUG FIX: was 240px here, taller than the 575px breakpoint's 200px -
+     card image was getting bigger as the screen got smaller. Now
+     continues the same shrinking pattern as Flash Sales. */
+  .wishlist-grid {
+    gap: 10px;
+  }
   .wishlist-card-image {
-    height: 240px;
+    height: 200px;
   }
   .wishlist-title {
     font-size: 20px;
@@ -630,8 +656,10 @@
 }
 
 @media (max-width: 360px) {
+  /* BUG FIX: was 210px here, again bigger than the 430px value above -
+     now continues shrinking instead of jumping back up. */
   .wishlist-card-image {
-    height: 210px;
+    height: 190px;
   }
   .wishlist-card-info {
     padding: 7px;

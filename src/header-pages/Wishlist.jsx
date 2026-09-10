@@ -112,11 +112,6 @@ const Wishlist = () => {
                 Your personalized selection of timeless pieces ready for checkout.
               </p>
             </div>
-
-            <Link to="/collection" className="wishlist-continue-link">
-              <span>Continue Shopping</span>
-              <i className="fa-solid fa-arrow-right"></i>
-            </Link>
           </div>
 
           {/* PRODUCT GRID */}
@@ -167,6 +162,15 @@ const Wishlist = () => {
 
               </div>
             ))}
+          </div>
+
+          {/* BOTTOM CENTER CONTINUE SHOPPING - moved here from the top header,
+              matches the bottom "View All" pattern used in New Arrivals / Best Sellers */}
+          <div className="wishlist-bottom">
+            <Link to="/collection" className="wishlist-continue-link">
+              <span>Continue Shopping</span>
+              <i className="fa-solid fa-arrow-right"></i>
+            </Link>
           </div>
 
         </div>

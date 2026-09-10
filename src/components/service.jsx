@@ -37,7 +37,7 @@ const Faq = () => {
   };
 
   return (
-    <section className="faq-section">
+    <section className="faq-section" id="faq">
       <div className="faq-container">
         {/* Top Tagline & Main Title */}
         <div className="faq-header">
