@@ -1,37 +1,33 @@
-/* ==========================================================================
-   KHAN COLLECTION - COMPLETE ADMIN DASHBOARD STYLESHEET
-   ========================================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
-
+ 
 :root {
   --kc-gold: #b08850;
   --kc-gold-hover: #96703b;
   --kc-gold-light: rgba(176, 136, 80, 0.08);
-
+ 
   --excel-border: #e2e8f0;
   --excel-border-dark: #cbd5e1;
   --excel-header-bg: #f8fafc;
   --excel-row-alt: #fafafa;
   --excel-hover-bg: #f1f5f9;
-
+ 
   --excel-text: #0f172a;
   --excel-muted: #64748b;
   --excel-bg: #f8fafc;
   --excel-card-bg: #ffffff;
 }
-
+ 
 *, *::before, *::after {
   box-sizing: border-box;
 }
-
+ 
 html, body {
   margin: 0;
   padding: 0;
   color: var(--excel-text);
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
-
+ 
 /* Main Layout & Header Alignment */
 .admin-wrapper {
   width: 100%;
@@ -40,7 +36,7 @@ html, body {
   flex-direction: column;
   padding-top: 100px;
 }
-
+ 
 .admin-main {
   flex: 1;
   max-width: 1400px;
@@ -49,7 +45,7 @@ html, body {
   padding: 0 20px;
   box-sizing: border-box;
 }
-
+ 
 .admin-main h1 {
   font-size: 24px;
   font-weight: 700;
@@ -57,20 +53,20 @@ html, body {
   color: var(--excel-text);
   letter-spacing: -0.3px;
 }
-
+ 
 .admin-subtitle {
   font-size: 13px;
   color: var(--excel-muted);
   margin: 0 0 20px 0;
 }
-
+ 
 /* Cards Grid Layout */
 .admin-cards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
-
+ 
 .admin-section-card {
   background: var(--excel-card-bg);
   border: 1px solid var(--excel-border);
@@ -82,35 +78,35 @@ html, body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
   transition: all 0.25s ease;
 }
-
+ 
 .admin-section-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 28px rgba(176, 136, 80, 0.18);
   border-color: var(--kc-gold);
 }
-
+ 
 .admin-section-card i {
   font-size: 28px;
   color: var(--kc-gold);
   margin-bottom: 10px;
   transition: transform 0.25s ease;
 }
-
+ 
 .admin-section-card:hover i {
   transform: scale(1.15);
 }
-
+ 
 .admin-section-card h3 {
   font-size: 15px;
   margin: 0 0 4px;
 }
-
+ 
 .admin-section-card p {
   font-size: 12px;
   color: var(--excel-muted);
   margin: 0;
 }
-
+ 
 /* Action Buttons */
 .admin-back-btn {
   display: inline-flex;
@@ -127,18 +123,23 @@ html, body {
   border: 1px solid var(--excel-border-dark);
   color: var(--excel-text);
 }
-
+ 
 .admin-back-btn:hover {
   background: var(--excel-header-bg);
 }
-
+ 
 /* Toolbar */
 .admin-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
   padding: 12px 14px;
   background: var(--excel-header-bg);
   border-bottom: 1px solid var(--excel-border);
 }
-
+ 
 .admin-add-btn {
   display: inline-flex;
   align-items: center;
@@ -154,12 +155,47 @@ html, body {
   box-shadow: 0 4px 10px rgba(176, 136, 80, 0.3);
   transition: all 0.25s ease;
 }
-
+ 
 .admin-add-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(176, 136, 80, 0.4);
 }
-
+ 
+/* Products view toggle (By Category / By Section) */
+.admin-view-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: #ffffff;
+  border: 1px solid var(--excel-border-dark);
+  border-radius: 999px;
+}
+ 
+.admin-view-btn {
+  padding: 7px 16px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--excel-muted);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+ 
+.admin-view-btn:hover {
+  color: var(--kc-gold-hover);
+}
+ 
+.admin-view-btn.active {
+  background: linear-gradient(135deg, var(--kc-gold), var(--kc-gold-hover));
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(176, 136, 80, 0.3);
+}
+ 
 /* Date Filter (Orders tab) */
 .admin-date-filter {
   display: flex;
@@ -167,7 +203,7 @@ html, body {
   gap: 10px;
   flex-wrap: wrap;
 }
-
+ 
 .admin-date-filter select {
   padding: 8px 32px 8px 14px;
   border-radius: 20px;
@@ -188,16 +224,16 @@ html, body {
   background-size: 12px;
   transition: all 0.2s ease;
 }
-
+ 
 .admin-date-filter select:hover {
   border-color: var(--kc-gold);
 }
-
+ 
 .admin-date-filter select:focus {
   border-color: var(--kc-gold);
   box-shadow: 0 0 0 3px rgba(176, 136, 80, 0.15);
 }
-
+ 
 /* Desktop Excel Table View */
 .admin-table-wrap {
   width: 100%;
@@ -207,7 +243,46 @@ html, body {
   box-shadow: 0 2px 10px rgba(0,0,0,0.03);
   overflow: hidden;
 }
-
+ 
+/* Grouped products (category / section headings) */
+.admin-group + .admin-group {
+  margin-top: 4px;
+}
+ 
+.admin-group-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--excel-text);
+  background: var(--kc-gold-light);
+  border-left: 4px solid var(--kc-gold);
+  border-top: 1px solid var(--excel-border);
+  border-bottom: 1px solid var(--excel-border);
+}
+ 
+.admin-group-count {
+  min-width: 24px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid rgba(176, 136, 80, 0.35);
+  color: var(--kc-gold-hover);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+ 
+.admin-group-empty {
+  margin: 0;
+  padding: 14px;
+  font-size: 12.5px;
+  color: var(--excel-muted);
+}
+ 
 .excel-table {
   width: 100%;
   border-collapse: collapse;
@@ -215,7 +290,7 @@ html, body {
   text-align: left;
   table-layout: fixed;
 }
-
+ 
 .excel-table th {
   background: var(--excel-header-bg);
   color: #334155;
@@ -226,7 +301,7 @@ html, body {
   padding: 12px 10px;
   border: 1px solid var(--excel-border);
 }
-
+ 
 .excel-table td {
   padding: 10px;
   border: 1px solid var(--excel-border);
@@ -235,15 +310,15 @@ html, body {
   word-wrap: break-word;
   overflow: hidden;
 }
-
+ 
 .excel-table tbody tr:nth-child(even) {
   background-color: var(--excel-row-alt);
 }
-
+ 
 .excel-table tbody tr:hover {
   background-color: var(--kc-gold-light) !important;
 }
-
+ 
 /* Order Status Select Badges */
 .excel-select {
   width: 100%;
@@ -259,50 +334,50 @@ html, body {
   -webkit-appearance: none;
   transition: all 0.2s ease;
 }
-
+ 
 .excel-select.status-pending {
   background-color: #fef3c7;
   color: #d97706;
   border-color: #fde68a;
 }
-
+ 
 .excel-select.status-confirmed {
   background-color: #e0f2fe;
   color: #0284c7;
   border-color: #bae6fd;
 }
-
+ 
 .excel-select.status-processing {
   background-color: #f3e8ff;
   color: #9333ea;
   border-color: #e9d5ff;
 }
-
+ 
 .excel-select.status-shipped {
   background-color: #e0e7ff;
   color: #4f46e5;
   border-color: #c7d2fe;
 }
-
+ 
 .excel-select.status-delivered {
   background-color: #dcfce7;
   color: #16a34a;
   border-color: #bbf7d0;
 }
-
+ 
 .excel-select.status-cancelled {
   background-color: #fee2e2;
   color: #dc2626;
   border-color: #fca5a5;
 }
-
+ 
 /* Table Buttons & Items */
 .admin-actions-wrap {
   display: flex;
   align-items: center;
   gap: 6px;
 }
-
+ 
 .excel-btn-view {
   background: var(--kc-gold-light);
   color: var(--kc-gold);
@@ -315,14 +390,14 @@ html, body {
   white-space: nowrap;
   transition: all 0.2s ease;
 }
-
+ 
 .excel-btn-view:hover {
   background: var(--kc-gold);
   color: #fff;
   transform: translateY(-1px);
   box-shadow: 0 4px 10px rgba(176, 136, 80, 0.25);
 }
-
+ 
 .excel-btn-desc,
 .excel-btn-edit,
 .excel-btn-delete {
@@ -336,46 +411,46 @@ html, body {
   cursor: pointer;
   transition: all 0.2s ease;
 }
-
+ 
 .excel-btn-desc {
   background: #eef2ff;
   color: #4f46e5;
   border: 1px solid #c7d2fe;
 }
-
+ 
 .excel-btn-desc:hover {
   background: #4f46e5;
   color: #fff;
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
 }
-
+ 
 .excel-btn-edit {
   background: var(--kc-gold-light);
   color: var(--kc-gold);
   border: 1px solid rgba(176, 136, 80, 0.3);
 }
-
+ 
 .excel-btn-edit:hover {
   background: var(--kc-gold);
   color: #fff;
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(176, 136, 80, 0.35);
 }
-
+ 
 .excel-btn-delete {
   background: #fee2e2;
   color: #dc2626;
   border: 1px solid #fca5a5;
 }
-
+ 
 .excel-btn-delete:hover {
   background: #dc2626;
   color: #fff;
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
 }
-
+ 
 .excel-product-thumb {
   width: 32px;
   height: 40px;
@@ -383,18 +458,18 @@ html, body {
   border-radius: 4px;
   border: 1px solid var(--excel-border);
 }
-
+ 
 .excel-expanded-row td {
   background: #f8fafc !important;
   padding: 12px !important;
 }
-
+ 
 .excel-items-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
-
+ 
 .excel-item-card {
   display: flex;
   align-items: center;
@@ -405,14 +480,14 @@ html, body {
   border-radius: 6px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.03);
 }
-
+ 
 .excel-item-card img {
   width: 32px;
   height: 42px;
   object-fit: cover;
   border-radius: 4px;
 }
-
+ 
 /* Description expand box */
 .excel-desc-box {
   display: flex;
@@ -423,20 +498,20 @@ html, body {
   border-radius: 8px;
   padding: 12px 14px;
 }
-
+ 
 .excel-desc-box i {
   color: var(--kc-gold);
   font-size: 14px;
   margin-top: 2px;
 }
-
+ 
 .excel-desc-box p {
   margin: 0;
   font-size: 12.5px;
   color: #475569;
   line-height: 1.5;
 }
-
+ 
 /* Modals */
 .account-overlay {
   position: fixed;
@@ -450,7 +525,7 @@ html, body {
   justify-content: center;
   padding: 16px;
 }
-
+ 
 .account-overlay-backdrop {
   position: absolute;
   top: 0;
@@ -460,7 +535,7 @@ html, body {
   background: rgba(15, 23, 42, 0.5);
   backdrop-filter: blur(3px);
 }
-
+ 
 .product-form-panel {
   position: relative;
   width: 100%;
@@ -474,7 +549,7 @@ html, body {
   z-index: 1001;
   box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
 }
-
+ 
 .account-overlay-close {
   position: absolute;
   top: 14px;
@@ -488,13 +563,13 @@ html, body {
   color: #475569;
   transition: all 0.2s ease;
 }
-
+ 
 .account-overlay-close:hover {
   background: #dc2626;
   color: #fff;
   transform: rotate(90deg);
 }
-
+ 
 .product-form-header {
   display: flex;
   align-items: center;
@@ -503,31 +578,31 @@ html, body {
   padding-bottom: 14px;
   border-bottom: 1px solid var(--excel-border);
 }
-
+ 
 .product-form-header i {
   color: var(--kc-gold);
   font-size: 20px;
 }
-
+ 
 .product-form-header h3 {
   margin: 0;
   font-size: 17px;
   font-weight: 700;
   color: var(--excel-text);
 }
-
+ 
 .product-form {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
-
+ 
 .product-form-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-
+ 
 .product-form-group label {
   display: flex;
   align-items: center;
@@ -538,12 +613,12 @@ html, body {
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
-
+ 
 .product-form-group label i {
   color: var(--kc-gold);
   font-size: 12px;
 }
-
+ 
 .product-form input,
 .product-form textarea,
 .product-form select {
@@ -558,7 +633,7 @@ html, body {
   font-family: inherit;
   transition: all 0.2s ease;
 }
-
+ 
 .product-form select {
   appearance: none;
   -webkit-appearance: none;
@@ -570,31 +645,31 @@ html, body {
   padding-right: 36px;
   cursor: pointer;
 }
-
+ 
 .product-form input:focus,
 .product-form textarea:focus,
 .product-form select:focus {
   border-color: var(--kc-gold);
   box-shadow: 0 0 0 3px rgba(176, 136, 80, 0.15);
 }
-
+ 
 .product-form textarea {
   min-height: 70px;
   resize: vertical;
 }
-
+ 
 .product-form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
-
+ 
 .product-form-checkboxes {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
-
+ 
 .product-checkbox-pill {
   display: flex;
   align-items: center;
@@ -608,21 +683,21 @@ html, body {
   cursor: pointer;
   transition: all 0.2s ease;
 }
-
+ 
 .product-checkbox-pill:has(input:checked) {
   background: var(--kc-gold-light);
   border-color: var(--kc-gold);
   color: var(--kc-gold-hover);
 }
-
+ 
 .product-checkbox-pill i {
   color: var(--kc-gold);
 }
-
+ 
 .product-checkbox-pill input {
   accent-color: var(--kc-gold);
 }
-
+ 
 .product-form-submit {
   display: flex;
   align-items: center;
@@ -639,108 +714,108 @@ html, body {
   box-shadow: 0 4px 12px rgba(176, 136, 80, 0.3);
   transition: all 0.25s ease;
 }
-
+ 
 .product-form-submit:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(176, 136, 80, 0.4);
 }
-
+ 
 /* ==========================================================================
    BREAKPOINTS RESPONSIVE MEDIA QUERIES
    ========================================================================== */
-
+ 
 @media (max-width: 1660px) {
   .admin-main {
     max-width: 1320px;
   }
 }
-
+ 
 @media (max-width: 1399px) {
   .admin-main {
     max-width: 1140px;
   }
-
+ 
   .excel-table {
     font-size: 12px;
   }
-
+ 
   .excel-table th,
   .excel-table td {
     padding: 8px 6px;
   }
 }
-
+ 
 @media (max-width: 1199px) {
   .admin-main {
     max-width: 960px;
   }
-
+ 
   .admin-cards-grid {
     grid-template-columns: repeat(3, 1fr);
   }
-
+ 
   .excel-table th {
     font-size: 10.5px;
   }
-
+ 
   .excel-select {
     padding: 4px 6px;
     font-size: 11px;
   }
 }
-
+ 
 @media (max-width: 991px) {
   .admin-wrapper {
     padding-top: 110px;
   }
-
+ 
   .admin-main {
     max-width: 720px;
     padding: 0 16px;
   }
-
+ 
   .admin-cards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
+ 
   .admin-table-wrap {
     overflow-x: auto;
   }
-
+ 
   .excel-table {
     table-layout: auto;
     white-space: nowrap;
   }
-
+ 
   .admin-date-filter {
-  gap: 8px;
+    gap: 8px;
+  }
+ 
+  .admin-date-filter select {
+    font-size: 11.5px;
+    padding: 7px 28px 7px 12px;
+  }
 }
-
-.admin-date-filter select {
-  font-size: 11.5px;
-  padding: 7px 28px 7px 12px;
-}
-}
-
+ 
 @media (max-width: 767px) {
   .admin-wrapper {
     padding-top: 120px;
   }
-
+ 
   .admin-main {
     margin-top: 5px;
     padding: 0 14px;
   }
-
+ 
   .admin-main h1 {
     font-size: 22px;
   }
-
+ 
   .admin-cards-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
-
+ 
   .excel-table,
   .excel-table thead,
   .excel-table tbody,
@@ -751,11 +826,16 @@ html, body {
     width: 100% !important;
     box-sizing: border-box;
   }
-
+ 
   .excel-table thead {
     display: none;
   }
-
+ 
+  /* grouped product tables: cards ke side mein thori jagah */
+  .admin-group .excel-table {
+    padding: 10px 10px 0;
+  }
+ 
   .excel-table tbody tr {
     background: var(--excel-card-bg);
     border: 1px solid var(--excel-border);
@@ -764,7 +844,7 @@ html, body {
     padding: 12px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.03);
   }
-
+ 
   .excel-table td {
     display: flex;
     align-items: center;
@@ -775,11 +855,11 @@ html, body {
     font-size: 12px;
     text-align: right;
   }
-
+ 
   .excel-table td:last-child {
     border-bottom: none;
   }
-
+ 
   .excel-table td::before {
     content: attr(data-label);
     font-weight: 700;
@@ -790,31 +870,56 @@ html, body {
     margin-right: 12px;
   }
 }
-
+ 
 @media (max-width: 575px) {
   .admin-wrapper {
     padding-top: 130px;
   }
-
+ 
   .admin-main {
     margin-top: 0;
     padding: 0 10px;
   }
-
+ 
   .admin-main h1 {
     font-size: 19px;
   }
-
+ 
   .admin-subtitle {
     font-size: 12px;
     margin-bottom: 16px;
   }
-
+ 
   .admin-cards-grid {
     grid-template-columns: 1fr;
     gap: 10px;
   }
-
+ 
+  /* Products toolbar: add button upar, toggle neeche, dono full width */
+  .admin-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+ 
+  .admin-toolbar .admin-add-btn {
+    justify-content: center;
+    width: 100%;
+  }
+ 
+  .admin-view-toggle {
+    width: 100%;
+  }
+ 
+  .admin-view-btn {
+    flex: 1;
+    padding: 9px 10px;
+  }
+ 
+  .admin-group-heading {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+ 
   .excel-table td {
     flex-direction: column;
     align-items: flex-start;
@@ -822,37 +927,136 @@ html, body {
     gap: 4px;
     padding: 6px 0;
   }
-
+ 
   .excel-table td::before {
     margin-right: 0;
   }
-
+ 
   .excel-select {
     width: 100%;
   }
-
+ 
   .admin-actions-wrap {
     width: 100%;
     justify-content: flex-start;
   }
-
+ 
   .product-form-row {
     grid-template-columns: 1fr;
   }
-
+ 
   .product-form select {
     width: 100%;
     font-size: 13px;
     padding: 11px 36px 11px 12px;
   }
-
+ 
   .admin-date-filter {
-  width: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+ 
+  .admin-date-filter select {
+    width: 100%;
+  }
+}
+ 
+/* ==========================================================================
+   IMAGE LIGHTBOX (click karke image bari dekhna)
+   ========================================================================== */
+ 
+.zoomable {
+  cursor: zoom-in;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+ 
+.zoomable:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(176, 136, 80, 0.35);
+}
+ 
+.image-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(4px);
+  cursor: zoom-out;
+  animation: lightboxFade 0.2s ease;
+}
+ 
+.image-lightbox-body {
+  display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
+  gap: 12px;
+  max-width: min(92vw, 600px);
+  max-height: 92vh;
+  cursor: default;
 }
-
-.admin-date-filter select {
-  width: 100%;
+ 
+.image-lightbox-body img {
+  max-width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  animation: lightboxZoom 0.25s ease;
 }
+ 
+.image-lightbox-caption {
+  margin: 0;
+  max-width: 100%;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+}
+ 
+.image-lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+ 
+.image-lightbox-close:hover {
+  background: #dc2626;
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+ 
+@keyframes lightboxFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+ 
+@keyframes lightboxZoom {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+ 
+@media (prefers-reduced-motion: reduce) {
+  .image-lightbox,
+  .image-lightbox-body img {
+    animation: none;
+  }
 }

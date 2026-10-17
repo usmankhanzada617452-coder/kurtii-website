@@ -1,9 +1,5 @@
-/* ==========================================================================
-   MY ORDERS PAGE - STYLESHEET
-   ========================================================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+ 
 :root {
   --mo-gold: #b08850;
   --mo-gold-dark: #96703b;
@@ -14,18 +10,22 @@
   --mo-text: #2a1f14;
   --mo-muted: #7a6a58;
   --mo-border: #e6dcc9;
+ 
+  /* Fixed header ki height ke baad hero ka text kitna neeche shuru ho.
+     Agar abhi bhi chipka lage to sirf ye value barhao (har screen size ke neeche alag set hai) */
+  --mo-header-offset: 175px;
 }
-
+ 
 .myorders-wrapper {
   min-height: 100vh;
   background: var(--mo-cream);
   font-family: 'Cormorant Garamond', serif;
 }
-
+ 
 /* ---------- Animated Hero (light gold-cream, matches header) ---------- */
 .myorders-hero {
   position: relative;
-  padding: 130px 20px 70px;
+  padding: var(--mo-header-offset) 20px 70px;
   text-align: center;
   overflow: hidden;
   background: linear-gradient(
@@ -38,13 +38,13 @@
   background-size: 300% 300%;
   animation: gradientShift 12s ease infinite;
 }
-
+ 
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-
+ 
 .myorders-hero::before {
   content: "";
   position: absolute;
@@ -54,7 +54,7 @@
   opacity: 0.6;
   pointer-events: none;
 }
-
+ 
 .myorders-hero-content {
   position: relative;
   z-index: 1;
@@ -63,7 +63,7 @@
   opacity: 1;
   animation: fadeInUp 0.8s ease forwards;
 }
-
+ 
 .myorders-hero-content h1 {
   font-family: 'Cinzel', serif;
   font-size: 40px;
@@ -72,21 +72,21 @@
   letter-spacing: 0.5px;
   margin: 0 0 14px;
 }
-
+ 
 .myorders-hero-content p {
   font-size: 18px;
   line-height: 1.6;
   color: var(--mo-muted);
   margin: 0;
 }
-
+ 
 /* ---------- Main Section ---------- */
 .myorders-main {
   max-width: 780px;
   margin: 0 auto;
   padding: 40px 20px 80px;
 }
-
+ 
 .myorders-search-form {
   display: flex;
   gap: 12px;
@@ -96,22 +96,22 @@
   border: 1px solid var(--mo-border);
   box-shadow: 0 8px 24px rgba(26, 16, 8, 0.06);
 }
-
+ 
 .myorders-search-form input {
   flex: 1;
   padding: 14px 18px;
   border: none;
   outline: none;
   font-size: 16px;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   color: var(--mo-text);
   background: transparent;
 }
-
+ 
 .myorders-search-form input::placeholder {
   color: #b7a793;
 }
-
+ 
 .myorders-search-form button {
   padding: 14px 28px;
   border: none;
@@ -128,41 +128,44 @@
   transition: all 0.25s ease;
   white-space: nowrap;
 }
-
+ 
 .myorders-search-form button:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 10px 22px rgba(176, 136, 80, 0.45);
 }
-
+ 
 .myorders-search-form button:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
-
-/* ---------- Hint (always visible — no risky opacity-0 animation) ---------- */
+ 
+/* ---------- Hint (always visible, ab saaf parhi jaye gi) ---------- */
 .myorders-hint {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: var(--mo-muted);
-  margin: 14px 0 30px;
-  padding: 10px 16px;
-  background: var(--mo-gold-light);
-  border: 1px dashed rgba(176, 136, 80, 0.4);
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 16.5px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #4a3826;
+  margin: 16px 0 30px;
+  padding: 12px 18px;
+  background: rgba(176, 136, 80, 0.14);
+  border: 1px dashed rgba(150, 112, 59, 0.7);
   border-radius: 8px;
   opacity: 1;
   visibility: visible;
   position: relative;
   z-index: 2;
 }
-
+ 
 .myorders-hint i {
-  color: var(--mo-gold);
-  font-size: 14px;
+  color: var(--mo-gold-dark);
+  font-size: 16px;
+  margin-top: 4px;
   flex-shrink: 0;
 }
-
+ 
 /* ---------- Error / Empty States ---------- */
 .myorders-error {
   text-align: center;
@@ -173,14 +176,14 @@
   border-radius: 10px;
   font-size: 15px;
 }
-
+ 
 .myorders-empty {
   text-align: center;
   padding: 50px 20px;
   color: var(--mo-muted);
   font-size: 17px;
 }
-
+ 
 .myorders-empty::before {
   content: "\f466";
   font-family: "Font Awesome 6 Free";
@@ -190,7 +193,7 @@
   color: var(--mo-gold);
   margin-bottom: 14px;
 }
-
+ 
 /* ---------- Orders List (animated entrance) ---------- */
 .myorders-list {
   display: flex;
@@ -198,7 +201,7 @@
   gap: 20px;
   margin-top: 10px;
 }
-
+ 
 .myorders-card {
   background: #ffffff;
   border: 1px solid var(--mo-border);
@@ -210,26 +213,26 @@
   animation: cardRise 0.6s ease forwards;
   transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
-
+ 
 .myorders-card:hover {
   box-shadow: 0 14px 30px rgba(176, 136, 80, 0.18);
   transform: translateY(-3px);
 }
-
+ 
 .myorders-list .myorders-card:nth-child(1) { animation-delay: 0.05s; }
 .myorders-list .myorders-card:nth-child(2) { animation-delay: 0.15s; }
 .myorders-list .myorders-card:nth-child(3) { animation-delay: 0.25s; }
 .myorders-list .myorders-card:nth-child(4) { animation-delay: 0.35s; }
 .myorders-list .myorders-card:nth-child(5) { animation-delay: 0.45s; }
 .myorders-list .myorders-card:nth-child(n+6) { animation-delay: 0.55s; }
-
+ 
 @keyframes cardRise {
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
+ 
 .myorders-card-header {
   display: flex;
   justify-content: space-between;
@@ -238,7 +241,7 @@
   margin-bottom: 14px;
   border-bottom: 1px dashed var(--mo-border);
 }
-
+ 
 .myorders-card-id {
   font-family: 'Cinzel', serif;
   font-size: 15px;
@@ -246,13 +249,13 @@
   color: var(--mo-text);
   margin: 0 0 4px;
 }
-
+ 
 .myorders-card-date {
   font-size: 14px;
   color: var(--mo-muted);
   margin: 0;
 }
-
+ 
 .myorders-status {
   padding: 6px 14px;
   border-radius: 20px;
@@ -262,27 +265,27 @@
   letter-spacing: 0.3px;
   white-space: nowrap;
 }
-
+ 
 .status-pending { background: #fef3c7; color: #d97706; }
 .status-confirmed { background: #e0f2fe; color: #0284c7; }
 .status-processing { background: #f3e8ff; color: #9333ea; }
 .status-shipped { background: #e0e7ff; color: #4f46e5; }
 .status-delivered { background: #dcfce7; color: #16a34a; }
 .status-cancelled { background: #fee2e2; color: #dc2626; }
-
+ 
 /* ---------- Items ---------- */
 .myorders-card-items {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
-
+ 
 .myorders-item-row {
   display: flex;
   align-items: center;
   gap: 14px;
 }
-
+ 
 .myorders-item-row img {
   width: 56px;
   height: 56px;
@@ -290,24 +293,24 @@
   border-radius: 8px;
   border: 1px solid var(--mo-border);
 }
-
+ 
 .myorders-item-info {
   flex: 1;
 }
-
+ 
 .myorders-item-name {
   font-size: 16px;
   font-weight: 600;
   color: var(--mo-text);
   margin: 0 0 2px;
 }
-
+ 
 .myorders-item-meta {
   font-size: 13px;
   color: var(--mo-muted);
   margin: 0;
 }
-
+ 
 .myorders-item-price {
   font-family: 'Cinzel', serif;
   font-size: 14px;
@@ -315,7 +318,7 @@
   color: var(--mo-gold-dark);
   white-space: nowrap;
 }
-
+ 
 /* ---------- Footer ---------- */
 .myorders-card-footer {
   display: flex;
@@ -327,14 +330,14 @@
   font-size: 14px;
   color: var(--mo-muted);
 }
-
+ 
 .myorders-total {
   font-family: 'Cinzel', serif;
   font-size: 16px;
   font-weight: 700;
   color: var(--mo-text);
 }
-
+ 
 /* ---------- Shared Animation ---------- */
 @keyframes fadeInUp {
   from {
@@ -346,7 +349,7 @@
     transform: translateY(0);
   }
 }
-
+ 
 /* Respect reduced-motion — nothing gets stuck invisible */
 @media (prefers-reduced-motion: reduce) {
   .myorders-hero-content,
@@ -356,52 +359,82 @@
     transform: none !important;
   }
 }
-
+ 
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */
-
-@media (max-width: 767px) {
-  .myorders-hero {
-    padding: 110px 16px 50px;
+ 
+@media (max-width: 991px) {
+  :root {
+    --mo-header-offset: 160px;
   }
-
+}
+ 
+@media (max-width: 767px) {
+  :root {
+    --mo-header-offset: 150px;
+  }
+ 
+  .myorders-hero {
+    padding: var(--mo-header-offset) 16px 50px;
+  }
+ 
   .myorders-hero-content h1 {
     font-size: 30px;
   }
-
+ 
   .myorders-hero-content p {
     font-size: 15px;
   }
 
-  .myorders-search-form {
-    flex-direction: column;
+    .myorders-search-form {
+    flex-direction: row;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .myorders-search-form input {
+    min-width: 0;
+    padding: 12px 10px;
+    font-size: 15px;
   }
 
   .myorders-search-form button {
-    width: 100%;
+    width: auto;
+    flex-shrink: 0;
+    padding: 12px 14px;
+    font-size: 11px;
   }
-
+ 
+  .myorders-hint {
+    font-size: 15.5px;
+    padding: 11px 14px;
+  }
+ 
   .myorders-card-header {
     flex-direction: column;
     gap: 8px;
   }
 }
-
+ 
 @media (max-width: 480px) {
+  :root {
+    --mo-header-offset: 158px;
+  }
+ 
   .myorders-main {
     padding: 30px 14px 60px;
   }
-
+ 
   .myorders-card {
     padding: 16px;
   }
-
+ 
   .myorders-item-row img {
     width: 46px;
     height: 46px;
   }
-
+ 
   .myorders-card-footer {
     flex-direction: column;
     align-items: flex-start;

@@ -15,14 +15,14 @@ import {
 } from "../services/adminApi";
 import { fetchCategories } from "../services/categoryApi";
 import "../style/adminDashboard.css";
-
+ 
 const statuses = ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"];
-
+ 
 const monthNames = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December",
 ];
-
+ 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState(null);
   const [orders, setOrders] = useState([]);
@@ -35,8 +35,10 @@ const AdminDashboard = () => {
   const [expandedDescId, setExpandedDescId] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState("all");
   const [selectedYear, setSelectedYear] = useState("all");
+  const [productView, setProductView] = useState("category"); // "category" | "section"
+  const [previewImage, setPreviewImage] = useState(null); // { src, alt } — image bara dekhne ke liye
   const navigate = useNavigate();
-
+ 
   const [showProductForm, setShowProductForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [productForm, setProductForm] = useState({
@@ -52,20 +54,35 @@ const AdminDashboard = () => {
     onSale: false,
     bestSeller: false,
   });
-
+ 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("kc_user") || "{}");
     if (!user.role || user.role.toString().toLowerCase() !== "admin") {
       navigate("/login");
     }
   }, [navigate]);
-
+ 
   useEffect(() => {
     fetchCategories()
       .then((data) => setCategories(data))
       .catch((err) => console.error("Failed to load categories:", err));
   }, []);
-
+ 
+  // Image preview: Esc dabane se band ho, aur khula ho to peeche page scroll na ho
+  useEffect(() => {
+    if (!previewImage) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") setPreviewImage(null);
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [previewImage]);
+ 
   const loadOrders = () => {
     setLoading(true);
     getAllOrders()
@@ -73,7 +90,7 @@ const AdminDashboard = () => {
       .catch((err) => console.error("Orders load error:", err))
       .finally(() => setLoading(false));
   };
-
+ 
   const loadSubscribers = () => {
     setLoading(true);
     getAllSubscribers()
@@ -81,7 +98,7 @@ const AdminDashboard = () => {
       .catch((err) => console.error("Subscribers load error:", err))
       .finally(() => setLoading(false));
   };
-
+ 
   const loadMessages = () => {
     setLoading(true);
     getAllMessages()
@@ -89,7 +106,7 @@ const AdminDashboard = () => {
       .catch((err) => console.error("Messages load error:", err))
       .finally(() => setLoading(false));
   };
-
+ 
   const loadProducts = () => {
     setLoading(true);
     getAllProducts()
@@ -97,7 +114,7 @@ const AdminDashboard = () => {
       .catch((err) => console.error("Products load error:", err))
       .finally(() => setLoading(false));
   };
-
+ 
   const openTab = (tab) => {
     setActiveTab(tab);
     if (tab === "orders") loadOrders();
@@ -105,7 +122,7 @@ const AdminDashboard = () => {
     if (tab === "messages") loadMessages();
     if (tab === "products") loadProducts();
   };
-
+ 
   const handleStatusChange = async (id, status) => {
     try {
       await updateStatus(id, status);
@@ -114,7 +131,7 @@ const AdminDashboard = () => {
       alert("Failed to update status");
     }
   };
-
+ 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this order?")) return;
     try {
@@ -124,10 +141,10 @@ const AdminDashboard = () => {
       alert("Failed to delete order");
     }
   };
-
+ 
   const toggleExpand = (id) => setExpandedId(expandedId === id ? null : id);
   const toggleDescExpand = (id) => setExpandedDescId(expandedDescId === id ? null : id);
-
+ 
   const formatDateTime = (d) => {
     if (!d) return "—";
     return new Date(d).toLocaleString("en-PK", {
@@ -138,10 +155,10 @@ const AdminDashboard = () => {
       minute: "2-digit",
     });
   };
-
+ 
   // Orders data se hi available years nikalte hain — naya saal aate hi khud add ho jayega
   const availableYears = [...new Set(orders.map((o) => new Date(o.createdAt).getFullYear()))].sort((a, b) => b - a);
-
+ 
   const filteredOrders = orders.filter((order) => {
     if (!order.createdAt) return true;
     const date = new Date(order.createdAt);
@@ -149,7 +166,7 @@ const AdminDashboard = () => {
     const matchesYear = selectedYear === "all" || date.getFullYear() === Number(selectedYear);
     return matchesMonth && matchesYear;
   });
-
+ 
   const openAddProduct = () => {
     setEditingProduct(null);
     setProductForm({
@@ -167,7 +184,7 @@ const AdminDashboard = () => {
     });
     setShowProductForm(true);
   };
-
+ 
   const openEditProduct = (product) => {
     setEditingProduct(product);
     setProductForm({
@@ -185,7 +202,7 @@ const AdminDashboard = () => {
     });
     setShowProductForm(true);
   };
-
+ 
   const handleProductSubmit = async (e) => {
     e.preventDefault();
     const payload = {
@@ -194,7 +211,7 @@ const AdminDashboard = () => {
       originalPrice: productForm.originalPrice ? Number(productForm.originalPrice) : null,
       stock: Number(productForm.stock),
     };
-
+ 
     try {
       if (editingProduct) {
         await updateProduct(editingProduct._id, payload);
@@ -207,7 +224,7 @@ const AdminDashboard = () => {
       alert("Failed to save product: " + (err.response?.data?.message || err.message));
     }
   };
-
+ 
   const handleDeleteProduct = async (id) => {
     if (!window.confirm("Delete this product?")) return;
     try {
@@ -217,21 +234,119 @@ const AdminDashboard = () => {
       alert("Failed to delete product");
     }
   };
-
+ 
+  // ---------- PRODUCTS GROUPING ----------
+  // Category wise: categories list ke order mein, phir koi extra category (agar kisi product ki spelling alag ho)
+  const categoryGroups = (() => {
+    const known = categories.map((c) => c.name);
+    const extra = [...new Set(products.map((p) => p.category))].filter(
+      (c) => c && !known.includes(c)
+    );
+    return [...known, ...extra]
+      .map((name) => ({ title: name, items: products.filter((p) => p.category === name) }))
+      .filter((g) => g.items.length > 0);
+  })();
+ 
+  // Section wise: On Sale / New Arrival / Best Seller
+  const sectionGroups = [
+    { title: "On Sale", items: products.filter((p) => p.onSale) },
+    { title: "New Arrival", items: products.filter((p) => p.isNewArrival) },
+    { title: "Best Seller", items: products.filter((p) => p.bestSeller) },
+  ];
+ 
+  // Ek hi table design har group ke liye reuse hota hai
+  const renderProductTable = (list, groupKey) => (
+    <table className="excel-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Image</th>
+          <th>Product Name</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Rating</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {list.map((p, idx) => {
+          const rowKey = `${groupKey}-${p._id}`;
+          return (
+            <React.Fragment key={rowKey}>
+              <tr>
+                <td data-label="#">{idx + 1}</td>
+                <td data-label="Image">
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="excel-product-thumb zoomable"
+                    title="Click to view larger"
+                    onClick={() => setPreviewImage({ src: p.image, alt: p.name })}
+                  />
+                </td>
+                <td data-label="Product Name" style={{ fontWeight: 600 }}>{p.name}</td>
+                <td data-label="Category">{p.category}</td>
+                <td data-label="Price">Rs. {p.price?.toLocaleString()}</td>
+                <td data-label="Stock">{p.stock}</td>
+                <td data-label="Rating">{p.rating || 0} ({p.reviews || 0})</td>
+                <td data-label="Actions">
+                  <div className="admin-actions-wrap">
+                    <button
+                      className="excel-btn-desc"
+                      onClick={() => toggleDescExpand(rowKey)}
+                      title="View Description"
+                    >
+                      <i className="fa-solid fa-eye"></i>
+                    </button>
+                    <button
+                      className="excel-btn-edit"
+                      onClick={() => openEditProduct(p)}
+                      title="Edit Product"
+                    >
+                      <i className="fa-solid fa-pen"></i>
+                    </button>
+                    <button
+                      className="excel-btn-delete"
+                      onClick={() => handleDeleteProduct(p._id)}
+                      title="Delete Product"
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              {expandedDescId === rowKey && (
+                <tr className="excel-expanded-row">
+                  <td colSpan="8">
+                    <div className="excel-desc-box">
+                      <i className="fa-solid fa-quote-left"></i>
+                      <p>{p.description || "No description added."}</p>
+                    </div>
+                  </td>
+                </tr>
+              )}
+            </React.Fragment>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+ 
   const sections = [
     { key: "orders", label: "Orders", icon: "fa-solid fa-box" },
     { key: "products", label: "Products", icon: "fa-solid fa-gem" },
     { key: "subscribers", label: "Subscribers", icon: "fa-solid fa-envelope" },
     { key: "messages", label: "Messages", icon: "fa-solid fa-comment" },
   ];
-
+ 
   return (
     <div className="admin-wrapper">
       <Header />
       <div className="admin-main">
         <h1>Admin Dashboard</h1>
         <p className="admin-subtitle">Spreadsheet Records for Khan Collection Jewellery</p>
-
+ 
         {!activeTab && (
           <div className="admin-cards-grid">
             {sections.map((s) => (
@@ -243,13 +358,13 @@ const AdminDashboard = () => {
             ))}
           </div>
         )}
-
+ 
         {activeTab && (
           <>
             <button className="admin-back-btn" onClick={() => setActiveTab(null)}>
               <i className="fa-solid fa-arrow-left"></i> Back to Navigation
             </button>
-
+ 
             {loading ? (
               <p>Loading records...</p>
             ) : (
@@ -273,7 +388,7 @@ const AdminDashboard = () => {
                         </select>
                       </div>
                     </div>
-
+ 
                     {filteredOrders.length === 0 ? (
                       <p style={{ padding: 16 }}>No orders found.</p>
                     ) : (
@@ -333,7 +448,13 @@ const AdminDashboard = () => {
                                     <div className="excel-items-grid">
                                       {order.items?.map((item, i) => (
                                         <div className="excel-item-card" key={i}>
-                                          <img src={item.image} alt={item.name} />
+                                          <img
+                                            src={item.image}
+                                            alt={item.name}
+                                            className="zoomable"
+                                            title="Click to view larger"
+                                            onClick={() => setPreviewImage({ src: item.image, alt: item.name })}
+                                          />
                                           <div>
                                             <div style={{ fontWeight: 600, fontSize: 12 }}>{item.name}</div>
                                             <div style={{ fontSize: 11, color: "#666" }}>
@@ -353,7 +474,7 @@ const AdminDashboard = () => {
                     )}
                   </div>
                 )}
-
+ 
                 {/* PRODUCTS TAB */}
                 {activeTab === "products" && (
                   <div className="admin-table-wrap">
@@ -361,79 +482,50 @@ const AdminDashboard = () => {
                       <button className="admin-add-btn" onClick={openAddProduct}>
                         <i className="fa-solid fa-plus"></i> Add New Product
                       </button>
+                      <div className="admin-view-toggle">
+                        <button
+                          className={`admin-view-btn ${productView === "category" ? "active" : ""}`}
+                          onClick={() => setProductView("category")}
+                        >
+                          By Category
+                        </button>
+                        <button
+                          className={`admin-view-btn ${productView === "section" ? "active" : ""}`}
+                          onClick={() => setProductView("section")}
+                        >
+                          By Section
+                        </button>
+                      </div>
                     </div>
-
+ 
                     {products.length === 0 ? (
                       <p style={{ padding: 16 }}>No products found.</p>
+                    ) : productView === "category" ? (
+                      categoryGroups.map((g) => (
+                        <div className="admin-group" key={g.title}>
+                          <h3 className="admin-group-heading">
+                            {g.title} <span className="admin-group-count">{g.items.length}</span>
+                          </h3>
+                          {renderProductTable(g.items, g.title)}
+                        </div>
+                      ))
                     ) : (
-                      <table className="excel-table">
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Category</th>
-                            <th>Price</th>
-                            <th>Stock</th>
-                            <th>Rating</th>
-                            <th>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {products.map((p, idx) => (
-                            <React.Fragment key={p._id}>
-                              <tr>
-                                <td data-label="#">{idx + 1}</td>
-                                <td data-label="Image"><img src={p.image} alt={p.name} className="excel-product-thumb" /></td>
-                                <td data-label="Product Name" style={{ fontWeight: 600 }}>{p.name}</td>
-                                <td data-label="Category">{p.category}</td>
-                                <td data-label="Price">Rs. {p.price?.toLocaleString()}</td>
-                                <td data-label="Stock">{p.stock}</td>
-                                <td data-label="Rating">{p.rating || 0} ({p.reviews || 0})</td>
-                                <td data-label="Actions">
-                                  <div className="admin-actions-wrap">
-                                    <button
-                                      className="excel-btn-desc"
-                                      onClick={() => toggleDescExpand(p._id)}
-                                      title="View Description"
-                                    >
-                                      <i className="fa-solid fa-eye"></i>
-                                    </button>
-                                    <button
-                                      className="excel-btn-edit"
-                                      onClick={() => openEditProduct(p)}
-                                      title="Edit Product"
-                                    >
-                                      <i className="fa-solid fa-pen"></i>
-                                    </button>
-                                    <button
-                                      className="excel-btn-delete"
-                                      onClick={() => handleDeleteProduct(p._id)}
-                                      title="Delete Product"
-                                    >
-                                      <i className="fa-solid fa-trash"></i>
-                                    </button>
-                                  </div>
-                                </td>
-                              </tr>
-                              {expandedDescId === p._id && (
-                                <tr className="excel-expanded-row">
-                                  <td colSpan="8">
-                                    <div className="excel-desc-box">
-                                      <i className="fa-solid fa-quote-left"></i>
-                                      <p>{p.description || "No description added."}</p>
-                                    </div>
-                                  </td>
-                                </tr>
-                              )}
-                            </React.Fragment>
-                          ))}
-                        </tbody>
-                      </table>
+                      sectionGroups.map((g) => (
+                        <div className="admin-group" key={g.title}>
+                          <h3 className="admin-group-heading">
+                            {g.title} <span className="admin-group-count">{g.items.length}</span>
+                          </h3>
+                          {g.items.length === 0 ? (
+                            <p className="admin-group-empty">No products in this section.</p>
+                          ) : (
+                            renderProductTable(g.items, g.title)
+                          )}
+                        </div>
+                      ))
                     )}
                   </div>
                 )}
-
+ 
                 {/* SUBSCRIBERS TAB */}
                 {activeTab === "subscribers" && (
                   <div className="admin-table-wrap">
@@ -461,7 +553,7 @@ const AdminDashboard = () => {
                     )}
                   </div>
                 )}
-
+ 
                 {/* MESSAGES TAB */}
                 {activeTab === "messages" && (
                   <div className="admin-table-wrap">
@@ -500,7 +592,7 @@ const AdminDashboard = () => {
           </>
         )}
       </div>
-
+ 
       {/* PRODUCT FORM MODAL */}
       {showProductForm && (
         <div className="account-overlay">
@@ -509,12 +601,12 @@ const AdminDashboard = () => {
             <button className="account-overlay-close" onClick={() => setShowProductForm(false)}>
               <i className="fa-solid fa-xmark"></i>
             </button>
-
+ 
             <div className="product-form-header">
               <i className={`fa-solid ${editingProduct ? "fa-pen-to-square" : "fa-circle-plus"}`}></i>
               <h3>{editingProduct ? "Edit Product" : "Add Product"}</h3>
             </div>
-
+ 
             <form onSubmit={handleProductSubmit} className="product-form">
               <div className="product-form-group">
                 <label><i className="fa-solid fa-gem"></i> Product Name</label>
@@ -525,7 +617,7 @@ const AdminDashboard = () => {
                   required
                 />
               </div>
-
+ 
               <div className="product-form-group">
                 <label><i className="fa-solid fa-align-left"></i> Description</label>
                 <textarea
@@ -535,7 +627,7 @@ const AdminDashboard = () => {
                   required
                 />
               </div>
-
+ 
               <div className="product-form-row">
                 <div className="product-form-group">
                   <label><i className="fa-solid fa-tag"></i> Price (Rs.)</label>
@@ -557,7 +649,7 @@ const AdminDashboard = () => {
                   />
                 </div>
               </div>
-
+ 
               <div className="product-form-group">
                 <label><i className="fa-solid fa-layer-group"></i> Category</label>
                 <select
@@ -571,7 +663,7 @@ const AdminDashboard = () => {
                   ))}
                 </select>
               </div>
-
+ 
               <div className="product-form-group">
                 <label><i className="fa-solid fa-image"></i> Image URL</label>
                 <input
@@ -581,7 +673,7 @@ const AdminDashboard = () => {
                   required
                 />
               </div>
-
+ 
               <div className="product-form-row">
                 <div className="product-form-group">
                   <label><i className="fa-solid fa-boxes-stacked"></i> Stock</label>
@@ -603,7 +695,7 @@ const AdminDashboard = () => {
                   />
                 </div>
               </div>
-
+ 
               <div className="product-form-checkboxes">
                 <label className="product-checkbox-pill">
                   <input
@@ -630,7 +722,7 @@ const AdminDashboard = () => {
                   <i className="fa-solid fa-star"></i> Best Seller
                 </label>
               </div>
-
+ 
               <button type="submit" className="product-form-submit">
                 <i className={`fa-solid ${editingProduct ? "fa-check" : "fa-plus"}`}></i>
                 {editingProduct ? "Update Product" : "Save Product"}
@@ -639,10 +731,27 @@ const AdminDashboard = () => {
           </div>
         </div>
       )}
-
+ 
+      {/* IMAGE LIGHTBOX */}
+      {previewImage && (
+        <div className="image-lightbox" onClick={() => setPreviewImage(null)}>
+          <button
+            className="image-lightbox-close"
+            onClick={() => setPreviewImage(null)}
+            aria-label="Close image preview"
+          >
+            <i className="fa-solid fa-xmark"></i>
+          </button>
+          <div className="image-lightbox-body" onClick={(e) => e.stopPropagation()}>
+            <img src={previewImage.src} alt={previewImage.alt} />
+            {previewImage.alt && <p className="image-lightbox-caption">{previewImage.alt}</p>}
+          </div>
+        </div>
+      )}
+ 
       <Footer />
     </div>
   );
 };
-
+ 
 export default AdminDashboard;
