@@ -97,6 +97,21 @@ const ProductDetail = () => {
       .catch(() => {});
   }, [product]);
 
+  // Meta Pixel: ViewContent (jab product page khule)
+  useEffect(() => {
+    if (!product) return;
+    if (typeof window.fbq === "function") {
+      window.fbq("track", "ViewContent", {
+        content_ids: [product._id],
+        content_type: "product",
+        content_name: product.name,
+        content_category: product.category,
+        value: product.price,
+        currency: "PKR",
+      });
+    }
+  }, [product]);
+
   if (loading) {
     return (
       <>
@@ -136,6 +151,20 @@ const ProductDetail = () => {
 
   const inWishlist = isInWishlist(product._id);
 
+  // Meta Pixel: AddToCart event bhejne ka helper
+  const trackAddToCart = () => {
+    if (typeof window.fbq === "function") {
+      window.fbq("track", "AddToCart", {
+        content_ids: [product._id],
+        content_type: "product",
+        content_name: product.name,
+        value: product.price * quantity,
+        currency: "PKR",
+        contents: [{ id: product._id, quantity: quantity }],
+      });
+    }
+  };
+
   const handleAddToCart = () => {
     addToCart({
       id: product._id,
@@ -144,6 +173,7 @@ const ProductDetail = () => {
       image: product.image,
       quantity: quantity,
     });
+    trackAddToCart();
     openCart();
   };
 
@@ -157,6 +187,7 @@ const ProductDetail = () => {
       image: product.image,
       quantity: quantity,
     });
+    trackAddToCart();
 
     navigate("/cart");
   };

@@ -85,6 +85,24 @@ const Checkout = () => {
         throw new Error(data.message || "Order place nahi ho saka");
       }
 
+      // Meta Pixel: Purchase (order successfully save hone ke baad, cart clear hone se pehle)
+      if (typeof window.fbq === "function") {
+        window.fbq("track", "Purchase", {
+          content_ids: orderPayload.items.map((item) => item.productId),
+          content_type: "product",
+          contents: orderPayload.items.map((item) => ({
+            id: item.productId,
+            quantity: item.quantity,
+          })),
+          num_items: orderPayload.items.reduce(
+            (sum, item) => sum + item.quantity,
+            0
+          ),
+          value: orderPayload.totalAmount,
+          currency: "PKR",
+        });
+      }
+
       clearCart();
       setOrderPlaced(true);
     } catch (err) {
