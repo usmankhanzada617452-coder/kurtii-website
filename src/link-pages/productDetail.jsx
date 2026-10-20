@@ -74,7 +74,9 @@ const ProductDetail = () => {
   useEffect(() => {
     setLoading(true);
     setNotFound(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setActiveImage(0);
+    // Instant top scroll bina kisi delay ke taaki doosre product pe click karne par footer se page na dikhe
+    window.scrollTo(0, 0);
 
     fetchProductById(id)
       .then((data) => setProduct(data))
@@ -141,7 +143,15 @@ const ProductDetail = () => {
     );
   }
 
-  const images = [product.image];
+  const media = [
+    { type: "image", src: product.image },
+    ...(product.images || [])
+      .filter(Boolean)
+      .map((src) => ({ type: "image", src })),
+    ...(product.video ? [{ type: "video", src: product.video }] : []),
+  ];
+
+  const activeMedia = media[activeImage] || media[0];
 
   const discount = product.originalPrice
     ? Math.round(
@@ -237,11 +247,23 @@ const ProductDetail = () => {
             {/* Gallery Section */}
             <div className="pp-gallery">
               <div className="pp-main-image">
-                <img
-                  src={images[activeImage]}
-                  alt={product.name}
-                  className="pp-main-img-tag"
-                />
+                {activeMedia.type === "video" ? (
+                  <video
+                    key={activeMedia.src}
+                    src={activeMedia.src}
+                    className="pp-main-img-tag"
+                    controls
+                    autoPlay
+                    muted
+                    playsInline
+                  />
+                ) : (
+                  <img
+                    src={activeMedia.src}
+                    alt={product.name}
+                    className="pp-main-img-tag"
+                  />
+                )}
 
                 {discount > 0 && (
                   <span className="pp-discount-pill">
@@ -263,15 +285,25 @@ const ProductDetail = () => {
                 </button>
               </div>
 
-              {images.length > 1 && (
+              {media.length > 1 && (
                 <div className="pp-thumbs">
-                  {images.map((img, idx) => (
+                  {media.map((m, idx) => (
                     <button
                       key={idx}
+                      type="button"
                       className={`pp-thumb ${activeImage === idx ? "active" : ""}`}
                       onClick={() => setActiveImage(idx)}
                     >
-                      <img src={img} alt={`Preview ${idx + 1}`} />
+                      {m.type === "video" ? (
+                        <>
+                          <video src={`${m.src}#t=0.5`} muted preload="metadata" />
+                          <span className="pp-thumb-play">
+                            <i className="fa-solid fa-play"></i>
+                          </span>
+                        </>
+                      ) : (
+                        <img src={m.src} alt={`Preview ${idx + 1}`} />
+                      )}
                     </button>
                   ))}
                 </div>

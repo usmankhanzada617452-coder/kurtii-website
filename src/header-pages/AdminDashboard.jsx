@@ -48,6 +48,9 @@ const AdminDashboard = () => {
     originalPrice: "",
     category: "",
     image: "",
+    image2: "",
+    image3: "",
+    video: "",
     stock: "",
     sku: "",
     isNewArrival: false,
@@ -176,6 +179,9 @@ const AdminDashboard = () => {
       originalPrice: "",
       category: "",
       image: "",
+      image2: "",
+      image3: "",
+      video: "",
       stock: "",
       sku: "",
       isNewArrival: false,
@@ -194,6 +200,9 @@ const AdminDashboard = () => {
       originalPrice: product.originalPrice || "",
       category: product.category || "",
       image: product.image || "",
+      image2: product.images?.[0] || "",
+      image3: product.images?.[1] || "",
+      video: product.video || "",
       stock: product.stock || "",
       sku: product.sku || "",
       isNewArrival: product.isNewArrival || false,
@@ -205,8 +214,10 @@ const AdminDashboard = () => {
  
   const handleProductSubmit = async (e) => {
     e.preventDefault();
+    const { image2, image3, ...rest } = productForm;
     const payload = {
-      ...productForm,
+      ...rest,
+      images: [image2, image3].filter(Boolean),
       price: Number(productForm.price),
       originalPrice: productForm.originalPrice ? Number(productForm.originalPrice) : null,
       stock: Number(productForm.stock),
@@ -671,6 +682,34 @@ const AdminDashboard = () => {
                   value={productForm.image}
                   onChange={(e) => setProductForm({ ...productForm, image: e.target.value })}
                   required
+                />
+              </div>
+ 
+              <div className="product-form-row">
+                <div className="product-form-group">
+                  <label><i className="fa-solid fa-image"></i> Image 2 URL</label>
+                  <input
+                    placeholder="Optional"
+                    value={productForm.image2}
+                    onChange={(e) => setProductForm({ ...productForm, image2: e.target.value })}
+                  />
+                </div>
+                <div className="product-form-group">
+                  <label><i className="fa-solid fa-image"></i> Image 3 URL</label>
+                  <input
+                    placeholder="Optional"
+                    value={productForm.image3}
+                    onChange={(e) => setProductForm({ ...productForm, image3: e.target.value })}
+                  />
+                </div>
+              </div>
+ 
+              <div className="product-form-group">
+                <label><i className="fa-solid fa-video"></i> Video URL</label>
+                <input
+                  placeholder="Optional (direct .mp4 link)"
+                  value={productForm.video}
+                  onChange={(e) => setProductForm({ ...productForm, video: e.target.value })}
                 />
               </div>
  

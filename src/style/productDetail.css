@@ -216,6 +216,7 @@
 }
 
 .pp-thumb {
+  position: relative;
   width: 84px;
   height: 96px;
   border-radius: 6px;
@@ -227,10 +228,23 @@
   transition: all 0.2s ease;
 }
 
-.pp-thumb img {
+.pp-thumb img,
+.pp-thumb video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+}
+
+.pp-thumb-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.35);
+  font-size: 16px;
 }
 
 .pp-thumb.active {
@@ -913,7 +927,7 @@
 
 @media (max-width: 1024px) {
   .pp-page-wrapper {
-    padding-top: 115px;
+    padding-top: 150px;
   }
 
   .pp-top {
@@ -933,7 +947,7 @@
 
 @media (max-width: 640px) {
   .pp-page-wrapper {
-    padding-top: 105px;
+    padding-top: 145px;
     padding-bottom: 40px;
   }
 
