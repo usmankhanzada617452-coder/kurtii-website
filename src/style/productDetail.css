@@ -11,12 +11,16 @@
   --kc-text-dark: #1A1A1A;
   --kc-text-muted: #737373;
   --kc-ruby: #9E2A2B;
+
+  /* Header ki height + header aur breadcrumb ke beech gap */
+  --pp-header-h: 140px;
+  --pp-gap: 20px;
 }
 
 .pp-page-wrapper {
   background-color: var(--kc-ivory);
   min-height: 100vh;
-  padding-top: 135px; 
+  padding-top: calc(var(--pp-header-h) + var(--pp-gap));
   padding-bottom: 70px;
 }
 
@@ -139,6 +143,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-width: 0;
 }
 
 .pp-main-image {
@@ -213,10 +218,19 @@
 .pp-thumbs {
   display: flex;
   gap: 12px;
+  overflow-x: auto;
+  padding: 3px 2px 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pp-thumbs::-webkit-scrollbar {
+  display: none;
 }
 
 .pp-thumb {
   position: relative;
+  flex-shrink: 0;
   width: 84px;
   height: 96px;
   border-radius: 6px;
@@ -256,6 +270,7 @@
 .pp-info {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .pp-category {
@@ -529,6 +544,56 @@
   0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.5); }
   70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(46, 125, 50, 0); }
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
+}
+
+/* Product Features (category ke hisab se points) */
+.pp-features {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--kc-border);
+}
+
+.pp-features-title {
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--kc-noir);
+  margin: 0 0 14px 0;
+}
+
+.pp-features-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pp-features-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #555555;
+}
+
+.pp-features-list li i {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--kc-gold-soft);
+  border: 1px solid var(--kc-border);
+  color: var(--kc-gold-hover);
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 5. Trust Value Strip */
@@ -926,12 +991,12 @@
    ========================================================================== */
 
 @media (max-width: 1024px) {
-  .pp-page-wrapper {
-    padding-top: 150px;
+  :root {
+    --pp-header-h: 105px;
   }
 
   .pp-top {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 36px;
     padding: 24px;
   }
@@ -947,7 +1012,6 @@
 
 @media (max-width: 640px) {
   .pp-page-wrapper {
-    padding-top: 145px;
     padding-bottom: 40px;
   }
 

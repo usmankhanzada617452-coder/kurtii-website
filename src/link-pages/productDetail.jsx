@@ -26,6 +26,61 @@ const faqs = [
   },
 ];
 
+// Category ke hisab se product features (har category ke sare products ke liye same)
+// Order important hai: "earring" pehle check hota hai kyunke "earring" ke andar "ring" bhi aata hai
+const categoryFeatures = [
+  {
+    key: "earring",
+    points: [
+      "Lightweight and comfortable for all-day wear",
+      "Gold-plated finish with a lasting shine",
+      "Secure back for a safe, snug fit",
+      "Perfect for daily wear and special occasions",
+    ],
+  },
+  {
+    key: "necklace",
+    points: [
+      "Gold-plated finish with a lasting shine",
+      "Lightweight and comfortable around the neck",
+      "Adjustable length for a perfect fit",
+      "Perfect for daily wear and special occasions",
+    ],
+  },
+  {
+    key: "bracelet",
+    points: [
+      "Gold-plated finish with a lasting shine",
+      "Lightweight and comfortable for all-day wear",
+      "Secure clasp for a safe, snug fit",
+      "Perfect for daily wear and special occasions",
+    ],
+  },
+  {
+    key: "ring",
+    points: [
+      "Gold-plated finish with a lasting shine",
+      "Lightweight and comfortable for everyday wear",
+      "Timeless design that suits every occasion",
+      "A thoughtful gift for your loved ones",
+    ],
+  },
+];
+
+// Agar category in me se kisi se match na kare to ye points dikhenge
+const defaultFeatures = [
+  "Premium quality craftsmanship",
+  "Gold-plated finish with a lasting shine",
+  "Lightweight and comfortable for everyday wear",
+  "Perfect for daily wear and special occasions",
+];
+
+const getFeatures = (category = "") => {
+  const cat = category.toLowerCase();
+  const match = categoryFeatures.find((c) => cat.includes(c.key));
+  return match ? match.points : defaultFeatures;
+};
+
 const hashString = (str = "") => {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
@@ -75,8 +130,7 @@ const ProductDetail = () => {
     setLoading(true);
     setNotFound(false);
     setActiveImage(0);
-    // Instant top scroll bina kisi delay ke taaki doosre product pe click karne par footer se page na dikhe
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
 
     fetchProductById(id)
       .then((data) => setProduct(data))
@@ -380,6 +434,19 @@ const ProductDetail = () => {
               <div className="pp-stock-status">
                 <span className="pp-stock-pulse"></span>
                 <span>In Stock & Ready for Immediate Dispatch</span>
+              </div>
+
+              {/* Product Features (category ke hisab se) */}
+              <div className="pp-features">
+                <h3 className="pp-features-title">Product Features</h3>
+                <ul className="pp-features-list">
+                  {getFeatures(product.category).map((point, i) => (
+                    <li key={i}>
+                      <i className="fa-solid fa-check"></i>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>

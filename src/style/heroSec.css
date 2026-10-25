@@ -219,7 +219,7 @@
 @media (max-width: 1199px) {
   .hero-banner {
     height: 460px;
-    margin-top: 105px; /* Tablet header offset */
+    margin-top: 105px;
   }
   .hero-banner-content {
     padding-left: 36px;
@@ -234,7 +234,7 @@
 @media (max-width: 991px) {
   .hero-banner {
     height: 420px;
-    margin-top: 95px; /* iPad header offset */
+    margin-top: 95px;
   }
   .hero-banner-content {
     padding-left: 30px;
@@ -250,33 +250,37 @@
 @media (max-width: 767px) {
   .hero-banner {
     height: 380px;
-    margin-top: 65px !important; /* Mobile Header ki exact height: 65px (No Gap, No Hide) */
+    margin-top: 65px !important;
   }
   .hero-banner-content {
-    padding-left: 20px;
-    padding-right: 20px;
-    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    max-width: 82%; /* Content ko mazeed compact kar diya taake kam jagah le aur poori width na ghere */
+    margin-left: 12px; /* Sabhi slides ke liye ek jaisa uniform gap */
+    margin-right: auto;
   }
   .hero-banner-content .hero-tag {
-    font-size: 9.5px;
-    letter-spacing: 2px;
-    margin-bottom: 8px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
   }
   .hero-banner-content h1 {
-    font-size: 26px;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
+    font-size: 22px; /* Font size chota kar diya taake lines lambi na hon aur ajeeb na lage */
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    line-height: 1.2;
   }
   .hero-banner-content .hero-desc {
-    font-size: 12px;
-    line-height: 1.5;
-    margin-bottom: 12px;
-    max-width: 90%;
+    font-size: 11px; /* Description font bhi compact kar diya */
+    line-height: 1.4;
+    margin-bottom: 8px;
+    max-width: 100%;
   }
   .hero-btn {
-    padding: 10px 22px;
-    font-size: 11px;
-    margin-top: 8px;
+    padding: 8px 18px;
+    font-size: 10px;
+    margin-top: 6px;
+    border-radius: 30px;
   }
   .hero-banner-arrows {
     bottom: 16px;
@@ -298,17 +302,19 @@
 @media (max-width: 480px) {
   .hero-banner {
     height: 340px;
-    margin-top: 60px !important; /* Small mobile header offset: 60px */
+    margin-top: 60px !important;
   }
   .hero-banner-content {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 14px;
+    padding-right: 14px;
+    max-width: 86%;
+    margin-left: 10px;
   }
   .hero-banner-content h1 {
-    font-size: 22px;
+    font-size: 20px;
   }
   .hero-banner-content .hero-desc {
-    font-size: 11.5px;
+    font-size: 11px;
     max-width: 100%;
     display: -webkit-box;
     -webkit-line-clamp: 2;

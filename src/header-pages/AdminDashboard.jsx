@@ -159,6 +159,21 @@ const AdminDashboard = () => {
     });
   };
  
+  // Subscribers ki emails ko CSV file bana kar download karta hai (Mailchimp import ke liye)
+  const handleExportSubscribersCSV = () => {
+    const rows = [
+      "Email Address",
+      ...subscribers.map((s) => `"${(s.email || "").replace(/"/g, '""')}"`),
+    ];
+    const blob = new Blob([rows.join("\n")], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "subscribers.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+ 
   // Orders data se hi available years nikalte hain — naya saal aate hi khud add ho jayega
   const availableYears = [...new Set(orders.map((o) => new Date(o.createdAt).getFullYear()))].sort((a, b) => b - a);
  
@@ -540,6 +555,12 @@ const AdminDashboard = () => {
                 {/* SUBSCRIBERS TAB */}
                 {activeTab === "subscribers" && (
                   <div className="admin-table-wrap">
+                    <div className="admin-toolbar">
+                      <button className="admin-add-btn" onClick={handleExportSubscribersCSV}>
+                        <i className="fa-solid fa-file-csv"></i> Export CSV
+                      </button>
+                    </div>
+ 
                     {subscribers.length === 0 ? (
                       <p style={{ padding: 16 }}>No subscribers found.</p>
                     ) : (
