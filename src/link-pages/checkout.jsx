@@ -318,7 +318,7 @@ const Checkout = () => {
                     </div>
                     <div className="acc-detail-row">
                       <span>Account Number:</span>
-                      <strong>{onlineProvider === "easypaisa" ? "0300 1234567" : "0312 9876543"}</strong>
+                      <strong>{onlineProvider === "easypaisa" ? "0325 2094108" : "0325 2094108"}</strong>
                     </div>
                     <p className="acc-note">
                       *Please transfer <strong>Rs. {subtotal.toLocaleString()}</strong> and save the receipt screenshot for confirmation.
