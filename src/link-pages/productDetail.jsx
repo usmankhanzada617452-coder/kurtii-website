@@ -168,6 +168,25 @@ const ProductDetail = () => {
     }
   }, [product]);
 
+  // TikTok Pixel: ViewContent (jab product page khule)
+  useEffect(() => {
+    if (!product) return;
+    if (typeof window.ttq === "object") {
+      window.ttq.track("ViewContent", {
+        contents: [
+          {
+            content_id: product._id,
+            content_type: "product",
+            content_name: product.name,
+          },
+        ],
+        content_type: "product",
+        value: product.price,
+        currency: "PKR",
+      });
+    }
+  }, [product]);
+
   if (loading) {
     return (
       <>
@@ -225,6 +244,24 @@ const ProductDetail = () => {
         value: product.price * quantity,
         currency: "PKR",
         contents: [{ id: product._id, quantity: quantity }],
+      });
+    }
+
+    // TikTok Pixel: AddToCart
+    if (typeof window.ttq === "object") {
+      window.ttq.track("AddToCart", {
+        contents: [
+          {
+            content_id: product._id,
+            content_type: "product",
+            content_name: product.name,
+            quantity: quantity,
+            price: product.price,
+          },
+        ],
+        content_type: "product",
+        value: product.price * quantity,
+        currency: "PKR",
       });
     }
   };

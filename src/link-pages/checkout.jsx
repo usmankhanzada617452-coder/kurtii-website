@@ -103,6 +103,22 @@ const Checkout = () => {
         });
       }
 
+      // TikTok Pixel: Purchase (order successfully save hone ke baad, cart clear hone se pehle)
+      if (typeof window.ttq === "object") {
+        window.ttq.track("Purchase", {
+          contents: orderPayload.items.map((item) => ({
+            content_id: item.productId,
+            content_type: "product",
+            content_name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+          content_type: "product",
+          value: orderPayload.totalAmount,
+          currency: "PKR",
+        });
+      }
+
       clearCart();
       setOrderPlaced(true);
     } catch (err) {
